@@ -32,95 +32,103 @@ function Sidebar({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const drawerContent = (
-    <Box
-      sx={{
-        width: drawerWidth,
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      {/* Top Menu */}
-      <List
+  const DrawerContent = (isMobile) => {
+    return (
+      <Box
         sx={{
-          overflow: "auto",
+          width: drawerWidth,
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        {localMenu.map((item, index) => {
-          const isSelected = location.pathname === item.path;
-          return (
-            <Tooltip
-              title={isCollapsed ? item.label : ""}
-              placement="right"
-              key={index}
-              arrow
-            >
-              <ListItemButton
-                selected={isSelected}
-                onClick={() => {
-                  navigate(item.path);
-                  handleDrawerToggle(); // mobile only
-                }}
-                sx={{
-                  justifyContent: isCollapsed ? "center" : "flex-start",
-                  px: isCollapsed ? 2 : 3,
-                  cursor: "pointer",
-                }}
+        {/* Top Menu */}
+        <List
+          sx={{
+            overflow: "auto",
+          }}
+        >
+          {localMenu.map((item, index) => {
+            const isSelected = location.pathname === item.path;
+            return (
+              <Tooltip
+                title={isCollapsed ? item.label : ""}
+                placement="right"
+                key={index}
+                arrow
               >
-                <ListItemIcon
+                <ListItemButton
+                  selected={isSelected}
+                  onClick={() => {
+                    navigate(item.path);
+                    if (isMobile) {
+                      handleDrawerToggle();
+                    }
+                  }}
                   sx={{
-                    minWidth: 0,
-                    mr: isCollapsed ? 0 : 2,
-                    justifyContent: "center",
+                    justifyContent: isCollapsed ? "center" : "flex-start",
+                    px: isCollapsed ? 2 : 3,
                     cursor: "pointer",
                   }}
                 >
-                  {item.icon}
-                </ListItemIcon>
-                {!isCollapsed && <ListItemText primary={item.label} />}
-              </ListItemButton>
-            </Tooltip>
-          );
-        })}
-      </List>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: isCollapsed ? 0 : 2,
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  {!isCollapsed && <ListItemText primary={item.label} />}
+                </ListItemButton>
+              </Tooltip>
+            );
+          })}
+        </List>
 
-      {/* Bottom Collapse Toggle */}
-      {/* <Divider /> */}
-      <Box
-        sx={{
-          borderTop: `0.5px solid gray`,
-        }}
-      >
-        <ListItemButton
-          onClick={handleCollapseToggle}
+        {/* Bottom Collapse Toggle */}
+        {/* <Divider /> */}
+        <Box
           sx={{
-            justifyContent: isCollapsed ? "center" : "flex-start",
-            px: isCollapsed ? 2 : 3,
-            mt: 1,
-            margin: 0,
+            borderTop: `0.5px solid gray`,
           }}
         >
-          <ListItemIcon
+          <ListItemButton
+            onClick={handleCollapseToggle}
             sx={{
-              minWidth: 0,
-              mr: isCollapsed ? 0 : 2,
-              justifyContent: "center",
+              justifyContent: isCollapsed ? "center" : "flex-start",
+              px: isCollapsed ? 2 : 3,
+              mt: 1,
+              margin: 0,
             }}
           >
-            {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
-          </ListItemIcon>
-          {!isCollapsed && <ListItemText primary="Collapse" />}
-        </ListItemButton>
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: isCollapsed ? 0 : 2,
+                justifyContent: "center",
+              }}
+            >
+              {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
+            </ListItemIcon>
+            {!isCollapsed && <ListItemText primary="Collapse" />}
+          </ListItemButton>
+        </Box>
       </Box>
-    </Box>
-  );
+    );
+  };
 
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
+        marginRight: "20px",
+      }}
       aria-label="sidebar"
     >
       {/* Mobile Drawer */}
@@ -150,7 +158,7 @@ function Sidebar({
             overflowY: "auto",
           }}
         >
-          {drawerContent}
+          {DrawerContent(true)}
         </Box>
       </Drawer>
 
@@ -174,7 +182,7 @@ function Sidebar({
           },
         }}
       >
-        {drawerContent}
+        {DrawerContent(false)}
       </Drawer>
     </Box>
   );

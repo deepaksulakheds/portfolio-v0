@@ -44,7 +44,13 @@ function Layout() {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        transition: "all ease-in-out 0.2",
+      }}
+    >
       {/* Sidebar */}
       <Sidebar
         mobileOpen={mobileOpen}
@@ -61,6 +67,8 @@ function Layout() {
           top: 0,
           left: 0,
           right: 0,
+          margin: "10px",
+          borderRadius: 2,
           height: 56,
           bgcolor: "#fff",
           color: "#000",
@@ -87,7 +95,8 @@ function Layout() {
           p: 3,
           mt: 8, // To offset AppBar height
           width: { sm: `calc(100% - ${currentDrawerWidth}px)` },
-          transition: "all ease-in-out 2s",
+          transition: "all ease-in-out 0.2s",
+          margin: 0,
         }}
       >
         <Outlet />

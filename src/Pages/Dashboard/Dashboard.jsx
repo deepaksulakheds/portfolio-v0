@@ -1,11 +1,18 @@
-import React from 'react';
+import { Grid, Typography } from "@mui/material";
 
 function Dashboard() {
   return (
-    <div>
-      <h2>Dashboard Screen</h2>
-      <p>Welcome to the dashboard.</p>
-    </div>
+    <Grid>
+      <Typography
+        style={{
+          fontSize: 22,
+          fontWeight: "bold",
+        }}
+      >
+        Dashboard Screen
+      </Typography>
+      <Typography>Welcome to the dashboard.</Typography>
+    </Grid>
   );
 }
 
