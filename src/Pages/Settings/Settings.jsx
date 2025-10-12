@@ -1,11 +1,18 @@
-import React from "react";
+import { Grid, Typography } from "@mui/material";
 
 function Settings() {
   return (
-    <div>
-      <h2>Settings Screen</h2>
-      <p>Update your preferences here.</p>
-    </div>
+    <Grid>
+      <Typography
+        style={{
+          fontSize: 22,
+          fontWeight: "bold",
+        }}
+      >
+        Settings Screen
+      </Typography>
+      <Typography>Welcome to the Settings.</Typography>
+    </Grid>
   );
 }
 

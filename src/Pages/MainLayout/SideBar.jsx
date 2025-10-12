@@ -68,14 +68,14 @@ function Sidebar({
                   }}
                   sx={{
                     justifyContent: isCollapsed ? "center" : "flex-start",
-                    px: isCollapsed ? 2 : 3,
+                    padding: "5px 10px",
                     cursor: "pointer",
                   }}
                 >
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
-                      mr: isCollapsed ? 0 : 2,
+                      mr: "5px",
                       justifyContent: "center",
                       cursor: "pointer",
                     }}

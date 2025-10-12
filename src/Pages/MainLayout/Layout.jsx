@@ -82,7 +82,7 @@ function Layout() {
         <IconButton color="inherit" edge="start" onClick={handleDrawerToggle}>
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" color="inherit" sx={{ ml: 2 }}>
+        <Typography sx={{ ml: 2, fontWeight: "600" }}>
           {currentPageLabel}
         </Typography>
       </Box>
@@ -92,11 +92,11 @@ function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          mt: 8, // To offset AppBar height
+          padding: 3,
+          mt: { xs: 8, sm: 0 },
           width: { sm: `calc(100% - ${currentDrawerWidth}px)` },
           transition: "all ease-in-out 0.2s",
-          margin: 0,
+          height: "fit-content",
         }}
       >
         <Outlet />
