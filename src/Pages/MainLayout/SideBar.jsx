@@ -206,7 +206,7 @@ function Sidebar({
       sx={{
         width: { sm: drawerWidth },
         flexShrink: { sm: 0 },
-        marginRight: "20px",
+        marginRight: { xs: 0, sm: "20px" },
       }}
       aria-label="sidebar"
     >
