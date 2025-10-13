@@ -66,6 +66,19 @@ function Sidebar({
                 placement="right"
                 key={index}
                 arrow
+                slotProps={{
+                  tooltip: {
+                    sx: {
+                      color: themeContext.oppositeTheme,
+                      backgroundColor: themeContext.themeColor,
+                    },
+                  },
+                  arrow: {
+                    sx: {
+                      color: themeContext.themeColor,
+                    },
+                  },
+                }}
               >
                 <Grid
                   selected={isSelected}
@@ -83,32 +96,37 @@ function Sidebar({
                     cursor: "pointer",
                     width: "80%",
                     borderRadius: 2,
+                    backgroundColor: isSelected
+                      ? themeContext.themeColor
+                      : null,
                     color: isSelected
                       ? themeContext.themeColor
-                      : themeContext.navbarListItem,
-                    // backgroundColor: isSelected
-                    //   ? themeContext.themeColor
-                    //   : null,
-                    boxShadow: isSelected
-                      ? `inset 0px 0px 10px 2px ${themeContext.themeColor}`
-                      : null,
+                      : themeContext.oppositeTheme,
                   }}
                 >
                   <ListItemIcon
                     sx={{
                       minWidth: 0,
-                      mr: "5px",
+                      mr: isCollapsed ? 0 : "5px",
                       justifyContent: "center",
                       cursor: "pointer",
                       color: isSelected
-                        ? themeContext.themeColor
+                        ? themeContext.oppositeTheme
                         : themeContext.navbarListItem,
                     }}
                   >
                     {item.icon}
                   </ListItemIcon>
                   {!isCollapsed && (
-                    <ListItemText primary={item.label} sx={{ margin: 0 }} />
+                    <ListItemText
+                      primary={item.label}
+                      sx={{
+                        margin: 0,
+                        color: isSelected
+                          ? themeContext.oppositeTheme
+                          : themeContext.navbarListItem,
+                      }}
+                    />
                   )}
                 </Grid>
               </Tooltip>
@@ -137,7 +155,7 @@ function Sidebar({
                 minWidth: 0,
                 mr: isCollapsed ? 0 : 2,
                 justifyContent: "center",
-                color: themeContext.navbarSelectedItem,
+                color: themeContext.navbarListItem,
               }}
             >
               {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
@@ -145,7 +163,7 @@ function Sidebar({
             {!isCollapsed && (
               <ListItemText
                 primary="Collapse"
-                sx={{ color: themeContext.navbarSelectedItem, margin: 0 }}
+                sx={{ color: themeContext.navbarListItem, margin: 0 }}
               />
             )}
           </ListItemButton>
@@ -163,15 +181,17 @@ function Sidebar({
                 minWidth: 0,
                 mr: isCollapsed ? 0 : 2,
                 justifyContent: "center",
-                color: themeContext.navbarSelectedItem,
+                color: themeContext.navbarListItem,
               }}
             >
               {themeContext.mode == "dark" ? <LightMode /> : <NightsStay />}
             </ListItemIcon>
             {!isCollapsed && (
               <ListItemText
-                primary={`${themeContext.mode == "dark" ? "Light" : "Dark"}`}
-                sx={{ color: themeContext.navbarSelectedItem, margin: 0 }}
+                primary={`${
+                  themeContext.mode == "dark" ? "Light" : "Dark"
+                } Mode`}
+                sx={{ color: themeContext.navbarListItem, margin: 0 }}
               />
             )}
           </ListItemButton>

@@ -62,7 +62,7 @@ const themeOptions = {
 
     // Background
     themeBackground: "#A7BFFF",
-    bodyBackground: "rgba(108, 144, 238, 0.5)",
+    bodyBackground: "rgba(108, 144, 238, 1)",
     cardBackground: "rgba(108, 144, 238, 0.5)",
     containerShadowColor: "rgba(0, 0, 0, 1)",
 
@@ -73,9 +73,9 @@ const themeOptions = {
     themeIcons: "#203354",
 
     // Opposite Theme
-    oppositeTheme: "#203354",
+    oppositeTheme: "#fff",
     dullOppositeTheme: "rgba(32, 51, 84, 0.6)",
-    oppositeText: "#000",
+    oppositeText: "#203354",
 
     // No theme
     noThemeColor: "#fff",
