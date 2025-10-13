@@ -10,6 +10,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 
 const drawerWidth = 180;
 const collapsedWidth = 64;
@@ -23,6 +24,9 @@ function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const location = useLocation();
+
+  // Contexts
+  const { themeContext, toggleTheme } = useThemeContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);
@@ -70,7 +74,7 @@ function Layout() {
           margin: "10px",
           borderRadius: 2,
           height: 56,
-          bgcolor: "#fff",
+          bgcolor: themeContext.navbarBackground,
           color: "#000",
           display: { xs: "flex", sm: "none" },
           alignItems: "center",

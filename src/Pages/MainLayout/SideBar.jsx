@@ -7,15 +7,18 @@ import {
   ListItemText,
   Box,
   Tooltip,
-  Divider,
+  Grid,
 } from "@mui/material";
 import {
   Dashboard,
   Settings,
   ChevronLeft,
   ChevronRight,
+  NightsStay,
+  LightMode,
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 
 const localMenu = [
   { label: "Dashboard", path: "/", icon: <Dashboard /> },
@@ -32,6 +35,8 @@ function Sidebar({
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { themeContext, toggleTheme } = useThemeContext();
+
   const DrawerContent = (isMobile) => {
     return (
       <Box
@@ -47,6 +52,10 @@ function Sidebar({
         <List
           sx={{
             overflow: "auto",
+            display: "flex",
+            gap: `10px`,
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           {localMenu.map((item, index) => {
@@ -58,7 +67,7 @@ function Sidebar({
                 key={index}
                 arrow
               >
-                <ListItemButton
+                <Grid
                   selected={isSelected}
                   onClick={() => {
                     navigate(item.path);
@@ -67,9 +76,22 @@ function Sidebar({
                     }
                   }}
                   sx={{
+                    display: "flex",
+                    alignItems: "center",
                     justifyContent: isCollapsed ? "center" : "flex-start",
                     padding: "5px 10px",
                     cursor: "pointer",
+                    width: "80%",
+                    borderRadius: 2,
+                    color: isSelected
+                      ? themeContext.themeColor
+                      : themeContext.navbarListItem,
+                    // backgroundColor: isSelected
+                    //   ? themeContext.themeColor
+                    //   : null,
+                    boxShadow: isSelected
+                      ? `inset 0px 0px 10px 2px ${themeContext.themeColor}`
+                      : null,
                   }}
                 >
                   <ListItemIcon
@@ -78,12 +100,17 @@ function Sidebar({
                       mr: "5px",
                       justifyContent: "center",
                       cursor: "pointer",
+                      color: isSelected
+                        ? themeContext.themeColor
+                        : themeContext.navbarListItem,
                     }}
                   >
                     {item.icon}
                   </ListItemIcon>
-                  {!isCollapsed && <ListItemText primary={item.label} />}
-                </ListItemButton>
+                  {!isCollapsed && (
+                    <ListItemText primary={item.label} sx={{ margin: 0 }} />
+                  )}
+                </Grid>
               </Tooltip>
             );
           })}
@@ -110,11 +137,43 @@ function Sidebar({
                 minWidth: 0,
                 mr: isCollapsed ? 0 : 2,
                 justifyContent: "center",
+                color: themeContext.navbarSelectedItem,
               }}
             >
               {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
             </ListItemIcon>
-            {!isCollapsed && <ListItemText primary="Collapse" />}
+            {!isCollapsed && (
+              <ListItemText
+                primary="Collapse"
+                sx={{ color: themeContext.navbarSelectedItem, margin: 0 }}
+              />
+            )}
+          </ListItemButton>
+          <ListItemButton
+            onClick={toggleTheme}
+            sx={{
+              justifyContent: isCollapsed ? "center" : "flex-start",
+              px: isCollapsed ? 2 : 3,
+              mt: 1,
+              margin: 0,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: isCollapsed ? 0 : 2,
+                justifyContent: "center",
+                color: themeContext.navbarSelectedItem,
+              }}
+            >
+              {themeContext.mode == "dark" ? <LightMode /> : <NightsStay />}
+            </ListItemIcon>
+            {!isCollapsed && (
+              <ListItemText
+                primary={`${themeContext.mode == "dark" ? "Light" : "Dark"}`}
+                sx={{ color: themeContext.navbarSelectedItem, margin: 0 }}
+              />
+            )}
           </ListItemButton>
         </Box>
       </Box>
@@ -151,6 +210,13 @@ function Sidebar({
             // borderRadius: 2,
           },
         }}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: themeContext.navbarBackground,
+            },
+          },
+        }}
       >
         <Box
           sx={{
@@ -177,8 +243,8 @@ function Sidebar({
             height: `97%`,
             margin: "12px",
             borderRadius: 2,
-            boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
-            backgroundColor: "#fff",
+            // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
+            backgroundColor: themeContext.navbarBackground,
           },
         }}
       >
