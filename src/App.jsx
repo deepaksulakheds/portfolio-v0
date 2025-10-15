@@ -59,10 +59,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
-        {/* Not Found */}
-        <Route path="*" element={<NotFound />} />
+        {/* Add outside to remove layout also*/}
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Suspense>
   );

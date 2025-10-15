@@ -370,7 +370,7 @@ export default function NotFound() {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
