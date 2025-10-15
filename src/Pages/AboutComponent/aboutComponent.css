@@ -1,0 +1,66 @@
+.aboutContainer {
+  animation: fadeInOut 2s ease-in-out;
+  padding: 20px;
+}
+
+.skillContainer {
+  display: flex;
+  /* gap: 1vw; */
+  flex-wrap: wrap;
+}
+.skill {
+  transition: all ease-in-out 0.3s;
+  /* cursor: pointer; */
+  padding: 7px;
+  height: fit-content;
+  display: flex;
+  margin: 0;
+  border-radius: 0.5vh;
+  text-align: center;
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  /* max-width: 18vw; */
+  width: clamp(230px, 25vw, 350px);
+  gap: 2px;
+  /* color: white; */
+}
+
+.skillIcon {
+  height: fit-content;
+  width: fit-content;
+  margin-right: 4px;
+  align-self: center;
+}
+
+.skillContent {
+  margin: auto;
+  margin-left: 2px;
+  font-size: 0.92rem;
+  /* font-weight: 300; */
+}
+
+.subSkill {
+  padding: 5px;
+  height: 100%;
+  border-radius: 1vh;
+  /* width: 20vw; */
+  min-width: 200px;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

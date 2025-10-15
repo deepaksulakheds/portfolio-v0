@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg height="46px" width="46px" xmlns="http://www.w3.org/2000/svg" id="Слой_1" data-name="Слой 1" viewBox="0 450 900 100">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #fff;
+        stroke-width: 10px;
+      }
+
+      .cls-1,
+      .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 15px;
+      }
+    </style>
+  </defs>
+  <path fill="#4284a8" class="cls-1" d="M927.06,626.9h-420v104c29,65.21,393,68.32,420,0Z" transform="translate(-402.06 -105)"></path>
+  <path fill="#6dde8f" class="cls-1" d="M927.5,528h-420V632c29,65.21,393,68.32,420,0Z" transform="translate(-402.06 -105)"></path>
+  <path fill="#4284a8" class="cls-1" d="M927.5,422.42h-420v104c29,65.21,393,68.31,420,0Z" transform="translate(-402.06 -105)"></path>
+  <path fill="#6dde8f" class="cls-1" d="M927.5,320h-420V424c29,65.21,393,68.32,420,0Z" transform="translate(-402.06 -105)"></path>
+  <ellipse fill="#36718a" class="cls-1" cx="315.94" cy="214.17" rx="209.5" ry="56.67"></ellipse>
+  <ellipse class="cls-2" cx="143.44" cy="294.13" rx="9.5" ry="14.75"></ellipse>
+  <ellipse class="cls-2" cx="143.44" cy="396.6" rx="9.5" ry="14.75"></ellipse>
+  <ellipse class="cls-2" cx="143.44" cy="497.52" rx="9.5" ry="14.75"></ellipse>
+  <ellipse class="cls-2" cx="143.44" cy="604.66" rx="9.5" ry="14.75"></ellipse>
+  <polyline class="cls-3" points="738.94 240 635.94 240 635.94 423 635.94 601 738.94 601"></polyline>
+  <line class="cls-3" x1="540.94" y1="423" x2="738.94" y2="423"></line>
+  <circle fill="#fff" cx="799.94" cy="245" r="45"></circle>
+  <circle fill="#fff" cx="799.94" cy="423" r="45"></circle>
+  <circle fill="#fff" cx="799.94" cy="601" r="45"></circle>
+</svg>
