@@ -9,3 +9,4 @@ export default defineConfig({
     extensions: [".js", ".jsx", ".json"],
   },
 });
+
