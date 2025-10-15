@@ -112,7 +112,7 @@ export default function HeaderImageDialog({ imageDialogVisible, onClose }) {
               className="imageList"
               loading="lazy"
               style={{
-                backgroundColor: themeContext.dullThemeColor,
+                backgroundColor: themeContext.secondary,
                 ...(image === selectedImage && {
                   boxShadow: `inset 0px 0px 220px 0px ${themeContext.primary}`,
                 }),
