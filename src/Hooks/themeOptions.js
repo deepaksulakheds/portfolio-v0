@@ -22,7 +22,7 @@ const themeOptions = {
     subTitleText: "rgba(32, 51, 84, 1)",
     bodyText: "rgba(32, 51, 84, 1)",
     textDisabled: "#999999",
-    helperText: "rgba(32, 51, 84, 0.6)",
+    helperText: "rgba(32, 51, 84, 0.65)",
 
     disabled: "#cccccc",
     errorColor: "red",
@@ -48,7 +48,7 @@ const themeOptions = {
     surface: "rgba(72, 71, 73, 1)",
 
     // Text Colors
-    titleText: "#fff",
+    titleText: "rgba(170, 137, 242, 1)",
     subTitleText: "#fff",
     bodyText: "#fff",
     textDisabled: "#666666",

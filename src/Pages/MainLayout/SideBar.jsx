@@ -303,7 +303,7 @@ function Sidebar({
             overflowY: "auto",
           }}
         >
-          {DrawerContent(true)}
+          {DrawerContent(true)} {/* Mobile Drawer */}
         </Box>
       </Drawer>
 
@@ -327,7 +327,7 @@ function Sidebar({
           },
         }}
       >
-        {DrawerContent(false)}
+        {DrawerContent(false)} {/* Desktop Navbar */}
       </Drawer>
     </Box>
   );

@@ -201,7 +201,7 @@ function MailDialog({
           style: {
             borderRadius: "10px",
             background: themeContext.background,
-            border: `0.5px solid ${themeContext.primary}`,
+            border: `0.1px solid ${themeContext.primary}`,
           },
         },
       }}

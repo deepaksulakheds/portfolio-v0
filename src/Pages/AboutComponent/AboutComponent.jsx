@@ -8,10 +8,10 @@ const skills = [
     title: "Frontend",
     list: [
       { content: "React JS", icon: "./src/assets/icons/react.svg" },
-      { content: "Vite", icon: "./src/assets/icons/vite.svg" },
       { content: "React Native", icon: "./src/assets/icons/react-native.svg" },
-      { content: "Expo", icon: "./src/assets/icons/expo.svg" },
+      { content: "Vite", icon: "./src/assets/icons/vite.svg" },
       { content: "Material UI", icon: "./src/assets/icons/mui.svg" },
+      { content: "Expo", icon: "./src/assets/icons/expo.svg" },
       { content: "Bootstrap", icon: "./src/assets/icons/bootstrap.svg" },
       { content: "HTML", icon: "./src/assets/icons/html.svg" },
       { content: "CSS", icon: "./src/assets/icons/css.svg" },

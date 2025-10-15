@@ -5,6 +5,8 @@
 
 .skillContainer {
   display: flex;
+  flex-direction: row;
+  width: 100%;
   /* gap: 1vw; */
   flex-wrap: wrap;
 }
@@ -23,7 +25,7 @@
   display: flex;
   flex-wrap: wrap;
   /* max-width: 18vw; */
-  width: clamp(230px, 25vw, 350px);
+  width: clamp(130px, 100%, 350px);
   gap: 2px;
   /* color: white; */
 }
@@ -46,7 +48,7 @@
   padding: 5px;
   height: 100%;
   border-radius: 1vh;
-  /* width: 20vw; */
+  max-width: 400px;
   min-width: 200px;
 }
 
