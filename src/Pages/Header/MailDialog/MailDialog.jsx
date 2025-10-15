@@ -201,7 +201,7 @@ function MailDialog({
           style: {
             borderRadius: "10px",
             background: themeContext.background,
-            border: `0.5px solid ${themeContext.dullThemeColor}`,
+            border: `0.5px solid ${themeContext.primary}`,
           },
         },
       }}
@@ -220,16 +220,15 @@ function MailDialog({
         style={{
           display: "flex",
           justifyContent: "center",
-          color: themeContext.oppositeTheme,
         }}
       >
         <Divider
-          color={themeContext.oppositeTheme}
+          color={themeContext.navItemTextColor}
           sx={{
-            color: themeContext.oppositeTheme,
-            backgroundColor: themeContext.oppositeTheme,
+            color: themeContext.navItemTextColor,
+            backgroundColor: themeContext.navItemTextColor,
           }}
-          style={{ color: themeContext.oppositeTheme }}
+          style={{ color: themeContext.navItemTextColor }}
           width="92%"
         />
       </Grid>
@@ -254,41 +253,41 @@ function MailDialog({
                   style: {
                     color: errors.name
                       ? themeContext.errorColor
-                      : themeContext.oppositeTheme,
+                      : themeContext.bodyText,
                   },
                 },
                 inputLabel: {
                   style: {
                     color: errors.name
                       ? themeContext.errorColor
-                      : themeContext.dullOppositeTheme,
+                      : themeContext.helperText,
                   },
                 },
               }}
               sx={{
                 "& .MuiInput-root": {
-                  caretColor: themeContext.dullOppositeTheme,
+                  caretColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:before": {
                   borderBottom: "1px solid",
                   borderBottomColor: errors.name
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover:before": {
                   borderBottom: "2px solid",
                   borderBottomColor: errors.name
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
                 "& .MuiInput-underline:after": {
                   borderBottom: "2px solid",
                   borderBottomColor: errors.name
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
               }}
               variant="standard"
@@ -306,41 +305,41 @@ function MailDialog({
                   style: {
                     color: errors.email
                       ? themeContext.errorColor
-                      : themeContext.oppositeTheme,
+                      : themeContext.bodyText,
                   },
                 },
                 inputLabel: {
                   style: {
                     color: errors.email
                       ? themeContext.errorColor
-                      : themeContext.dullOppositeTheme,
+                      : themeContext.helperText,
                   },
                 },
               }}
               sx={{
                 "& .MuiInput-root": {
-                  caretColor: themeContext.dullOppositeTheme,
+                  caretColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:before": {
                   borderBottom: "1px solid",
                   borderBottomColor: errors.email
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover:before": {
                   borderBottom: "2px solid",
                   borderBottomColor: errors.email
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
                 "& .MuiInput-underline:after": {
                   borderBottom: "2px solid",
                   borderBottomColor: errors.email
                     ? themeContext.errorColor
-                    : themeContext.dullOppositeTheme,
+                    : themeContext.helperText,
                 },
               }}
               fullWidth
@@ -356,33 +355,33 @@ function MailDialog({
               slotProps={{
                 input: {
                   style: {
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.bodyText,
                   },
                 },
                 inputLabel: {
                   style: {
-                    color: themeContext.dullOppositeTheme,
+                    color: themeContext.helperText,
                   },
                 },
               }}
               sx={{
                 "& .MuiInput-root": {
-                  caretColor: themeContext.dullOppositeTheme,
+                  caretColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:before": {
                   borderBottom: "1px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover:before": {
                   borderBottom: "2px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:after": {
                   borderBottom: "2px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
               }}
               fullWidth
@@ -397,33 +396,33 @@ function MailDialog({
               slotProps={{
                 input: {
                   style: {
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.bodyText,
                   },
                 },
                 inputLabel: {
                   style: {
-                    color: themeContext.dullOppositeTheme,
+                    color: themeContext.helperText,
                   },
                 },
               }}
               sx={{
                 "& .MuiInput-root": {
-                  caretColor: themeContext.dullOppositeTheme,
+                  caretColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:before": {
                   borderBottom: "1px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:hover:before": {
                   borderBottom: "2px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:after": {
                   borderBottom: "2px solid",
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
               }}
               fullWidth
@@ -445,10 +444,10 @@ function MailDialog({
               sx={{
                 height: 40,
                 width: 90,
-                border: `0.2px solid ${themeContext.oppositeTheme}`,
+                border: `0.2px solid ${themeContext.primary}`,
                 borderRadius: "7px",
                 textTransform: "none",
-                color: themeContext.oppositeTheme,
+                color: themeContext.primary,
                 fontWeight: "bold",
                 ...(secretMailAlert && {
                   textTransform: "uppercase",
@@ -470,10 +469,10 @@ function MailDialog({
                 fontWeight: "bold",
                 border: !!(errors.name || errors.email)
                   ? `0.2px solid ${themeContext.errorColor}`
-                  : `0.2px solid ${themeContext.oppositeTheme}`,
+                  : `0.2px solid ${themeContext.primary}`,
                 color: !!(errors.name || errors.email)
                   ? `${themeContext.errorColor} !important`
-                  : `${themeContext.oppositeTheme} !important`,
+                  : `${themeContext.primary} !important`,
                 "&:hover": {
                   boxShadow: `inset 0px 0px 25px 0px ${themeContext.primary}`,
                 },
@@ -490,7 +489,7 @@ function MailDialog({
                 <CircularProgress
                   size={25}
                   color="inherit"
-                  sx={{ color: themeContext.oppositeTheme }}
+                  sx={{ color: themeContext.primary }}
                 />
               ) : (
                 "Send"

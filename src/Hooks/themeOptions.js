@@ -3,31 +3,31 @@ const themeOptions = {
     mode: "light",
 
     // Nav Colors
-    navItemTextColor: "#203354",
+    navItemTextColor: "rgba(32, 51, 84, 1)",
     navItemBackgroundColor: "",
     selectedNavTextColor: "#fff",
-    selectedNavBackgroundColor: "#203354",
+    selectedNavBackgroundColor: "rgba(32, 51, 84, 1)",
 
-    primary: "#203354",
+    primary: "rgba(32, 51, 84, 1)",
     colorOnPrimary: "#fff",
 
     secondary: "#fff",
-    colorOnSecondary: "#203354",
+    colorOnSecondary: "rgba(32, 51, 84, 1)",
 
     background: "#A7BFFF",
     surface: "rgba(108, 144, 238, 1)",
 
     // Text Colors
-    titleText: "#203354",
-    subTitleText: "#203354",
-    bodyText: "#203354",
+    titleText: "rgba(32, 51, 84, 1)",
+    subTitleText: "rgba(32, 51, 84, 1)",
+    bodyText: "rgba(32, 51, 84, 1)",
     textDisabled: "#999999",
-    helperText: "#999999",
+    helperText: "rgba(32, 51, 84, 0.6)",
 
     disabled: "#cccccc",
-    error: "#b00020",
+    errorColor: "red",
     warning: "#f57c00",
-    info: "#2196f3",
+    info: "#2196F3",
     success: "#4caf50",
   },
   dark: {
@@ -52,12 +52,12 @@ const themeOptions = {
     subTitleText: "#fff",
     bodyText: "#fff",
     textDisabled: "#666666",
-    helperText: "#999999",
+    helperText: "rgba(255, 255, 255, 0.4)",
 
     disabled: "#444444",
-    error: "#cf6679",
+    errorColor: "red",
     warning: "#f57c00",
-    info: "#2196f3",
+    info: "#2196F3",
     success: "#4caf50",
   },
 };
