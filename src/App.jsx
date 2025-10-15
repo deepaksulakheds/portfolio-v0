@@ -13,12 +13,11 @@ function App() {
 
   useEffect(() => {
     if (document) {
-      document.documentElement.style.background = themeContext.themeBackground;
-      document.documentElement.style.backgroundColor =
-        themeContext.themeBackground;
-      document.body.style.background = themeContext.themeBackground;
-      document.body.style.backgroundColor = themeContext.themeBackground;
-      document.body.style.color = themeContext.oppositeText;
+      document.documentElement.style.background = themeContext.background;
+      document.documentElement.style.backgroundColor = themeContext.background;
+      document.body.style.background = themeContext.background;
+      document.body.style.backgroundColor = themeContext.background;
+      document.body.style.color = themeContext.subTitleText;
 
       document.documentElement.style.setProperty(
         "--background-color",
@@ -26,7 +25,7 @@ function App() {
       );
       document.documentElement.style.setProperty(
         "--theme-color",
-        themeContext.themeColor
+        themeContext.primary
       );
     }
   }, [themeContext]);

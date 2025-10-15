@@ -37,6 +37,112 @@ function Sidebar({
 
   const { themeContext, toggleTheme } = useThemeContext();
 
+  const ToggleButton = ({ isCollapsed, onClick, children, tooltipLabel }) => {
+    return (
+      <Tooltip
+        title={isCollapsed ? tooltipLabel : ""}
+        placement="right"
+        arrow
+        slotProps={{
+          tooltip: {
+            sx: {
+              color: themeContext.colorOnPrimary,
+              backgroundColor: themeContext.primary,
+            },
+          },
+          arrow: {
+            sx: {
+              color: themeContext.primary,
+            },
+          },
+        }}
+      >
+        <Grid
+          onClick={onClick}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: isCollapsed ? "center" : "flex-start",
+            padding: "5px 10px",
+            cursor: "pointer",
+            margin: "5px",
+            width: "80%",
+            borderRadius: 2,
+            color: themeContext.navItemTextColor,
+            "& *": {
+              color: themeContext.navItemTextColor,
+            },
+            "&:hover *": {
+              color: themeContext.primary,
+              filter: `drop-shadow(0 0 0.5px ${themeContext.primary})`,
+            },
+          }}
+        >
+          {children}
+        </Grid>
+      </Tooltip>
+    );
+  };
+
+  const NavItemButton = ({
+    isSelected,
+    onClick,
+    children,
+    isCollapsed,
+    tooltipLabel,
+  }) => {
+    return (
+      <Tooltip
+        title={isCollapsed ? tooltipLabel : ""}
+        placement="right"
+        arrow
+        slotProps={{
+          tooltip: {
+            sx: {
+              color: themeContext.colorOnPrimary,
+              backgroundColor: themeContext.primary,
+            },
+          },
+          arrow: {
+            sx: {
+              color: themeContext.primary,
+            },
+          },
+        }}
+      >
+        <Grid
+          selected={isSelected}
+          onClick={onClick}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: isCollapsed ? "center" : "flex-start",
+            padding: "5px 10px",
+            cursor: "pointer",
+            width: "80%",
+            borderRadius: 2,
+            backgroundColor: isSelected
+              ? themeContext.selectedNavBackgroundColor
+              : null,
+            "& *": {
+              color: isSelected
+                ? themeContext.selectedNavTextColor
+                : themeContext.navItemTextColor,
+            },
+            ...(!isSelected && {
+              "&:hover *": {
+                color: themeContext.primary,
+                filter: `drop-shadow(0 0 0.5px ${themeContext.primary})`,
+              },
+            }),
+          }}
+        >
+          {children}
+        </Grid>
+      </Tooltip>
+    );
+  };
+
   const DrawerContent = (isMobile) => {
     return (
       <Box
@@ -61,140 +167,93 @@ function Sidebar({
           {localMenu.map((item, index) => {
             const isSelected = location.pathname === item.path;
             return (
-              <Tooltip
-                title={isCollapsed ? item.label : ""}
-                placement="right"
+              <NavItemButton
                 key={index}
-                arrow
-                slotProps={{
-                  tooltip: {
-                    sx: {
-                      color: themeContext.oppositeTheme,
-                      backgroundColor: themeContext.themeColor,
-                    },
-                  },
-                  arrow: {
-                    sx: {
-                      color: themeContext.themeColor,
-                    },
-                  },
+                isSelected={isSelected}
+                isCollapsed={isCollapsed}
+                tooltipLabel={item.label}
+                onClick={() => {
+                  navigate(item.path);
+                  if (isMobile) {
+                    handleDrawerToggle();
+                  }
                 }}
               >
-                <Grid
-                  selected={isSelected}
-                  onClick={() => {
-                    navigate(item.path);
-                    if (isMobile) {
-                      handleDrawerToggle();
-                    }
-                  }}
+                <ListItemIcon
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: isCollapsed ? "center" : "flex-start",
-                    padding: "5px 10px",
+                    minWidth: 0,
+                    mr: isCollapsed ? 0 : "5px",
+                    justifyContent: "center",
                     cursor: "pointer",
-                    width: "80%",
-                    borderRadius: 2,
-                    backgroundColor: isSelected
-                      ? themeContext.themeColor
-                      : null,
-                    color: isSelected
-                      ? themeContext.themeColor
-                      : themeContext.oppositeTheme,
                   }}
                 >
-                  <ListItemIcon
+                  {item.icon}
+                </ListItemIcon>
+                {!isCollapsed && (
+                  <ListItemText
+                    primary={item.label}
                     sx={{
-                      minWidth: 0,
-                      mr: isCollapsed ? 0 : "5px",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      color: isSelected
-                        ? themeContext.oppositeTheme
-                        : themeContext.navbarListItem,
+                      margin: 0,
                     }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  {!isCollapsed && (
-                    <ListItemText
-                      primary={item.label}
-                      sx={{
-                        margin: 0,
-                        color: isSelected
-                          ? themeContext.oppositeTheme
-                          : themeContext.navbarListItem,
-                      }}
-                    />
-                  )}
-                </Grid>
-              </Tooltip>
+                  />
+                )}
+              </NavItemButton>
             );
           })}
         </List>
 
         {/* Bottom Collapse Toggle */}
-        {/* <Divider /> */}
+
         <Box
           sx={{
-            borderTop: `0.5px solid gray`,
+            borderTop: `0.7px solid ${themeContext.primary}`,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // gap: 2,
           }}
         >
-          <ListItemButton
+          <ToggleButton
+            isCollapsed={isCollapsed}
             onClick={handleCollapseToggle}
-            sx={{
-              justifyContent: isCollapsed ? "center" : "flex-start",
-              px: isCollapsed ? 2 : 3,
-              mt: 1,
-              margin: 0,
-            }}
+            tooltipLabel={isCollapsed ? "Expand" : "Collapse"}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
                 mr: isCollapsed ? 0 : 2,
                 justifyContent: "center",
-                color: themeContext.navbarListItem,
               }}
             >
               {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
             </ListItemIcon>
             {!isCollapsed && (
-              <ListItemText
-                primary="Collapse"
-                sx={{ color: themeContext.navbarListItem, margin: 0 }}
-              />
+              <ListItemText primary="Collapse" sx={{ margin: 0 }} />
             )}
-          </ListItemButton>
-          <ListItemButton
+          </ToggleButton>
+          <ToggleButton
+            tooltipLabel={
+              themeContext.mode == "dark" ? "Light Mode" : "Dark Mode"
+            }
+            isCollapsed={isCollapsed}
             onClick={toggleTheme}
-            sx={{
-              justifyContent: isCollapsed ? "center" : "flex-start",
-              px: isCollapsed ? 2 : 3,
-              mt: 1,
-              margin: 0,
-            }}
           >
             <ListItemIcon
               sx={{
                 minWidth: 0,
                 mr: isCollapsed ? 0 : 2,
                 justifyContent: "center",
-                color: themeContext.navbarListItem,
               }}
             >
               {themeContext.mode == "dark" ? <LightMode /> : <NightsStay />}
             </ListItemIcon>
             {!isCollapsed && (
               <ListItemText
-                primary={`${
-                  themeContext.mode == "dark" ? "Light" : "Dark"
-                } Mode`}
-                sx={{ color: themeContext.navbarListItem, margin: 0 }}
+                primary={`${themeContext.mode == "dark" ? "Light" : "Dark"}`}
+                sx={{ margin: 0 }}
               />
             )}
-          </ListItemButton>
+          </ToggleButton>
         </Box>
       </Box>
     );
@@ -233,7 +292,8 @@ function Sidebar({
         slotProps={{
           paper: {
             sx: {
-              backgroundColor: themeContext.navbarBackground,
+              backgroundColor: themeContext.surface,
+              borderRadius: `0 10px 10px 0;`,
             },
           },
         }}
@@ -264,7 +324,7 @@ function Sidebar({
             margin: "12px",
             borderRadius: 2,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
-            backgroundColor: themeContext.navbarBackground,
+            backgroundColor: themeContext.surface,
           },
         }}
       >

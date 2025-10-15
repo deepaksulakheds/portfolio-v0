@@ -11,7 +11,7 @@ export const ThemeContextProvider = ({ children }) => {
   const theme = themeOptions[themeName];
 
   const toggleTheme = () => {
-    console.log("theme toggled");
+    // console.log("theme toggled");
     const newTheme = themeName === "light" ? "dark" : "light";
     setThemeName(newTheme);
   };

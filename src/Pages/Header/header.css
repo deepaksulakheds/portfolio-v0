@@ -1,0 +1,60 @@
+.headerContainer {
+  /* margin: 20px; */
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(5.5px);
+  -webkit-backdrop-filter: blur(5.5px);
+}
+
+.image {
+  cursor: pointer;
+  padding: 14px;
+  height: 95px;
+  width: 95px;
+  margin-right: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent
+  );
+  background-size: 200% 200%;
+  animation: rotateBackground 5s linear infinite;
+  transition: all 0.2s ease-in-out;
+}
+
+.image:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes rotateBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.imageList {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  /* background-color: rgba(170, 137, 242, 0.3); */
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.imageList:hover {
+  box-shadow: inset 0px 0px 220px 0px var(--theme-color);
+}

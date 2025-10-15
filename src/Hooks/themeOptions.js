@@ -1,107 +1,64 @@
 const themeOptions = {
-  dark: {
-    // Mode
-    mode: "dark",
-
-    // Navbar
-    navbarBackground: "rgba(72, 71, 73, 1)",
-    navbarListItem: "rgba(255, 255, 255, 1)",
-    navbarSelectedItem: "rgba(255, 255, 255, 1)",
-
-    // Background
-    themeBackground: "rgb(34, 32, 36)",
-    bodyBackground: "rgba(72, 71, 73, 1)",
-    cardBackground: "rgba(255, 255, 255, 0.1)",
-    containerShadowColor: "rgba(255, 255, 255, 1)",
-
-    // Theme
-    themeColor: "rgb(102, 104, 237)",
-    dullThemeColor: "rgba(21, 101, 192, 0.4)",
-    borderColor: "rgba(21, 101, 192, 0.2)",
-    themeIcons: "#fff",
-
-    // Opposite Theme
-    oppositeTheme: "#fff",
-    dullOppositeTheme: "rgba(255,255,255, 0.5)",
-    oppositeText: "#fff",
-
-    // No theme
-    noThemeColor: "#fff",
-    noThemeBackground: "rgba(255,255,255, 0.5)",
-
-    // Text Colors
-    titleText: "#fff",
-    subTitleText: "#ffffffde",
-    bodyText: "#fff",
-
-    // Info Colors
-    successColor: "green",
-    errorColor: "red",
-    infoColor: "#2196F3",
-    disabledColor: "rgba(255, 0, 0, 0.7)",
-    blackText: "#000",
-
-    // Common Colors
-    white: "#fff",
-    lightWhite: "rgba(255,255,255,0.6)",
-    black: "#000",
-    lightBlack: "rgba(0,0,0,0.6)",
-
-    // Trash Colors
-    trashText: "#7f808dff",
-    trashBackground: "rgba(103, 109, 118, 0.3)",
-  },
   light: {
-    // Mode
     mode: "light",
 
-    // Navbar
-    navbarBackground: "rgba(108, 144, 238, 1)",
-    navbarListItem: "rgba(36, 36, 36, 1)",
-    navbarSelectedItem: "rgba(255, 255, 255, 1)",
+    // Nav Colors
+    navItemTextColor: "#203354",
+    navItemBackgroundColor: "",
+    selectedNavTextColor: "#fff",
+    selectedNavBackgroundColor: "#203354",
 
-    // Background
-    themeBackground: "#A7BFFF",
-    bodyBackground: "rgba(108, 144, 238, 1)",
-    cardBackground: "rgba(108, 144, 238, 0.5)",
-    containerShadowColor: "rgba(0, 0, 0, 1)",
+    primary: "#203354",
+    colorOnPrimary: "#fff",
 
-    // Theme
-    themeColor: "#203354",
-    dullThemeColor: "rgba(108, 144, 238, 0.5)",
-    borderColor: "rgba(0, 0, 0, 0.3)",
-    themeIcons: "#203354",
+    secondary: "#fff",
+    colorOnSecondary: "#203354",
 
-    // Opposite Theme
-    oppositeTheme: "#fff",
-    dullOppositeTheme: "rgba(32, 51, 84, 0.6)",
-    oppositeText: "#203354",
-
-    // No theme
-    noThemeColor: "#fff",
-    noThemeBackground: "rgba(255,255,255, 0.5)",
+    background: "#A7BFFF",
+    surface: "rgba(108, 144, 238, 1)",
 
     // Text Colors
     titleText: "#203354",
-    subTitleText: "#222222",
-    bodyText: "#000",
+    subTitleText: "#203354",
+    bodyText: "#203354",
+    textDisabled: "#999999",
+    helperText: "#999999",
 
-    // Info Colors
-    successColor: "green",
-    errorColor: "red",
-    infoColor: "#2196F3",
-    disabledColor: "rgba(255, 0, 0, 0.7)",
-    blackText: "#000",
+    disabled: "#cccccc",
+    error: "#b00020",
+    warning: "#f57c00",
+    info: "#2196f3",
+    success: "#4caf50",
+  },
+  dark: {
+    mode: "dark",
 
-    // Common Colors
-    white: "#fff",
-    lightWhite: "rgba(255,255,255,0.6)",
-    black: "#000",
-    lightBlack: "rgba(0,0,0,0.6)",
+    navItemTextColor: "#fff",
+    navItemBackgroundColor: "",
+    selectedNavTextColor: "#fff",
+    selectedNavBackgroundColor: "rgba(170, 137, 242, 1)",
 
-    // Trash Colors
-    trashText: "#2e2e2e",
-    trashBackground: "rgba(0, 0, 0, 0.2)",
+    primary: "rgba(170, 137, 242, 1)",
+    colorOnPrimary: "#ffffff",
+
+    secondary: "#fff",
+    colorOnSecondary: "#000",
+
+    background: "rgb(34, 32, 36)",
+    surface: "rgba(72, 71, 73, 1)",
+
+    // Text Colors
+    titleText: "#fff",
+    subTitleText: "#fff",
+    bodyText: "#fff",
+    textDisabled: "#666666",
+    helperText: "#999999",
+
+    disabled: "#444444",
+    error: "#cf6679",
+    warning: "#f57c00",
+    info: "#2196f3",
+    success: "#4caf50",
   },
 };
 

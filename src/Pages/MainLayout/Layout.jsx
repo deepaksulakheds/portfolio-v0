@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
-import {
-  AppBar,
-  Box,
-  Grid,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
+import Header from "../Header/Header.jsx";
 
 const drawerWidth = 180;
 const collapsedWidth = 64;
@@ -74,7 +68,7 @@ function Layout() {
           margin: "10px",
           borderRadius: 2,
           height: 56,
-          bgcolor: themeContext.navbarBackground,
+          bgcolor: themeContext.surface,
           color: "#000",
           display: { xs: "flex", sm: "none" },
           alignItems: "center",
@@ -83,10 +77,16 @@ function Layout() {
           boxShadow: 3,
         }}
       >
-        <IconButton color="inherit" edge="start" onClick={handleDrawerToggle}>
+        <IconButton
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ color: themeContext.navbarListItem }}
+        >
           <MenuIcon />
         </IconButton>
-        <Typography sx={{ ml: 2, fontWeight: "600" }}>
+        <Typography
+          sx={{ ml: 2, fontWeight: "600", color: themeContext.navbarListItem }}
+        >
           {currentPageLabel}
         </Typography>
       </Box>
@@ -103,6 +103,7 @@ function Layout() {
           height: "fit-content",
         }}
       >
+        <Header />
         <Outlet />
       </Box>
     </Box>
