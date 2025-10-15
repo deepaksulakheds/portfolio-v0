@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
@@ -30,15 +30,19 @@ function Layout() {
     setIsCollapsed((prev) => !prev);
   };
 
-  const currentDrawerWidth = isCollapsed ? collapsedWidth : drawerWidth;
+  const currentDrawerWidth = useMemo(
+    () => (isCollapsed ? collapsedWidth : drawerWidth),
+    [isCollapsed]
+  );
 
   const currentPage = localMenu.find((item) => item.path === location.pathname);
   const currentPageLabel = currentPage ? currentPage.label : "";
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setIsCollapsed(true);
     }, 2000);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (

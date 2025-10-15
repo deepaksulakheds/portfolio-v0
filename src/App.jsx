@@ -1,12 +1,15 @@
 import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
 // Pages
-import Layout from "./Pages/MainLayout/Layout";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import Settings from "./Pages/Settings/Settings";
+const Dashboard = lazy(() => import("./Pages/Dashboard/Dashboard"));
+const Settings = lazy(() => import("./Pages/Settings/Settings"));
+const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 
 import { useThemeContext } from "./Hooks/ThemeContext";
 import { useEffect } from "react";
+import { Box, CircularProgress } from "@mui/material";
 
 function App() {
   const { themeContext, toggleTheme } = useThemeContext();
@@ -31,12 +34,37 @@ function App() {
   }, [themeContext]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-    </Routes>
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: themeContext.background || "#fff",
+          }}
+        >
+          <CircularProgress
+            disableShrink
+            sx={{
+              color: themeContext.primary,
+            }}
+          />
+        </Box>
+      }
+    >
+      <Routes>
+        {/* Main and matching Routes */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+
+        {/* Not Found */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
 

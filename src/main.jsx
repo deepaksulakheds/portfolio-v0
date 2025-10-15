@@ -7,19 +7,22 @@ import { ThemeContextProvider } from "./Hooks/ThemeContext.jsx";
 import { AttachmentProvider } from "./Pages/Header/MailDialog/attachmentContext.jsx";
 import { SecretProvider } from "./Hooks/SecretContext.jsx";
 import { NotistackSnackbarProvider } from "./Hooks/SharedSnackbar1.jsx";
+import ErrorBoundary from "./Hooks/ErrorBoundary.jsx";
 
 createRoot(document.getElementById("root")).render(
   <ThemeContextProvider>
-    <SecretProvider>
-      <AttachmentProvider>
-        <NotistackSnackbarProvider>
-          <StrictMode>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </StrictMode>
-        </NotistackSnackbarProvider>
-      </AttachmentProvider>
-    </SecretProvider>
+    <ErrorBoundary>
+      <SecretProvider>
+        <AttachmentProvider>
+          <NotistackSnackbarProvider>
+            <StrictMode>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </StrictMode>
+          </NotistackSnackbarProvider>
+        </AttachmentProvider>
+      </SecretProvider>
+    </ErrorBoundary>
   </ThemeContextProvider>
 );
