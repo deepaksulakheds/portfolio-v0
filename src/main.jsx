@@ -16,7 +16,7 @@ createRoot(document.getElementById("root")).render(
         <AttachmentProvider>
           <NotistackSnackbarProvider>
             <StrictMode>
-              <BrowserRouter>
+              <BrowserRouter basename="/portfolio-v0">
                 <App />
               </BrowserRouter>
             </StrictMode>

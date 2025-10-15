@@ -8,8 +8,8 @@
     "npm": "10.9.3"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --base=./",
+    "build": "vite build --base=./",
     "lint": "eslint .",
     "preview": "vite preview"
   },
