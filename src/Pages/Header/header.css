@@ -9,6 +9,7 @@
 .image {
   cursor: pointer;
   padding: 14px;
+  align-self: center;
   height: 95px;
   width: 95px;
   margin-right: 20px;

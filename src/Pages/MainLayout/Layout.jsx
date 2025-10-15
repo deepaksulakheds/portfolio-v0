@@ -87,12 +87,12 @@ function Layout() {
         <IconButton
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ color: themeContext.navbarListItem }}
+          sx={{ color: themeContext.navItemTextColor }}
         >
           <MenuIcon />
         </IconButton>
         <Typography
-          sx={{ ml: 2, fontWeight: "600", color: themeContext.navbarListItem }}
+          sx={{ ml: 2, fontWeight: "600", color: themeContext.titleText }}
         >
           {currentPageLabel}
         </Typography>
