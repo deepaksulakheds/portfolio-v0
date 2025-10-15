@@ -130,7 +130,7 @@ function Header({ attachmentToggle }) {
           title="View more images"
           onClick={() => setImageDialogVisible(true)}
           loading="lazy"
-          src="src/assets/Images/deepak.jpg"
+          src="./Images/deepak.jpg"
           className="image"
         />
         <Grid>

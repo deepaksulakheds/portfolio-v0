@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 
 const imagesList = [
-  "src/assets/Images/deepak.jpg",
-  `src/assets/Images/deepak-1.jpg`,
-  `src/assets/Images/deepak-2.jpg`,
+  "./Images/deepak.jpg",
+  `./Images/deepak-1.jpg`,
+  `./Images/deepak-2.jpg`,
 ];
 
 export default function HeaderImageDialog({ imageDialogVisible, onClose }) {
