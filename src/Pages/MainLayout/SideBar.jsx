@@ -2,7 +2,6 @@
 import {
   Drawer,
   List,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Box,
@@ -10,18 +9,18 @@ import {
   Grid,
 } from "@mui/material";
 import {
-  Dashboard,
   Settings,
   ChevronLeft,
   ChevronRight,
   NightsStay,
   LightMode,
+  Person,
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 
 const localMenu = [
-  { label: "Dashboard", path: "/", icon: <Dashboard /> },
+  { label: "About", path: "/", icon: <Person /> },
   { label: "Settings", path: "/settings", icon: <Settings /> },
 ];
 

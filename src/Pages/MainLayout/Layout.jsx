@@ -10,7 +10,7 @@ const drawerWidth = 180;
 const collapsedWidth = 64;
 
 const localMenu = [
-  { label: "Dashboard", path: "/" },
+  { label: "About", path: "/" },
   { label: "Settings", path: "/settings" },
 ];
 
@@ -39,6 +39,10 @@ function Layout() {
   const currentPageLabel = currentPage ? currentPage.label : "";
 
   useEffect(() => {
+    document.title = `${currentPageLabel} | Deepak Sulakhe`;
+  }, [currentPageLabel]);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setIsCollapsed(true);
     }, 2000);
@@ -50,7 +54,7 @@ function Layout() {
       sx={{
         display: "flex",
         height: "100vh",
-        transition: "all ease-in-out 0.2",
+        transition: "all ease-in-out 0.2s",
       }}
     >
       {/* Sidebar */}

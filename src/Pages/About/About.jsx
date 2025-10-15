@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 
-function Dashboard() {
+function About() {
   return (
     <Grid>
       <Typography
@@ -9,11 +9,11 @@ function Dashboard() {
           fontWeight: "bold",
         }}
       >
-        Dashboard Screen
+        About Screen
       </Typography>
-      <Typography>Welcome to the dashboard.</Typography>
+      <Typography>Welcome to the About.</Typography>
     </Grid>
   );
 }
 
-export default Dashboard;
+export default About;
