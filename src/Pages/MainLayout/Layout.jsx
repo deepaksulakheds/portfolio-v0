@@ -53,7 +53,6 @@ function Layout() {
     <Box
       sx={{
         display: "flex",
-        height: "100vh",
         transition: "all ease-in-out 0.2s",
       }}
     >

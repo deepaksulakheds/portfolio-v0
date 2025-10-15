@@ -153,11 +153,11 @@ function Header({ attachmentToggle }) {
             sx={{
               color: themeContext.subTitleText,
               cursor: "text",
-              fontWeight: secretContext.secretEnabled ? "bold" : "400",
+              fontWeight: secretContext.secretEnabled ? "bolder" : "400",
+              boxShadow: `inset 0px 0px 15px 8px ${themeContext.chipShadow}`,
               border: secretContext.secretEnabled
                 ? `1px solid ${themeContext.primary}`
-                : `1px solid ${themeContext.dullThemeColor}`,
-              boxShadow: `inset 0px 0px 15px 8px ${themeContext.chipShadow}`,
+                : `0.2px solid ${themeContext.subTitleText}`,
               "&:hover": {
                 // backgroundColor: "inherit",
                 boxShadow: `inset 0px 0px 15px 8px ${themeContext.chipShadow}`,
@@ -200,7 +200,7 @@ function Header({ attachmentToggle }) {
                   sx={{
                     padding: "0.5rem",
                     transition: "all ease-in-out 0.15s",
-                    color: themeContext.themeIcons,
+                    color: themeContext.navItemTextColor,
                     ...(anchorEl && contact.style),
                     "&:hover": {
                       boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
