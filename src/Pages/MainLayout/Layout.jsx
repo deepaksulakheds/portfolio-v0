@@ -5,13 +5,14 @@ import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./SideBar.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import Header from "../Header/Header.jsx";
+import { Person, Settings } from "@mui/icons-material";
 
 const drawerWidth = 180;
 const collapsedWidth = 64;
 
-const localMenu = [
-  { label: "About", path: "/" },
-  { label: "Settings", path: "/settings" },
+const navigationMenus = [
+  { label: "About", path: "/", icon: <Person /> },
+  { label: "Settings", path: "/settings", icon: <Settings /> },
 ];
 
 function Layout() {
@@ -35,7 +36,7 @@ function Layout() {
     [isCollapsed]
   );
 
-  const currentPage = localMenu.find((item) => item.path === location.pathname);
+  const currentPage = navigationMenus.find((item) => item.path === location.pathname);
   const currentPageLabel = currentPage ? currentPage.label : "";
 
   useEffect(() => {
@@ -58,6 +59,7 @@ function Layout() {
     >
       {/* Sidebar */}
       <Sidebar
+        navigationMenus={navigationMenus}
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
         isCollapsed={isCollapsed}

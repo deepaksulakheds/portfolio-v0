@@ -9,22 +9,16 @@ import {
   Grid,
 } from "@mui/material";
 import {
-  Settings,
   ChevronLeft,
   ChevronRight,
   NightsStay,
   LightMode,
-  Person,
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 
-const localMenu = [
-  { label: "About", path: "/", icon: <Person /> },
-  { label: "Settings", path: "/settings", icon: <Settings /> },
-];
-
 function Sidebar({
+  navigationMenus,
   mobileOpen,
   handleDrawerToggle,
   isCollapsed,
@@ -142,7 +136,7 @@ function Sidebar({
     );
   };
 
-  const DrawerContent = (isMobile) => {
+  const DrawerContent = (isMobile, navigationMenus) => {
     return (
       <Box
         sx={{
@@ -163,7 +157,7 @@ function Sidebar({
             alignItems: "center",
           }}
         >
-          {localMenu.map((item, index) => {
+          {navigationMenus.map((item, index) => {
             const isSelected = location.pathname === item.path;
             return (
               <NavItemButton
@@ -303,7 +297,7 @@ function Sidebar({
             overflowY: "auto",
           }}
         >
-          {DrawerContent(true)} {/* Mobile Drawer */}
+          {DrawerContent(true, navigationMenus)} {/* Mobile Drawer */}
         </Box>
       </Drawer>
 
@@ -327,7 +321,7 @@ function Sidebar({
           },
         }}
       >
-        {DrawerContent(false)} {/* Desktop Navbar */}
+        {DrawerContent(false, navigationMenus)} {/* Desktop Navbar */}
       </Drawer>
     </Box>
   );
