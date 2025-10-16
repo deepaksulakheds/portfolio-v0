@@ -58,7 +58,7 @@ function App() {
     >
       <Routes>
         {/* Main and matching Routes */}
-        <Route path="/" element={<Layout />}>
+        <Route path="*" element={<Layout />}>
           <Route index element={<AboutComponent />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
