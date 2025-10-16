@@ -13,11 +13,15 @@
           window.location.href = base + "/";
           return;
         }
-
-        // Extract the path after the base
+        // Check if path already contains /index.html to avoid infinite loop
+        if (path.includes("/index.html")) {
+          // Already redirected properly, stop redirecting
+          return;
+        }
+        // Extract path after base
         var relativePath = path.slice(base.length);
 
-        // Redirect to index.html with the full relative path preserved
+        // Redirect to index.html + relative path (without adding index.html again)
         window.location.href =
           base +
           "/index.html" +
