@@ -318,6 +318,7 @@ function Sidebar({
             borderRadius: 2,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
             backgroundColor: themeContext.surface,
+            // border: `1px solid ${themeContext.primary}`,
           },
         }}
       >

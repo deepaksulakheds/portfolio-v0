@@ -44,7 +44,7 @@ const themeOptions = {
     secondary: "#fff",
     colorOnSecondary: "#000",
 
-    background: "rgb(34, 32, 36)",
+    background: "rgb(28, 27, 36)",
     surface: "rgba(72, 71, 73, 1)",
 
     // Text Colors

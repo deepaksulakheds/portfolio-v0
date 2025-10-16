@@ -2,6 +2,8 @@ import { Grid, Typography } from "@mui/material";
 import "./aboutComponent.css";
 import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod.js";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
+import { useSearchParams } from "react-router-dom";
+import { useMemo } from "react";
 
 const skills = [
   {
@@ -66,6 +68,12 @@ const skills = [
 function AboutComponent(props) {
   // Contexts
   const { themeContext } = useThemeContext();
+
+  const [searchParams] = useSearchParams();
+  const searchParamsJson = useMemo(
+    () => Object.fromEntries(searchParams),
+    [searchParams]
+  );
 
   return (
     <Grid className="aboutContainer">
@@ -147,6 +155,23 @@ function AboutComponent(props) {
           ))}
         </Grid>
       </Grid>
+      {Object.entries(searchParamsJson).length > 0 && (
+        <pre
+          style={{
+            backgroundColor: themeContext.surface,
+            color: themeContext.bodyText,
+            padding: "16px",
+            borderRadius: "8px",
+            fontSize: "14px",
+            lineHeight: "1.5",
+            border: `1px solid ${themeContext.primary}`,
+            width: "fit-content",
+            fontWeight: "bold",
+          }}
+        >
+          {JSON.stringify(searchParamsJson, null, 2)}
+        </pre>
+      )}
     </Grid>
   );
 }
