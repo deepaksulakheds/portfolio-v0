@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <title>Redirecting...</title>
     <script type="text/javascript">
-      var path = window.location.pathname;
-      var base = "/portfolio-v0";
+      (function () {
+        var path = window.location.pathname;
+        var base = "/portfolio-v0";
 
-      if (!path.startsWith(base)) {
-        console.log("if", base + "/");
-        window.location.href = base + "/";
-      } else {
-        // Redirect directly to index.html preserving the path (no hash)
-        console.log(
-          "else",
-          base +
-            "/index.html" +
-            window.location.pathname.replace(base, "") +
-            window.location.search +
-            window.location.hash
-        );
+        // If URL doesn't start with base, redirect to base root
+        if (!path.startsWith(base)) {
+          window.location.href = base + "/";
+          return;
+        }
+
+        // Extract the path after the base
+        var relativePath = path.slice(base.length);
+
+        // Redirect to index.html with the full relative path preserved
         window.location.href =
           base +
           "/index.html" +
-          window.location.pathname.replace(base, "") +
+          relativePath +
           window.location.search +
           window.location.hash;
-      }
+      })();
     </script>
   </head>
   <body></body>
