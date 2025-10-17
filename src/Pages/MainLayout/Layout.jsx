@@ -5,7 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./SideBar.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import Header from "../Header/Header.jsx";
-import { Person, Settings } from "@mui/icons-material";
+import { Person, Settings, WorkHistory } from "@mui/icons-material";
 
 const drawerWidth = 180;
 const collapsedWidth = 64;
@@ -13,6 +13,7 @@ const collapsedWidth = 64;
 const navigationMenus = [
   { label: "About", path: "/", icon: <Person /> },
   { label: "Settings", path: "/settings", icon: <Settings /> },
+  { label: "Experience", path: "/experience", icon: <WorkHistory /> },
 ];
 
 function Layout() {
@@ -36,7 +37,9 @@ function Layout() {
     [isCollapsed]
   );
 
-  const currentPage = navigationMenus.find((item) => item.path === location.pathname);
+  const currentPage = navigationMenus.find(
+    (item) => item.path === location.pathname
+  );
   const currentPageLabel = currentPage ? currentPage.label : "";
 
   useEffect(() => {

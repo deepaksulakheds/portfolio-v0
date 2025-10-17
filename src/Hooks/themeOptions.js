@@ -11,7 +11,7 @@ const themeOptions = {
     primary: "rgba(32, 51, 84, 1)",
     colorOnPrimary: "#fff",
 
-    secondary: "#fff",
+    secondary: "rgba(32, 51, 84, 1)",
     colorOnSecondary: "rgba(32, 51, 84, 1)",
 
     background: "#A7BFFF",

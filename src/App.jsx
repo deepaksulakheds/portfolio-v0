@@ -8,6 +8,9 @@ const AboutComponent = lazy(() =>
 const Settings = lazy(() => import("./Pages/Settings/Settings"));
 const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
+const ExperienceComponent = lazy(() =>
+  import("./Pages/ExperienceComponent/ExperienceComponent")
+);
 
 import { useThemeContext } from "./Hooks/ThemeContext";
 import { useEffect } from "react";
@@ -61,6 +64,8 @@ function App() {
         <Route path="/*" element={<Layout />}>
           <Route index element={<AboutComponent />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="experience" element={<ExperienceComponent />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
 

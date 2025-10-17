@@ -1,0 +1,32 @@
+.experienceContainer {
+  animation: grow 1s;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@keyframes grow {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.companyCardImage {
+  height: 32;
+  width: 32;
+  top: -300px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--theme-color);
+  }
+  70% {
+    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
