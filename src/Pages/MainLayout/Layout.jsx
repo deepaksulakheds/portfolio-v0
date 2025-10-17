@@ -6,15 +6,10 @@ import Sidebar from "./SideBar.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import Header from "../Header/Header.jsx";
 import { Person, Settings, WorkHistory } from "@mui/icons-material";
+import { useNavigationMenusContext } from "../../Hooks/NavMenuContext.jsx";
 
 const drawerWidth = 180;
 const collapsedWidth = 64;
-
-const navigationMenus = [
-  { label: "About", path: "/", icon: <Person /> },
-  { label: "Settings", path: "/settings", icon: <Settings /> },
-  { label: "Experience", path: "/experience", icon: <WorkHistory /> },
-];
 
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -22,7 +17,8 @@ function Layout() {
   const location = useLocation();
 
   // Contexts
-  const { themeContext, toggleTheme } = useThemeContext();
+  const { themeContext } = useThemeContext();
+  const { navigationMenus } = useNavigationMenusContext();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prev) => !prev);

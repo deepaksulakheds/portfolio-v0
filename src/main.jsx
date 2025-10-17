@@ -8,21 +8,24 @@ import { AttachmentProvider } from "./Pages/Header/MailDialog/attachmentContext.
 import { SecretProvider } from "./Hooks/SecretContext.jsx";
 import { NotistackSnackbarProvider } from "./Hooks/SharedSnackbar1.jsx";
 import ErrorBoundary from "./Hooks/ErrorBoundary.jsx";
+import { NavContextProvider } from "./Hooks/NavMenuContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <ThemeContextProvider>
-    <ErrorBoundary>
-      <SecretProvider>
-        <AttachmentProvider>
-          <NotistackSnackbarProvider>
-            <StrictMode>
-              <BrowserRouter basename="/portfolio-v0/">
-                <App />
-              </BrowserRouter>
-            </StrictMode>
-          </NotistackSnackbarProvider>
-        </AttachmentProvider>
-      </SecretProvider>
-    </ErrorBoundary>
-  </ThemeContextProvider>
+  <NavContextProvider>
+    <ThemeContextProvider>
+      <ErrorBoundary>
+        <SecretProvider>
+          <AttachmentProvider>
+            <NotistackSnackbarProvider>
+              <StrictMode>
+                <BrowserRouter basename="/portfolio-v0/">
+                  <App />
+                </BrowserRouter>
+              </StrictMode>
+            </NotistackSnackbarProvider>
+          </AttachmentProvider>
+        </SecretProvider>
+      </ErrorBoundary>
+    </ThemeContextProvider>
+  </NavContextProvider>
 );
