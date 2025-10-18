@@ -11,8 +11,6 @@ import {
   Tooltip,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-// import { withSnackbar } from "../SharedSnackbar/SharedSnackbar";
-
 import "./MailDialog.css";
 import FileUploadRoundedIcon from "@mui/icons-material/FileUploadRounded";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -20,6 +18,7 @@ import { withAttachmentToggle } from "./attachmentContext";
 import { useMutation } from "@apollo/client/react";
 import { withNotistackSnackbar } from "../../../Hooks/SharedSnackbar1";
 import { useThemeContext } from "../../../Hooks/ThemeContext";
+import { SEND_MAIL_QUERY } from "../../../queries";
 
 function MailDialog({
   mailDialogVisible,
@@ -32,7 +31,7 @@ function MailDialog({
   const { themeContext } = useThemeContext();
 
   // States
-  // const [sendMail] = useMutation(`SEND_MAIL_QUERY`);
+  const [sendMail] = useMutation(SEND_MAIL_QUERY);
   const [contactDetails, setContactDetails] = useState({
     name: "",
     email: "",
@@ -151,17 +150,17 @@ function MailDialog({
         contactDetails.name &&
         contactDetails.subject
       ) {
-        //   setLoading(true);
-        //   const resp = await sendMail({
-        //     variables: { ...contactDetails, isSecretAlert: secretMailAlert },
-        //   });
-        //   if (resp.data && resp.data.sendMail.status == 200) {
-        //     notistackSnackbar.showSnackbar("Mail sent successfully.", "success");
-        //     onclose();
-        //   } else {
-        //     notistackSnackbar.showSnackbar(resp.data.sendMail.message, "error");
-        //   }
-        //   setLoading(false);
+        setLoading(true);
+        const resp = await sendMail({
+          variables: { ...contactDetails, isSecretAlert: secretMailAlert },
+        });
+        if (resp.data && resp.data.sendMail.status == 200) {
+          notistackSnackbar.showSnackbar("Mail sent successfully.", "success");
+          onclose();
+        } else {
+          notistackSnackbar.showSnackbar(resp.data.sendMail.message, "error");
+        }
+        setLoading(false);
       } else {
         notistackSnackbar.showSnackbar("Please fill all the fields.", "error");
       }

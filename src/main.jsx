@@ -9,23 +9,27 @@ import { SecretProvider } from "./Hooks/SecretContext.jsx";
 import { NotistackSnackbarProvider } from "./Hooks/SharedSnackbar1.jsx";
 import ErrorBoundary from "./Hooks/ErrorBoundary.jsx";
 import { NavContextProvider } from "./Hooks/NavMenuContext.jsx";
+import { ApolloProvider } from "@apollo/client/react";
+import { client } from "./Utils/clients.js";
 
 createRoot(document.getElementById("root")).render(
-  <NavContextProvider>
-    <ThemeContextProvider>
-      <ErrorBoundary>
-        <SecretProvider>
-          <AttachmentProvider>
-            <NotistackSnackbarProvider>
-              <StrictMode>
-                <BrowserRouter basename="/portfolio-v0/">
-                  <App />
-                </BrowserRouter>
-              </StrictMode>
-            </NotistackSnackbarProvider>
-          </AttachmentProvider>
-        </SecretProvider>
-      </ErrorBoundary>
-    </ThemeContextProvider>
-  </NavContextProvider>
+  <ApolloProvider client={client}>
+    <NavContextProvider>
+      <ThemeContextProvider>
+        <ErrorBoundary>
+          <SecretProvider>
+            <AttachmentProvider>
+              <NotistackSnackbarProvider>
+                <StrictMode>
+                  <BrowserRouter basename="/portfolio-v0/">
+                    <App />
+                  </BrowserRouter>
+                </StrictMode>
+              </NotistackSnackbarProvider>
+            </AttachmentProvider>
+          </SecretProvider>
+        </ErrorBoundary>
+      </ThemeContextProvider>
+    </NavContextProvider>
+  </ApolloProvider>
 );

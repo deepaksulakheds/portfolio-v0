@@ -12,6 +12,7 @@ import {
   AutoStories,
   BusinessCenter,
   Launch,
+  Notes,
   SchoolRounded,
   WorkspacePremium,
 } from "@mui/icons-material";
@@ -21,6 +22,8 @@ import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod";
 import { useSecretContext } from "../../Hooks/SecretContext";
 import { useEffect, useRef } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
+import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
+import { useNavigate } from "react-router-dom";
 
 const experienceData = [
   {
@@ -85,6 +88,8 @@ function ExperienceComponent({ attachmentToggle, setSelectedMenu }) {
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
+  const { setNavigationMenus } = useNavigationMenusContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -132,10 +137,7 @@ function ExperienceComponent({ attachmentToggle, setSelectedMenu }) {
 
             e.preventDefault();
             attachmentToggle.toggleAttachment("OFF");
-            setSelectedMenu(
-              sessionStorage.getItem("selectedMenu") ||
-                menuList[0].name + " " + menuList[0].icon
-            );
+            navigate("/experience", { replace: true });
 
             break;
 
@@ -160,6 +162,24 @@ function ExperienceComponent({ attachmentToggle, setSelectedMenu }) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [secretContext.secretEnabled, attachmentToggle]);
+
+  useEffect(() => {
+    setNavigationMenus((prev) => {
+      const hasNotes = prev.some((item) => item.label === "Notes");
+      const shouldHaveNotes =
+        attachmentToggle.isAttachmentEnabled && secretContext.secretEnabled;
+
+      if (shouldHaveNotes && !hasNotes) {
+        // Add Notes only if not present
+        return [...prev, { label: "Notes", path: "/notes", icon: <Notes /> }];
+      } else if (!shouldHaveNotes && hasNotes) {
+        // Remove Notes only if present
+        return prev.filter((item) => item.label !== "Notes");
+      }
+      // No changes needed
+      return prev;
+    });
+  }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
 
   return (
     <Grid className="experienceContainer">

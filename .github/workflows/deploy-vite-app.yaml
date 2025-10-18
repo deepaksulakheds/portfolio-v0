@@ -20,6 +20,16 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      VITE_APP_AES_SECRET: ${{ secrets.VITE_APP_AES_SECRET }}
+      VITE_APP_BACKEND_URL: ${{ secrets.VITE_APP_BACKEND_URL }}
+      VITE_APP_AUTH_PASSKEY: ${{ secrets.VITE_APP_AUTH_PASSKEY }}
+      VITE_APP_HOTKEY1: ${{ secrets.VITE_APP_HOTKEY1 }}
+      VITE_APP_HOTKEY1_COMB: ${{ secrets.VITE_APP_HOTKEY1_COMB }}
+      VITE_APP_HOTKEY2: ${{ secrets.VITE_APP_HOTKEY2 }}
+      VITE_APP_HOTKEY2_COMB: ${{ secrets.VITE_APP_HOTKEY2_COMB }}
+      VITE_APP_HOTKEY3: ${{ secrets.VITE_APP_HOTKEY3 }}
+      VITE_APP_HOTKEY3_COMB: ${{ secrets.VITE_APP_HOTKEY3_COMB }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
