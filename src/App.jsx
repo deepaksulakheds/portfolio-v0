@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 import { lazy, Suspense } from "react";
 
 // Pages
@@ -11,6 +12,7 @@ const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 const ExperienceComponent = lazy(() =>
   import("./Pages/ExperienceComponent/ExperienceComponent")
 );
+const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
 
 import { useThemeContext } from "./Hooks/ThemeContext";
 import { useEffect } from "react";
@@ -65,6 +67,15 @@ function App() {
           <Route index element={<AboutComponent />} />
           <Route path="experience" element={<ExperienceComponent />} />
           <Route path="settings" element={<Settings />} />
+          <Route
+            path="notes"
+            element={
+              <ProtectedRoute
+                fallback={<NotFound />}
+                element={<NotesComponent />}
+              />
+            }
+          />
 
           <Route path="*" element={<NotFound />} />
         </Route>

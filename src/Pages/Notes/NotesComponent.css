@@ -1,0 +1,17 @@
+.projectImage {
+  height: 200px;
+  width: 400px;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.projectImage:hover {
+  transform: scale(1.1);
+}
+
+.projectContainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2rem;
+}
