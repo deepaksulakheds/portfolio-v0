@@ -3,15 +3,19 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import { lazy, Suspense } from "react";
 
 // Pages
+const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
+const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
+
 const AboutComponent = lazy(() =>
   import("./Pages/AboutComponent/AboutComponent")
 );
-const Settings = lazy(() => import("./Pages/Settings/Settings"));
-const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
-const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 const ExperienceComponent = lazy(() =>
   import("./Pages/ExperienceComponent/ExperienceComponent")
 );
+const ProjectsComponent = lazy(() =>
+  import("./Pages/Projects/ProjectsComponent.jsx")
+);
+const ResumeComponent = lazy(() => import("./Pages/Resume/Resume.jsx"));
 const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
 
 import { useThemeContext } from "./Hooks/ThemeContext";
@@ -66,7 +70,8 @@ function App() {
         <Route path="/*" element={<Layout />}>
           <Route index element={<AboutComponent />} />
           <Route path="experience" element={<ExperienceComponent />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="projects" element={<ProjectsComponent />} />
+          <Route path="resume" element={<ResumeComponent />} />
           <Route
             path="notes"
             element={
