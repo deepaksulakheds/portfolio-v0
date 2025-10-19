@@ -108,8 +108,8 @@ function NotesDialog({
         paper: {
           style: {
             borderRadius: "10px",
-            background: themeContext.themeBackground,
-            border: `0.5px solid ${themeContext.dullThemeColor}`,
+            background: themeContext.background,
+            border: `0.1px solid ${themeContext.primary}`,
           },
         },
       }}
@@ -127,16 +127,16 @@ function NotesDialog({
         style={{
           display: "flex",
           justifyContent: "center",
-          color: themeContext.oppositeTheme,
+          color: themeContext.secondary,
         }}
       >
         <Divider
-          color={themeContext.oppositeTheme}
+          color={themeContext.navItemTextColor}
           sx={{
-            color: themeContext.oppositeTheme,
-            backgroundColor: themeContext.oppositeTheme,
+            color: themeContext.navItemTextColor,
+            backgroundColor: themeContext.navItemTextColor,
           }}
-          style={{ color: themeContext.oppositeTheme }}
+          style={{ color: themeContext.navItemTextColor }}
           width="92%"
         />
       </Grid>
@@ -144,7 +144,7 @@ function NotesDialog({
         sx={{
           padding: "20px",
           scrollbarWidth: "thin",
-          color: themeContext.oppositeTheme,
+          color: themeContext.bodyText,
         }}
       >
         <TextField
@@ -153,30 +153,30 @@ function NotesDialog({
           slotProps={{
             input: {
               style: {
-                color: themeContext.oppositeTheme,
+                color: themeContext.bodyText,
               },
             },
             inputLabel: {
               style: {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.helperText,
               },
             },
           }}
           sx={{
             "& .MuiInput-underline:before": {
               borderBottom: "1px solid",
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .MuiInput-underline:hover": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .MuiInput-underline:hover:before": {
               borderBottom: "2px solid",
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .MuiInput-underline:after": {
               borderBottom: "2px solid",
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
           }}
           fullWidth
@@ -200,25 +200,25 @@ function NotesDialog({
               control={
                 <Radio
                   sx={{
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.secondary,
                     "&.Mui-checked": {
-                      color: themeContext.oppositeTheme,
+                      color: themeContext.secondary,
                     },
                   }}
                 />
               }
               label="Select"
               sx={{
-                color: themeContext.oppositeTheme,
+                color: themeContext.secondary,
                 "& .Mui-disabled": {
-                  color: themeContext.disabledColor,
-                  WebkitTextFillColor: themeContext.disabledColor,
+                  color: themeContext.textDisabled,
+                  WebkitTextFillColor: themeContext.textDisabled,
                 },
                 "& .MuiInput-underline.Mui-disabled:before": {
-                  borderBottomColor: themeContext.disabledColor,
+                  borderBottomColor: themeContext.textDisabled,
                 },
                 "& .Mui-disabled .MuiSvgIcon-root": {
-                  color: themeContext.disabledColor,
+                  color: themeContext.textDisabled,
                 },
               }}
             />
@@ -227,30 +227,30 @@ function NotesDialog({
               control={
                 <Radio
                   sx={{
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.secondary,
                     "&.Mui-checked": {
-                      color: themeContext.oppositeTheme,
+                      color: themeContext.secondary,
                     },
                   }}
                 />
               }
               label="New Tag"
-              sx={{ color: themeContext.oppositeTheme }}
+              sx={{ color: themeContext.secondary }}
             />
             <FormControlLabel
               value="untagged"
               control={
                 <Radio
                   sx={{
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.secondary,
                     "&.Mui-checked": {
-                      color: themeContext.oppositeTheme,
+                      color: themeContext.secondary,
                     },
                   }}
                 />
               }
               label="- Untagged -"
-              sx={{ color: themeContext.oppositeTheme }}
+              sx={{ color: themeContext.secondary }}
             />
           </RadioGroup>
         </FormControl>
@@ -266,32 +266,32 @@ function NotesDialog({
             sx={{
               minWidth: "200px",
               // "& .MuiSvgIcon-root": {
-              //   color: themeContext.oppositeTheme,
+              //   color: themeContext.secondary,
               // },
               "& .MuiInputLabel-root": {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.helperText,
               },
               "& .MuiInputLabel-root.Mui-focused": {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.helperText,
               },
               "& .MuiInput-underline:before": {
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
               "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
               "& .MuiInput-underline:after": {
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
               "& .Mui-disabled": {
-                color: themeContext.disabledColor,
-                WebkitTextFillColor: themeContext.disabledColor,
+                color: themeContext.errorColor,
+                WebkitTextFillColor: themeContext.errorColor,
               },
               "& .MuiInput-underline.Mui-disabled:before": {
-                borderBottomColor: themeContext.disabledColor,
+                borderBottomColor: themeContext.errorColor,
               },
               "& .Mui-disabled .MuiSvgIcon-root": {
-                color: themeContext.disabledColor,
+                color: themeContext.errorColor,
               },
             }}
             slotProps={{
@@ -307,10 +307,10 @@ function NotesDialog({
               },
               paper: {
                 sx: {
-                  backgroundColor: themeContext.themeBackground,
-                  background: themeContext.themeBackground,
-                  color: themeContext.oppositeTheme,
-                  border: `1px solid ${themeContext.oppositeTheme}`,
+                  backgroundColor: themeContext.surface,
+                  background: themeContext.surface,
+                  color: themeContext.secondary,
+                  border: `1px solid ${themeContext.secondary}`,
                   borderRadius: "10px",
                 },
               },
@@ -318,12 +318,12 @@ function NotesDialog({
                 sx: {
                   "& .MuiAutocomplete-option": {
                     "&:hover": {
-                      color: themeContext.themeColor,
-                      filter: `drop-shadow(0px 0px 0.9px ${themeContext.themeColor})`,
+                      color: themeContext.primary,
+                      filter: `drop-shadow(0px 0px 0.9px ${themeContext.primary})`,
                     },
                     '&[aria-selected="true"]': {
-                      color: themeContext.themeColor,
-                      filter: `drop-shadow(0px 0px 0.9px ${themeContext.themeColor})`,
+                      color: themeContext.primary,
+                      filter: `drop-shadow(0px 0px 0.9px ${themeContext.primary})`,
                     },
                   },
                 },
@@ -331,38 +331,38 @@ function NotesDialog({
 
               root: {
                 "& .MuiInputLabel-root": {
-                  color: themeContext.dullOppositeTheme,
+                  color: themeContext.helperText,
                 },
                 "& .MuiInputLabel-root.Mui-focused": {
-                  color: themeContext.dullOppositeTheme,
+                  color: themeContext.helperText,
                 },
                 "& .MuiInput-underline:before": {
-                  borderBottomColor: themeContext.oppositeTheme,
+                  borderBottomColor: themeContext.secondary,
                 },
                 "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
                 "& .MuiInput-underline:after": {
-                  borderBottomColor: themeContext.dullOppositeTheme,
+                  borderBottomColor: themeContext.helperText,
                 },
               },
               clearIndicator: {
                 sx: {
                   visibility: "visible",
                   opacity: 1,
-                  color: themeContext.oppositeTheme,
+                  color: themeContext.secondary,
                   "&:hover": {
-                    color: themeContext.themeColor, // color on hover
-                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                    color: themeContext.primary, // color on hover
+                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                   },
                 },
               },
               popupIndicator: {
                 sx: {
-                  color: themeContext.oppositeTheme,
+                  color: themeContext.secondary,
                   "&:hover": {
-                    color: themeContext.themeColor, // color on hover
-                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                    color: themeContext.primary, // color on hover
+                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                   },
                 },
               },
@@ -374,7 +374,7 @@ function NotesDialog({
                 label={allTags.length > 0 ? "Select Tag" : "No Tags, Crate Tag"}
                 InputProps={{
                   ...params.InputProps,
-                  style: { color: themeContext.oppositeTheme },
+                  style: { color: themeContext.secondary },
                   inputProps: {
                     ...params.inputProps,
                     readOnly: true,
@@ -390,12 +390,12 @@ function NotesDialog({
             slotProps={{
               input: {
                 style: {
-                  color: themeContext.oppositeTheme,
+                  color: themeContext.secondary,
                 },
               },
               inputLabel: {
                 style: {
-                  color: themeContext.dullOppositeTheme,
+                  color: themeContext.helperText,
                 },
               },
             }}
@@ -408,18 +408,18 @@ function NotesDialog({
             sx={{
               "& .MuiInput-underline:before": {
                 borderBottom: "1px solid",
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
               "& .MuiInput-underline:hover": {
-                borderBottomColor: themeContext.oppositeTheme,
+                borderBottomColor: themeContext.secondary,
               },
               "& .MuiInput-underline:hover:before": {
                 borderBottom: "2px solid",
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
               "& .MuiInput-underline:after": {
                 borderBottom: "2px solid",
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.helperText,
               },
             }}
           />
@@ -433,23 +433,22 @@ function NotesDialog({
         >
           <Button
             sx={{
-              color: themeContext.oppositeTheme,
+              color: themeContext.primary,
               height: 40,
               width: 90,
               borderRadius: "7px",
               fontWeight: "bold",
               textTransform: "none",
-              border: `0.2px solid ${themeContext.oppositeTheme}`,
+              border: `0.2px solid ${themeContext.primary}`,
               "&:hover": {
-                boxShadow: `inset 0px 0px 22px 0px ${themeContext.themeColor}`,
+                boxShadow: `inset 0px 0px 22px 0px ${themeContext.primary}`,
               },
               "&:disabled": {
                 pointerEvents: "unset",
                 cursor: "not-allowed",
                 boxShadow: "none",
-                color: themeContext.disabledColor,
-                border: `0.2px solid ${themeContext.disabledColor}
-                }`,
+                color: themeContext.textDisabled,
+                border: `0.2px solid ${themeContext.textDisabled}`,
               },
             }}
             disabled={!note.note || loading}
@@ -457,8 +456,8 @@ function NotesDialog({
           >
             {loading ? (
               <CircularProgress
-                color={themeContext.disabledColor}
-                sx={{ color: themeContext.disabledColor }}
+                color={themeContext.textDisabled}
+                sx={{ color: themeContext.textDisabled }}
                 size={20}
               />
             ) : (
