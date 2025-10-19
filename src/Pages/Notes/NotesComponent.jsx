@@ -1000,12 +1000,11 @@ function NotesComponent({ notistackSnackbar }) {
                     <Checkbox
                       sx={{
                         alignSelf: "flex-start",
-                        color: themeContext.disabledBackground,
+                        color: themeContext.disabled,
                         margin: 0,
                         padding: "0.2rem",
                         ":hover": {
                           boxShadow: `inset 0px 0px 10px 2px ${themeContext.disabled}`,
-                          color: themeContext.disabled,
                         },
                         "&.Mui-checked": {
                           color: themeContext.disabled,
