@@ -199,7 +199,9 @@ function ExperienceComponent({ attachmentToggle, setSelectedMenu }) {
               sx={{
                 margin: 0,
                 color: themeContext.secondary,
-                borderColor: themeContext.secondary,
+                borderColor: attachmentToggle.isAttachmentEnabled
+                  ? themeContext.primary
+                  : themeContext.secondary,
               }}
               variant="outlined"
             >
@@ -399,7 +401,7 @@ function CustomEducationTimeLineItem({
                 sx={{
                   fontWeight: "500",
                   border: `1px solid ${themeContext.primary}`,
-                  color: themeContext.bodyText,
+                  color: themeContext.primary,
                   "&:hover": {
                     boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                   },
@@ -502,6 +504,7 @@ function CustomExperienceTimeLineItem({
               cursor: "pointer",
               "&:hover": {
                 boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                color: themeContext.primary,
               },
             }}
             onClick={(e) => window.open(companyUrl, "_blank")}
