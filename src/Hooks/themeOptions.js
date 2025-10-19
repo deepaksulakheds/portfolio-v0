@@ -9,9 +9,11 @@ const themeOptions = {
     selectedNavBackgroundColor: "rgba(32, 51, 84, 1)",
 
     primary: "rgba(32, 51, 84, 1)",
+    lightPrimary: "rgba(32, 51, 84, 0.5)",
     colorOnPrimary: "#fff",
 
     secondary: "rgba(32, 51, 84, 1)",
+    lightSecondary: "rgba(32, 51, 84, 0.5)",
     colorOnSecondary: "rgba(32, 51, 84, 1)",
 
     background: "#A7BFFF",
@@ -24,7 +26,8 @@ const themeOptions = {
     textDisabled: "#999999",
     helperText: "rgba(32, 51, 84, 0.65)",
 
-    disabled: "#cccccc",
+    disabledBackground: "rgba(0, 0, 0, 0.2)",
+    disabled: "#2e2e2e",
     errorColor: "red",
     warning: "#f57c00",
     info: "#2196F3",
@@ -39,9 +42,11 @@ const themeOptions = {
     selectedNavBackgroundColor: "rgba(170, 137, 242, 1)",
 
     primary: "rgba(170, 137, 242, 1)",
+    lightPrimary: "rgba(170, 137, 242, 0.5)",
     colorOnPrimary: "#ffffff",
 
     secondary: "#fff",
+    lightSecondary: "rgba(255, 255, 255, 0.5)",
     colorOnSecondary: "#000",
 
     background: "rgb(28, 27, 36)",
@@ -54,11 +59,14 @@ const themeOptions = {
     textDisabled: "#666666",
     helperText: "rgba(255, 255, 255, 0.4)",
 
-    disabled: "#444444",
+    disabled: "#7f808dff",
+    disabledBackground: "rgba(103, 109, 118, 0.3)",
     errorColor: "red",
     warning: "#f57c00",
     info: "#2196F3",
     success: "#4caf50",
+
+    // Trash Colors
   },
 };
 

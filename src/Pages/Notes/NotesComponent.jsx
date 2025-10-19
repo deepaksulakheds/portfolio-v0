@@ -397,32 +397,32 @@ function NotesComponent({ notistackSnackbar }) {
           sx={{
             minWidth: "200px",
             // "& .MuiSvgIcon-root": {
-            //   color: themeContext.oppositeTheme,
+            //   color: themeContext.secondary,
             // },
             "& .MuiInputLabel-root": {
-              color: themeContext.dullOppositeTheme,
+              color: themeContext.helperText,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: themeContext.dullOppositeTheme,
+              color: themeContext.helperText,
             },
             "& .MuiInput-underline:before": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .MuiInput-underline:after": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.helperText,
             },
             "& .Mui-disabled": {
-              color: themeContext.disabledColor,
-              WebkitTextFillColor: themeContext.disabledColor,
+              color: themeContext.errorColor,
+              WebkitTextFillColor: themeContext.errorColor,
             },
             "& .MuiInput-underline.Mui-disabled:before": {
-              borderBottomColor: themeContext.disabledColor,
+              borderBottomColor: themeContext.errorColor,
             },
             "& .Mui-disabled .MuiSvgIcon-root": {
-              color: themeContext.disabledColor,
+              color: themeContext.errorColor,
             },
           }}
           slotProps={{
@@ -438,10 +438,10 @@ function NotesComponent({ notistackSnackbar }) {
             },
             paper: {
               sx: {
-                backgroundColor: themeContext.themeBackground,
-                background: themeContext.themeBackground,
-                color: themeContext.oppositeTheme,
-                border: `1px solid ${themeContext.oppositeTheme}`,
+                backgroundColor: themeContext.background,
+                background: themeContext.background,
+                color: themeContext.secondary,
+                border: `1px solid ${themeContext.primary}`,
                 borderRadius: "10px",
               },
             },
@@ -449,12 +449,12 @@ function NotesComponent({ notistackSnackbar }) {
               sx: {
                 "& .MuiAutocomplete-option": {
                   "&:hover": {
-                    color: themeContext.themeColor,
-                    filter: `drop-shadow(0px 0px 0.9px ${themeContext.themeColor})`,
+                    color: themeContext.primary,
+                    filter: `drop-shadow(0px 0px 0.9px ${themeContext.primary})`,
                   },
                   '&[aria-selected="true"]': {
-                    color: themeContext.themeColor,
-                    filter: `drop-shadow(0px 0px 0.9px ${themeContext.themeColor})`,
+                    color: themeContext.primary,
+                    filter: `drop-shadow(0px 0px 0.9px ${themeContext.primary})`,
                   },
                 },
               },
@@ -463,52 +463,52 @@ function NotesComponent({ notistackSnackbar }) {
               sx: {
                 height: "fit-content",
                 color: themeContext.bodyText,
-                border: `1px solid ${themeContext.dullThemeColor}`,
+                border: `1px solid ${themeContext.lightPrimary}`,
                 fontWeight: "bold",
                 display: "flex",
                 justifyContent: "space-between",
                 "& .MuiChip-deleteIcon": {
-                  color: themeContext.dullOppositeTheme,
+                  color: themeContext.lightSecondary,
                   "&:hover": {
-                    color: themeContext.oppositeTheme,
+                    color: themeContext.secondary,
                   },
                 },
               },
             },
             root: {
               "& .MuiInputLabel-root": {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.lightSecondary,
               },
               "& .MuiInputLabel-root.Mui-focused": {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.lightSecondary,
               },
               "& .MuiInput-underline:before": {
-                borderBottomColor: themeContext.oppositeTheme,
+                borderBottomColor: themeContext.secondary,
               },
               "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.lightSecondary,
               },
               "& .MuiInput-underline:after": {
-                borderBottomColor: themeContext.dullOppositeTheme,
+                borderBottomColor: themeContext.lightSecondary,
               },
             },
             clearIndicator: {
               sx: {
                 visibility: "visible",
                 opacity: 1,
-                color: themeContext.oppositeTheme,
+                color: themeContext.secondary,
                 "&:hover": {
-                  color: themeContext.themeColor, // color on hover
-                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                  color: themeContext.primary, // color on hover
+                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                 },
               },
             },
             popupIndicator: {
               sx: {
-                color: themeContext.oppositeTheme,
+                color: themeContext.secondary,
                 "&:hover": {
-                  color: themeContext.themeColor, // color on hover
-                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                  color: themeContext.primary, // color on hover
+                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                 },
               },
             },
@@ -520,7 +520,7 @@ function NotesComponent({ notistackSnackbar }) {
               label={allTags.length === 0 ? "No tags available" : "Filter Tags"}
               InputProps={{
                 ...params.InputProps,
-                style: { color: themeContext.oppositeTheme },
+                style: { color: themeContext.secondary },
                 inputProps: {
                   ...params.inputProps,
                   readOnly: true,
@@ -540,47 +540,47 @@ function NotesComponent({ notistackSnackbar }) {
             flexGrow: 1,
             maxWidth: "200px",
             "& .MuiInputLabel-root": {
-              color: themeContext.dullOppositeTheme,
+              color: themeContext.lightSecondary,
             },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: themeContext.dullOppositeTheme,
+              color: themeContext.lightSecondary,
             },
             "& .MuiInput-underline:before": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.lightSecondary,
             },
             "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.lightSecondary,
             },
             "& .MuiInput-underline:after": {
-              borderBottomColor: themeContext.dullOppositeTheme,
+              borderBottomColor: themeContext.lightSecondary,
             },
             "& .Mui-disabled": {
-              color: themeContext.disabledColor,
-              WebkitTextFillColor: themeContext.disabledColor,
+              color: themeContext.errorColor,
+              WebkitTextFillColor: themeContext.errorColor,
             },
             "& .MuiInput-underline.Mui-disabled:before": {
-              borderBottomColor: themeContext.disabledColor,
+              borderBottomColor: themeContext.errorColor,
             },
             "& .Mui-disabled .MuiSvgIcon-root": {
-              color: themeContext.disabledColor,
+              color: themeContext.errorColor,
             },
           }}
           slotProps={{
             input: {
               style: {
-                color: themeContext.oppositeTheme,
+                color: themeContext.secondary,
               },
               endAdornment: (
                 <InputAdornment position="end" title="Clear">
                   <ClearOutlined
                     onClick={(e) => handleSearch(e)}
                     sx={{
-                      color: themeContext.oppositeTheme,
+                      color: themeContext.secondary,
                       cursor: "pointer",
                       borderRadius: "50%",
                       "&:hover": {
-                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                        color: themeContext.themeColor,
+                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                        color: themeContext.primary,
                       },
                     }}
                   />
@@ -589,7 +589,7 @@ function NotesComponent({ notistackSnackbar }) {
             },
             inputLabel: {
               style: {
-                color: themeContext.dullOppositeTheme,
+                color: themeContext.lightSecondary,
               },
             },
           }}
@@ -598,13 +598,13 @@ function NotesComponent({ notistackSnackbar }) {
           sx={{
             color: themeContext.noThemeColor,
             backgroundColor: filtersUsed.showOnlySelected
-              ? themeContext.oppositeTheme
-              : themeContext.dullOppositeTheme,
+              ? themeContext.secondary
+              : themeContext.lightSecondary,
             fontWeight: "bold",
             transition: "all ease-in-out .2s",
             ":hover": {
               // backgroundColor: themeContext.chipShadow,
-              boxShadow: `inset 0px 0px 30px 10px ${themeContext.themeColor}`,
+              boxShadow: `inset 0px 0px 30px 10px ${themeContext.primary}`,
             },
           }}
           disabled={checkedNotes.length === 0}
@@ -652,8 +652,8 @@ function NotesComponent({ notistackSnackbar }) {
                 sx={{
                   border: `1px solid ${
                     checkedNotes.includes(note.id)
-                      ? themeContext.themeColor
-                      : themeContext.dullThemeColor
+                      ? themeContext.primary
+                      : themeContext.lightPrimary
                   }`,
                   wordBreak: "break-word",
                   display: "flex",
@@ -681,8 +681,8 @@ function NotesComponent({ notistackSnackbar }) {
                             href={href}
                             {...props}
                             style={{
-                              textDecorationColor: themeContext.themeColor,
-                              color: themeContext.themeColor,
+                              textDecorationColor: themeContext.primary,
+                              color: themeContext.primary,
                               wordBreak: "break-all",
                               wordWrap: "break-word",
                             }}
@@ -697,7 +697,7 @@ function NotesComponent({ notistackSnackbar }) {
                       sx={{
                         fontWeight: "500",
                         whiteSpace: "pre-line",
-                        color: themeContext.oppositeTheme,
+                        color: themeContext.secondary,
                       }}
                     >
                       {note.note}
@@ -707,7 +707,7 @@ function NotesComponent({ notistackSnackbar }) {
                     sx={{
                       fontSize: "12.5px",
                       fontWeight: "400",
-                      color: themeContext.themeColor,
+                      color: themeContext.primary,
                       userSelect: "none",
                       display: "flex",
                       flexDirection: "column",
@@ -738,15 +738,15 @@ function NotesComponent({ notistackSnackbar }) {
                   <Checkbox
                     sx={{
                       alignSelf: "flex-start",
-                      color: themeContext.themeIcons,
+                      color: `inherit`,
                       margin: 0,
                       padding: "0.2rem",
                       ":hover": {
-                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                        color: themeContext.themeColor,
+                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                        color: themeContext.primary,
                       },
                       "&.Mui-checked": {
-                        color: themeContext.themeColor,
+                        color: themeContext.primary,
                       },
                     }}
                     checked={checkedNotes.includes(note.id)}
@@ -767,8 +767,8 @@ function NotesComponent({ notistackSnackbar }) {
                         color: themeContext.themeIcons,
                         borderRadius: "50%",
                         ":hover": {
-                          color: themeContext.themeColor,
-                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                          color: themeContext.primary,
+                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                         },
                       }}
                       onClick={() => handleCopy(note)}
@@ -781,8 +781,8 @@ function NotesComponent({ notistackSnackbar }) {
                       color: themeContext.themeIcons,
                       borderRadius: "50%",
                       ":hover": {
-                        color: themeContext.themeColor,
-                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
+                        color: themeContext.primary,
+                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
                       },
                     }}
                     onClick={(e) => handleEdit(note, e)}
@@ -800,8 +800,8 @@ function NotesComponent({ notistackSnackbar }) {
               borderRadius: "5px",
               color: themeContext.themeIcons,
               "&:hover": {
-                boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                color: themeContext.themeColor,
+                boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                color: themeContext.primary,
               },
             }}
             onClick={(e) =>
@@ -810,7 +810,7 @@ function NotesComponent({ notistackSnackbar }) {
           />
           {deleteLoading ? (
             <CircularProgress
-              sx={{ color: themeContext.themeColor }}
+              sx={{ color: themeContext.primary }}
               color={themeContext.themeIcons}
               size={23}
             />
@@ -822,8 +822,8 @@ function NotesComponent({ notistackSnackbar }) {
                 cursor: "pointer",
                 color: themeContext.themeIcons,
                 "&:hover": {
-                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                  color: themeContext.themeColor,
+                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                  color: themeContext.primary,
                 },
               }}
               onClick={handleMultipleDelete}
@@ -838,8 +838,8 @@ function NotesComponent({ notistackSnackbar }) {
               cursor: "pointer",
               color: themeContext.themeIcons,
               "&:hover": {
-                boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                color: themeContext.themeColor,
+                boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                color: themeContext.primary,
               },
             }}
             onClick={handleClearSelection}
@@ -850,19 +850,19 @@ function NotesComponent({ notistackSnackbar }) {
         style={{
           display: "flex",
           justifyContent: "center",
-          color: themeContext.oppositeTheme,
+          color: themeContext.secondary,
           marginTop: "10px",
           marginBottom: "20px",
         }}
       >
         <Divider
-          color={themeContext.dullOppositeTheme}
+          color={themeContext.lightSecondary}
           sx={{
-            color: themeContext.dullOppositeTheme,
-            backgroundColor: themeContext.dullOppositeTheme,
+            color: themeContext.lightSecondary,
+            backgroundColor: themeContext.lightSecondary,
             opacity: 0.6,
           }}
-          style={{ color: themeContext.dullOppositeTheme }}
+          style={{ color: themeContext.lightSecondary }}
           width="100%"
         />
       </Grid>
@@ -909,13 +909,13 @@ function NotesComponent({ notistackSnackbar }) {
                 <Grid
                   key={note.id}
                   sx={{
-                    border: `1px solid ${themeContext.trashText}`,
+                    border: `1px solid ${themeContext.disabled}`,
                     wordBreak: "break-word",
                     display: "flex",
                     justifyContent: "space-between",
                     padding: "12px",
                     borderRadius: "10px",
-                    backgroundColor: themeContext.trashBackground,
+                    backgroundColor: themeContext.disabledBackground,
                   }}
                 >
                   <Grid
@@ -937,8 +937,8 @@ function NotesComponent({ notistackSnackbar }) {
                               href={href}
                               {...props}
                               style={{
-                                textDecorationColor: themeContext.trashText,
-                                color: themeContext.trashText,
+                                textDecorationColor: themeContext.disabled,
+                                color: themeContext.disabled,
                                 wordBreak: "break-all",
                                 wordWrap: "break-word",
                               }}
@@ -953,7 +953,7 @@ function NotesComponent({ notistackSnackbar }) {
                         sx={{
                           fontWeight: "500",
                           whiteSpace: "pre-line",
-                          color: themeContext.trashText,
+                          color: themeContext.disabled,
                         }}
                       >
                         {note.note}
@@ -963,7 +963,7 @@ function NotesComponent({ notistackSnackbar }) {
                       sx={{
                         fontSize: "12.5px",
                         fontWeight: "400",
-                        color: themeContext.trashText,
+                        color: themeContext.disabled,
                         userSelect: "none",
                         display: "flex",
                         flexDirection: "column",
@@ -1000,15 +1000,15 @@ function NotesComponent({ notistackSnackbar }) {
                     <Checkbox
                       sx={{
                         alignSelf: "flex-start",
-                        color: themeContext.trashBackground,
+                        color: themeContext.disabledBackground,
                         margin: 0,
                         padding: "0.2rem",
                         ":hover": {
-                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.trashText}`,
-                          color: themeContext.trashText,
+                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.disabled}`,
+                          color: themeContext.disabled,
                         },
                         "&.Mui-checked": {
-                          color: themeContext.trashText,
+                          color: themeContext.disabled,
                         },
                       }}
                       checked={selectedTrash.includes(note.id)}
@@ -1022,7 +1022,7 @@ function NotesComponent({ notistackSnackbar }) {
           <Grid sx={{ display: "flex", gap: "25px", flexDirection: "column" }}>
             {restoreLoading ? (
               <CircularProgress
-                sx={{ color: themeContext.themeColor }}
+                sx={{ color: themeContext.primary }}
                 color={themeContext.themeIcons}
                 size={23}
               />
@@ -1034,8 +1034,8 @@ function NotesComponent({ notistackSnackbar }) {
                   cursor: "pointer",
                   color: themeContext.themeIcons,
                   "&:hover": {
-                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                    color: themeContext.themeColor,
+                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                    color: themeContext.primary,
                   },
                 }}
                 onClick={handleRestoreMultiple}
@@ -1049,8 +1049,8 @@ function NotesComponent({ notistackSnackbar }) {
                 cursor: "pointer",
                 color: themeContext.themeIcons,
                 "&:hover": {
-                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.themeColor}`,
-                  color: themeContext.themeColor,
+                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                  color: themeContext.primary,
                 },
               }}
               onClick={handleTrashClearSelection}

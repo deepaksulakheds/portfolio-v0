@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./SideBar.jsx";
@@ -112,7 +112,9 @@ function Layout() {
         }}
       >
         <Header />
-        <Outlet />
+        <Grid sx={{ padding: "20px" }}>
+          <Outlet />
+        </Grid>
       </Box>
     </Box>
   );
