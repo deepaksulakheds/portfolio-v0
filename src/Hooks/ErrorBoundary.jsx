@@ -1,4 +1,4 @@
-import React from "react";
+import { Component } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { LinkedIn } from "@mui/icons-material";
 import { withThemeContext } from "./ThemeContext.jsx";
@@ -367,7 +367,7 @@ const Robot404Illustration = () => (
   </Box>
 );
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
