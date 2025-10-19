@@ -39,7 +39,9 @@ function Layout() {
   const currentPageLabel = currentPage ? currentPage.label : "";
 
   useEffect(() => {
-    document.title = `${currentPageLabel} | Deepak Sulakhe`;
+    document.title = `${
+      currentPageLabel?.length ? currentPageLabel : "Error 404 Not Found"
+    } | Deepak Sulakhe`;
   }, [currentPageLabel]);
 
   useEffect(() => {
