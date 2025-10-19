@@ -13,7 +13,7 @@ import {
   RadioGroup,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useMutation } from "@apollo/client/react";
 import { withNotistackSnackbar } from "../../Hooks/SharedSnackbar1";
 import { ADD_NOTE } from "../../queries";
@@ -470,4 +470,4 @@ function NotesDialog({
   );
 }
 
-export default React.memo(withNotistackSnackbar(NotesDialog));
+export default memo(withNotistackSnackbar(NotesDialog));

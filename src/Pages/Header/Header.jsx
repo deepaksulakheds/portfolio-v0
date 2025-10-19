@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import "./header.css";
 import { Grid } from "@mui/system";
 import { Chip, IconButton, Popover, Tooltip, Typography } from "@mui/material";
@@ -257,4 +257,4 @@ function Header({ attachmentToggle }) {
   );
 }
 
-export default React.memo(withAttachmentToggle(Header));
+export default memo(withAttachmentToggle(Header));

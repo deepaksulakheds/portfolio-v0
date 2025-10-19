@@ -16,6 +16,7 @@ import {
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
+import { memo } from "react";
 
 function Sidebar({
   navigationMenus,
@@ -328,4 +329,4 @@ function Sidebar({
   );
 }
 
-export default Sidebar;
+export default memo(Sidebar);

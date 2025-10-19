@@ -1,6 +1,6 @@
 import { GitHub, Preview } from "@mui/icons-material";
 import { Chip, Grid, IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { useState, memo } from "react";
 import "./projectComponent.css";
 import { ViewSnapshotsDialog } from "./ViewSnapshots.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
@@ -226,4 +226,4 @@ function ProjectsComponent(props) {
   );
 }
 
-export default React.memo(ProjectsComponent);
+export default memo(ProjectsComponent);

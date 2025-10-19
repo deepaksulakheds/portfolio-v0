@@ -20,7 +20,7 @@ import { Chip, Grid, Typography } from "@mui/material";
 import { withAttachmentToggle } from "../Header/MailDialog/attachmentContext";
 import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod";
 import { useSecretContext } from "../../Hooks/SecretContext";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 import { useNavigate } from "react-router-dom";
@@ -618,4 +618,4 @@ function CustomExperienceTimeLineItem({
   );
 }
 
-export default withAttachmentToggle(ExperienceComponent);
+export default memo(withAttachmentToggle(ExperienceComponent));

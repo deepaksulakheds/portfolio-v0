@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import "./NotesComponent.css";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import {
@@ -1076,4 +1076,4 @@ function NotesComponent({ notistackSnackbar }) {
   );
 }
 
-export default React.memo(withNotistackSnackbar(NotesComponent));
+export default memo(withNotistackSnackbar(NotesComponent));

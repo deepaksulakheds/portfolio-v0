@@ -1,6 +1,6 @@
 import { Dialog, Grid } from "@mui/material";
 import "./header.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 
 const imagesList = [
@@ -9,7 +9,7 @@ const imagesList = [
   `./Images/deepak-2.jpg`,
 ];
 
-export default function HeaderImageDialog({ imageDialogVisible, onClose }) {
+function HeaderImageDialog({ imageDialogVisible, onClose }) {
   const [selectedImage, setSelectedImage] = useState(imagesList[0]);
 
   const { themeContext } = useThemeContext();
@@ -124,3 +124,5 @@ export default function HeaderImageDialog({ imageDialogVisible, onClose }) {
     </Dialog>
   );
 }
+
+export default memo(HeaderImageDialog);

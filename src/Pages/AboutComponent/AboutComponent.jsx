@@ -3,7 +3,7 @@ import "./aboutComponent.css";
 import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod.js";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import { useSearchParams } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 
 const skills = [
   {
@@ -176,4 +176,4 @@ function AboutComponent(props) {
   );
 }
 
-export default AboutComponent;
+export default memo(AboutComponent);

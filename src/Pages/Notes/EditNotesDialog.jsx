@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useMutation } from "@apollo/client/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { ClearOutlined } from "@mui/icons-material";
 import { withNotistackSnackbar } from "../../Hooks/SharedSnackbar1";
 import { EDIT_NOTE } from "../../queries";
@@ -511,4 +511,4 @@ function EditNotesDialog({
   );
 }
 
-export default React.memo(withNotistackSnackbar(EditNotesDialog));
+export default memo(withNotistackSnackbar(EditNotesDialog));

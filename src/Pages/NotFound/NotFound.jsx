@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { Box, Typography } from "@mui/material";
 
@@ -364,7 +365,7 @@ const Robot404Illustration = () => (
   </Box>
 );
 
-export default function NotFound() {
+function NotFound() {
   const { themeContext } = useThemeContext();
 
   return (
@@ -432,3 +433,5 @@ export default function NotFound() {
     </Box>
   );
 }
+
+export default memo(NotFound);

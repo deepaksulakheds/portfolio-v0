@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material";
 import "./resume.css";
+import { memo } from "react";
 
 function ResumeComponent(props) {
   return (
@@ -18,4 +19,4 @@ function ResumeComponent(props) {
   );
 }
 
-export default ResumeComponent;
+export default memo(ResumeComponent);
