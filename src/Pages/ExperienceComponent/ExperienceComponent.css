@@ -1,5 +1,5 @@
 .experienceContainer {
-  animation: grow 1s;
+  /* animation: grow 1s; */
   display: flex;
   flex-wrap: wrap;
 }
