@@ -114,7 +114,7 @@ function Layout() {
         }}
       >
         <Header />
-        <Grid sx={{ padding: "20px" }}>
+        <Grid className="Outlet" id="Outlet" sx={{ padding: "20px" }}>
           <Outlet />
         </Grid>
       </Box>

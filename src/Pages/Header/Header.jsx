@@ -185,7 +185,7 @@ function Header({ attachmentToggle }) {
                       // boxShadow: `inset 0px 0px 30px 0px ${themeContext.primary}`,
                       backgroundColor: themeContext.primary,
                       fontSize: 13,
-                      color: themeContext.noThemeColor,
+                      color: themeContext.colorOnPrimary,
                     },
                   },
                   arrow: {
@@ -244,7 +244,7 @@ function Header({ attachmentToggle }) {
               // boxShadow: `inset 0px 0px 30px 0px ${themeContext.primary}`,
               backgroundColor: themeContext.primary,
               fontSize: 13,
-              color: themeContext.noThemeColor,
+              color: themeContext.colorOnPrimary,
               marginTop: "5px",
               padding: "8px",
             },

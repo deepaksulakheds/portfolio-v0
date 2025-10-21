@@ -16,8 +16,8 @@ const themeOptions = {
     lightSecondary: "rgba(32, 51, 84, 0.5)",
     colorOnSecondary: "rgba(32, 51, 84, 1)",
 
-    background: "#A7BFFF",
-    surface: "rgba(108, 144, 238, 1)",
+    background: "#fff",
+    surface: "rgb(219, 219, 219)",
 
     // Text Colors
     titleText: "rgba(32, 51, 84, 1)",

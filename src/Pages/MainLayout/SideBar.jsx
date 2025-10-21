@@ -111,7 +111,8 @@ function Sidebar({
             display: "flex",
             alignItems: "center",
             justifyContent: isCollapsed ? "center" : "flex-start",
-            padding: "5px 10px",
+            padding: "5px",
+            transition: "all ease-in-out 0.3s",
             cursor: "pointer",
             width: "80%",
             borderRadius: 2,
@@ -319,7 +320,7 @@ function Sidebar({
             borderRadius: 2,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
             backgroundColor: themeContext.surface,
-            // border: `1px solid ${themeContext.primary}`,
+            border: `none`,
           },
         }}
       >
