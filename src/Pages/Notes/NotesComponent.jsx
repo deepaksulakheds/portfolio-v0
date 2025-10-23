@@ -43,7 +43,6 @@ const tagColors = [
   "cyan",
   "mediumslateblue",
   "yellow",
-  "white",
   "orange",
   "darkgray",
   "peachpuff",
@@ -55,6 +54,7 @@ const tagColors = [
   "purple",
   "indigo",
   "blueviolet",
+  "white",
 ];
 
 function NotesComponent({ notistackSnackbar }) {
