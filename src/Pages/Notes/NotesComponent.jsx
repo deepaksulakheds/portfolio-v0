@@ -720,11 +720,12 @@ function NotesComponent({ notistackSnackbar }) {
                       <Chip
                         sx={{
                           backgroundColor: tagColorMap[note.tag],
+                          border: `1px solid ${themeContext.primary}`,
                           width: "fit-content",
                           fontWeight: "bold",
                           padding: 0,
                           height: "fit-content",
-                          color: themeContext.blackText,
+                          color: "#000",
                         }}
                         label={note.tag}
                       />
@@ -976,6 +977,7 @@ function NotesComponent({ notistackSnackbar }) {
                         <Chip
                           sx={{
                             backgroundColor: "lightgray",
+                            border: `1px solid ${themeContext.primary}`,
                             width: "fit-content",
                             fontWeight: "bold",
                             padding: 0,
