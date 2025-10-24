@@ -622,8 +622,8 @@ function NotesComponent({ notistackSnackbar }) {
       >
         {loading ? (
           <CircularProgress
-            sx={{ color: themeContext.themeIcons }}
-            color={themeContext.themeIcons}
+            sx={{ color: themeContext.primary }}
+            color={themeContext.primary}
           />
         ) : (filtersUsed.showOnlySelected ||
             filtersUsed.search != "" ||

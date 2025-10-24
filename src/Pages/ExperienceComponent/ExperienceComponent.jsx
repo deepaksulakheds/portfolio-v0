@@ -83,7 +83,7 @@ const educationData = [
     siteUrl: `http://jsssmiugpg.com/`,
   },
 ];
-function ExperienceComponent({ attachmentToggle, setSelectedMenu }) {
+function ExperienceComponent({ attachmentToggle }) {
   // Contexts
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
