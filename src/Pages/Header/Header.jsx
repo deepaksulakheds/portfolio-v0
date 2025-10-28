@@ -122,7 +122,7 @@ function Header({ attachmentToggle }) {
               if (secretContext.secretEnabled) {
                 attachmentToggle.toggleAttachment();
                 if (location.pathname?.toLowerCase()?.includes(`notes`)) {
-                  navigate("/experience", { replace: true });
+                  navigate("/", { replace: true });
                 }
               }
 
@@ -138,7 +138,7 @@ function Header({ attachmentToggle }) {
 
               e.preventDefault();
               if (location.pathname?.toLowerCase()?.includes(`notes`)) {
-                navigate("/experience", { replace: true });
+                navigate("/", { replace: true });
               }
               attachmentToggle.toggleAttachment("OFF");
               break;
