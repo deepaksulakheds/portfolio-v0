@@ -88,7 +88,6 @@ function ExperienceComponent({ attachmentToggle }) {
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
-  const { setNavigationMenus } = useNavigationMenusContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -127,20 +126,6 @@ function ExperienceComponent({ attachmentToggle }) {
 
             break;
 
-          case import.meta.env.VITE_APP_HOTKEY2_COMB:
-          case import.meta.env.VITE_APP_HOTKEY2:
-            if (
-              !attachmentToggle.isAttachmentEnabled ||
-              !secretContext.secretEnabled
-            )
-              return;
-
-            e.preventDefault();
-            attachmentToggle.toggleAttachment("OFF");
-            navigate("/experience", { replace: true });
-
-            break;
-
           default:
             return;
         }
@@ -162,24 +147,6 @@ function ExperienceComponent({ attachmentToggle }) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [secretContext.secretEnabled, attachmentToggle]);
-
-  useEffect(() => {
-    setNavigationMenus((prev) => {
-      const hasNotes = prev.some((item) => item.label === "Notes");
-      const shouldHaveNotes =
-        attachmentToggle.isAttachmentEnabled && secretContext.secretEnabled;
-
-      if (shouldHaveNotes && !hasNotes) {
-        // Add Notes only if not present
-        return [...prev, { label: "Notes", path: "/notes", icon: <Notes /> }];
-      } else if (!shouldHaveNotes && hasNotes) {
-        // Remove Notes only if present
-        return prev.filter((item) => item.label !== "Notes");
-      }
-      // No changes needed
-      return prev;
-    });
-  }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
 
   return (
     <Grid className="experienceContainer">

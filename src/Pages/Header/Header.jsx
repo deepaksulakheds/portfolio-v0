@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 import "./header.css";
 import { Grid } from "@mui/system";
 import { Chip, IconButton, Popover, Tooltip, Typography } from "@mui/material";
@@ -8,16 +8,17 @@ import {
   LinkedIn,
   LocationOn,
   Mail,
+  Notes,
   Refresh,
 } from "@mui/icons-material";
-
 import HeaderImageDialog from "./HeaderImageDialog";
-
 import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod";
 import MailDialog from "./MailDialog/MailDialog";
 import { withAttachmentToggle } from "./MailDialog/attachmentContext";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useSecretContext } from "../../Hooks/SecretContext";
+import { useNavigate } from "react-router-dom";
+import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 
 function Header({ attachmentToggle }) {
   const [mailDialogVisible, setMailDialogVisible] = useState(false);
@@ -59,11 +60,110 @@ function Header({ attachmentToggle }) {
       toolTip: "Gadag | KA",
     },
   ]);
-
+  const navigate = useNavigate();
+  const { setNavigationMenus } = useNavigationMenusContext();
   const secretContext = useSecretContext();
   const { themeContext, toggleTheme } = useThemeContext();
+  const shrtcutTimer = useRef(false);
 
   useEffect(() => {
+    setNavigationMenus((prev) => {
+      const hasNotes = prev.some((item) => item.label === "Notes");
+      const shouldHaveNotes =
+        attachmentToggle.isAttachmentEnabled && secretContext.secretEnabled;
+
+      if (shouldHaveNotes && !hasNotes) {
+        // Add Notes only if not present
+        return [...prev, { label: "Notes", path: "/notes", icon: <Notes /> }];
+      } else if (!shouldHaveNotes && hasNotes) {
+        // Remove Notes only if present
+        return prev.filter((item) => item.label !== "Notes");
+      }
+      // No changes needed
+      return prev;
+    });
+
+    if (attachmentToggle.isAttachmentEnabled) {
+      const handleKeyDown = (e) => {
+        try {
+          if (shrtcutTimer.current) return;
+          if (!secretContext.secretEnabled) return;
+
+          const userAgent = navigator?.userAgent?.toLowerCase() || "";
+          const platform = userAgent.includes("mac")
+            ? "mac"
+            : userAgent.includes("win")
+            ? "win"
+            : userAgent.includes("lin") || userAgent.includes("ubu")
+            ? "lin"
+            : false;
+
+          if (!platform) return;
+
+          const modifier =
+            platform == "mac" ? e.metaKey && "cmd" : e.ctrlKey && "ctrl";
+          if (!modifier) return;
+
+          const key = e.key.toLowerCase();
+          const hotkey = [
+            modifier,
+            e.altKey && "alt",
+            e.shiftKey && "shift",
+            key,
+          ]
+            .filter(Boolean)
+            .join("+");
+
+          switch (hotkey) {
+            case import.meta.env.VITE_APP_HOTKEY1_COMB:
+            case import.meta.env.VITE_APP_HOTKEY1:
+              e.preventDefault();
+
+              if (secretContext.secretEnabled) {
+                attachmentToggle.toggleAttachment();
+                if (location.pathname?.toLowerCase()?.includes(`notes`)) {
+                  navigate("/experience", { replace: true });
+                }
+              }
+
+              break;
+
+            case import.meta.env.VITE_APP_HOTKEY2_COMB:
+            case import.meta.env.VITE_APP_HOTKEY2:
+              if (
+                !attachmentToggle.isAttachmentEnabled ||
+                !secretContext.secretEnabled
+              )
+                return;
+
+              e.preventDefault();
+              if (location.pathname?.toLowerCase()?.includes(`notes`)) {
+                navigate("/experience", { replace: true });
+              }
+              attachmentToggle.toggleAttachment("OFF");
+              break;
+
+            default:
+              return;
+          }
+
+          shrtcutTimer.current = true;
+
+          setTimeout(() => {
+            shrtcutTimer.current = false;
+          }, 3000);
+        } catch (err) {
+          console.log("Error in shortcut", err);
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+
     let ageInterval;
     const isAgeExists = contacts.some((contact) => contact.name === "age");
 
