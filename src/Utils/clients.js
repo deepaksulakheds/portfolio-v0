@@ -78,7 +78,7 @@ const authLink = new ApolloLink((operation, forward) => {
     headers: {
       authorization: `Bearer ${encryptDataAES(
         JSON.stringify({
-          reqApp: "portfolio-v0",
+          reqApp: "portfolio-v1",
           expiresAt: moment().unix() + 2 * 60, // Valid for 2 mins
           passKey: import.meta.env.VITE_APP_AUTH_PASSKEY || "",
         })
