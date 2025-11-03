@@ -1,4 +1,4 @@
-import { GitHub, Preview } from "@mui/icons-material";
+import { GitHub } from "@mui/icons-material";
 import { Chip, Grid, IconButton, Typography } from "@mui/material";
 import { useState, memo } from "react";
 import "./projectComponent.css";
