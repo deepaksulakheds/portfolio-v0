@@ -12,7 +12,6 @@ import {
   AutoStories,
   BusinessCenter,
   Launch,
-  Notes,
   SchoolRounded,
   WorkspacePremium,
 } from "@mui/icons-material";
@@ -22,7 +21,6 @@ import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod";
 import { useSecretContext } from "../../Hooks/SecretContext";
 import { useEffect, useRef, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
-import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 import { useNavigate } from "react-router-dom";
 
 const experienceData = [

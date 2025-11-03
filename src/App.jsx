@@ -1,11 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import { lazy, Suspense } from "react";
+import { useThemeContext } from "./Hooks/ThemeContext";
+import { useEffect } from "react";
+import { Box, CircularProgress } from "@mui/material";
 
 // Pages
 const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
-
 const AboutComponent = lazy(() =>
   import("./Pages/AboutComponent/AboutComponent")
 );
@@ -17,10 +19,6 @@ const ProjectsComponent = lazy(() =>
 );
 const ResumeComponent = lazy(() => import("./Pages/Resume/Resume.jsx"));
 const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
-
-import { useThemeContext } from "./Hooks/ThemeContext";
-import { useEffect } from "react";
-import { Box, CircularProgress } from "@mui/material";
 
 function App() {
   const { themeContext, toggleTheme } = useThemeContext();

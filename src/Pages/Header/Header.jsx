@@ -68,7 +68,6 @@ function Header({ attachmentToggle }) {
   const shrtcutTimer = useRef(false);
 
   useEffect(() => {
-    console.log("shrtcutTimer.current", shrtcutTimer.current);
     const handleKeyDown = (e) => {
       try {
         if (shrtcutTimer.current) return;
@@ -101,7 +100,7 @@ function Header({ attachmentToggle }) {
           ]
             .filter(Boolean)
             .join("+");
-          console.log("hotkey", hotkey);
+          // console.log("hotkey", hotkey);
           switch (hotkey) {
             case import.meta.env.VITE_APP_HOTKEY1_COMB:
             case import.meta.env.VITE_APP_HOTKEY1:
