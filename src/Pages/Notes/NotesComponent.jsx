@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import "./NotesComponent.css";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import {
@@ -66,7 +66,6 @@ function NotesComponent({ notistackSnackbar }) {
   const [editNoteAnchorEl, setEditNoteAnchorEl] = useState(null);
   const [noteEditing, setNoteEditing] = useState(null);
   const [checkedNotes, setCheckedNotes] = useState([]);
-  const [notesToDisplay, setNotesToDisplay] = useState([]);
   const [copied, setCopied] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [allRespNotes, setAllRespNotes] = useState([]);
@@ -146,10 +145,6 @@ function NotesComponent({ notistackSnackbar }) {
     };
   }, []);
 
-  useEffect(() => {
-    applyFilters();
-  }, [filtersUsed, allRespNotes]);
-
   const fetchNotes = async () => {
     try {
       const resp = await getNotes();
@@ -204,7 +199,6 @@ function NotesComponent({ notistackSnackbar }) {
         setAllTags(countArr);
       } else {
         setAllRespNotes([]);
-        setNotesToDisplay([]);
         setAllTags([]);
       }
     } catch (err) {
@@ -213,7 +207,7 @@ function NotesComponent({ notistackSnackbar }) {
     }
   };
 
-  const applyFilters = () => {
+  const notesToDisplay = useMemo(() => {
     const { tags, search, showOnlySelected } = filtersUsed;
 
     let baseNotes = [...allRespNotes];
@@ -239,8 +233,8 @@ function NotesComponent({ notistackSnackbar }) {
       );
     }
 
-    setNotesToDisplay(baseNotes);
-  };
+    return baseNotes;
+  }, [filtersUsed, allRespNotes, checkedNotes]);
 
   const handleTagChange = (newTags) => {
     setFiltersUsed((prev) => ({
