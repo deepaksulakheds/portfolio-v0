@@ -26,6 +26,7 @@ import {
   EditNote,
   ClearOutlined,
   Refresh,
+  FilterListOff,
 } from "@mui/icons-material";
 import NotesDialog from "./NotesDialog.jsx";
 import moment from "moment-timezone";
@@ -222,11 +223,13 @@ function NotesComponent({ notistackSnackbar }) {
     }
 
     if (tags.length > 0) {
+      const selectedTagNames = tags.map((t) => t.tag);
+
       baseNotes = baseNotes.filter((note) => {
-        if (tags.includes("- Untagged -")) {
-          return tags.includes(note.tag) || !note.tag;
+        if (selectedTagNames.includes("- Untagged -")) {
+          return selectedTagNames.includes(note.tag) || !note.tag;
         }
-        return tags.includes(note.tag);
+        return selectedTagNames.includes(note.tag);
       });
     }
 
@@ -242,7 +245,7 @@ function NotesComponent({ notistackSnackbar }) {
   const handleTagChange = (newTags) => {
     setFiltersUsed((prev) => ({
       ...prev,
-      tags: newTags.map((t) => t.tag),
+      tags: newTags,
     }));
   };
 
@@ -256,7 +259,7 @@ function NotesComponent({ notistackSnackbar }) {
         ...prev,
         search: query,
       }));
-    }, 700);
+    }, 600);
   };
 
   const toggleDisplaySelected = () => {
@@ -374,6 +377,15 @@ function NotesComponent({ notistackSnackbar }) {
     setRestoreLoading(false);
   };
 
+  const handleClearAllFilters = () => {
+    setFiltersUsed({
+      tags: [],
+      search: "",
+      showOnlySelected: false,
+    });
+    setInternalSearch("");
+  };
+
   return (
     <>
       <Grid
@@ -387,6 +399,7 @@ function NotesComponent({ notistackSnackbar }) {
       >
         <Autocomplete
           // options={["- Untagged -", ...allTags]}
+          value={filtersUsed.tags || []}
           options={allTags}
           getOptionLabel={(option) => `${option.tag} (${option.count})`}
           multiple
@@ -610,6 +623,43 @@ function NotesComponent({ notistackSnackbar }) {
           disabled={checkedNotes.length === 0}
           label={`${checkedNotes.length} Selected / ${notesToDisplay.length} Dispalyed / ${allRespNotes.length}`}
           onClick={toggleDisplaySelected}
+        />
+        <Chip
+          label={<FilterListOff />}
+          onClick={handleClearAllFilters}
+          title="Clear All Filters"
+          sx={{
+            borderRadius: "5px",
+            cursor: "pointer",
+            padding: "2px",
+            color: themeContext.secondary,
+            ">*": {
+              color: themeContext.secondary,
+            },
+            "& .MuiChip-label": {
+              padding: "2px",
+            },
+            "&:hover": {
+              boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+              color: themeContext.primary,
+              ">*": {
+                color: themeContext.primary,
+              },
+            },
+            "&.Mui-disabled": {
+              cursor: "not-allowed",
+              color: themeContext.lightSecondary,
+              boxShadow: "none",
+              ">*": {
+                color: themeContext.lightSecondary,
+              },
+            },
+          }}
+          disabled={
+            !filtersUsed.showOnlySelected &&
+            filtersUsed.search === "" &&
+            filtersUsed.tags.length === 0
+          }
         />
       </Grid>
       <Grid
