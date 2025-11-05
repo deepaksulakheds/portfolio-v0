@@ -30,7 +30,7 @@ import {
 } from "@mui/icons-material";
 import NotesDialog from "./NotesDialog.jsx";
 import moment from "moment-timezone";
-import { Masonry } from "@mui/lab";
+import { Masonry } from "masonic";
 import EditNotesDialog from "./EditNotesDialog.jsx";
 import Linkify from "linkify-react";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
@@ -57,6 +57,283 @@ const tagColors = [
   "blueviolet",
   "white",
 ];
+
+const NoteItem = memo(
+  ({
+    note,
+    width,
+    themeContext,
+    checkedNotes,
+    handleCheck,
+    copied,
+    handleCopy,
+    handleEdit,
+    tagColorMap,
+  }) => {
+    return (
+      <Grid
+        sx={{
+          border: `1px solid ${
+            checkedNotes.includes(note.id)
+              ? themeContext.primary
+              : themeContext.lightPrimary
+          }`,
+          wordBreak: "break-word",
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "12px",
+          borderRadius: "10px",
+          width,
+        }}
+      >
+        <Grid
+          width={"95%"}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Linkify
+            options={{
+              target: "_blank",
+              rel: "noopener noreferrer",
+              render: ({ tagName, attributes, content }) => {
+                const { href, ...props } = attributes;
+                return (
+                  <a
+                    href={href}
+                    {...props}
+                    style={{
+                      textDecorationColor: themeContext.primary,
+                      color: themeContext.primary,
+                      wordBreak: "break-all",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {content}
+                  </a>
+                );
+              },
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "500",
+                whiteSpace: "pre-line",
+                color: themeContext.secondary,
+              }}
+            >
+              {note.note}
+            </Typography>
+          </Linkify>
+
+          <Typography
+            sx={{
+              fontSize: "12.5px",
+              fontWeight: "400",
+              color: themeContext.primary,
+              userSelect: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              marginTop: "20px",
+            }}
+            component={"div"}
+          >
+            {note.tag && (
+              <Chip
+                sx={{
+                  backgroundColor: tagColorMap[note.tag],
+                  border: `1px solid ${themeContext.primary}`,
+                  width: "fit-content",
+                  fontWeight: "bold",
+                  padding: 0,
+                  height: "fit-content",
+                  color: "#000",
+                }}
+                label={note.tag}
+              />
+            )}
+            {moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY")}
+          </Typography>
+        </Grid>
+
+        <Grid sx={{ display: "flex", gap: "10px", flexDirection: "column" }}>
+          <Checkbox
+            sx={{
+              alignSelf: "flex-start",
+              color: `inherit`,
+              margin: 0,
+              padding: "0.2rem",
+              ":hover": {
+                boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                color: themeContext.primary,
+              },
+              "&.Mui-checked": {
+                color: themeContext.primary,
+              },
+            }}
+            checked={checkedNotes.includes(note.id)}
+            onClick={() => handleCheck(note.id)}
+          />
+
+          {copied && copied === note.id ? (
+            <CheckCircle
+              sx={{
+                padding: "0.2rem",
+                color: themeContext.themeIcons,
+              }}
+            />
+          ) : (
+            <CopyAllRounded
+              sx={{
+                padding: "0.2rem",
+                cursor: "pointer",
+                color: themeContext.themeIcons,
+                borderRadius: "50%",
+                ":hover": {
+                  color: themeContext.primary,
+                  boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                },
+              }}
+              onClick={() => handleCopy(note)}
+            />
+          )}
+
+          <EditNote
+            sx={{
+              padding: "0.2rem",
+              cursor: "pointer",
+              color: themeContext.themeIcons,
+              borderRadius: "50%",
+              ":hover": {
+                color: themeContext.primary,
+                boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+              },
+            }}
+            onClick={(e) => handleEdit(note, e)}
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+);
+
+const DeletedNoteItem = memo(
+  ({ note, width, themeContext, selectedTrash, handleTrashCheck }) => {
+    return (
+      <Grid
+        sx={{
+          border: `1px solid ${themeContext.disabled}`,
+          wordBreak: "break-word",
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "12px",
+          borderRadius: "10px",
+          backgroundColor: themeContext.disabledBackground,
+          width: width, // use the width provided by Masonic
+        }}
+      >
+        <Grid
+          width={"95%"}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <Linkify
+            options={{
+              target: "_blank",
+              rel: "noopener noreferrer",
+              render: ({ tagName, attributes, content }) => {
+                const { href, ...props } = attributes;
+                return (
+                  <a
+                    href={href}
+                    {...props}
+                    style={{
+                      textDecorationColor: themeContext.disabled,
+                      color: themeContext.disabled,
+                      wordBreak: "break-all",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {content}
+                  </a>
+                );
+              },
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "500",
+                whiteSpace: "pre-line",
+                color: themeContext.disabled,
+              }}
+            >
+              {note.note}
+            </Typography>
+          </Linkify>
+          <Typography
+            sx={{
+              fontSize: "12.5px",
+              fontWeight: "400",
+              color: themeContext.disabled,
+              userSelect: "none",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+              marginTop: "20px",
+            }}
+            component={"div"}
+          >
+            {note.tag && (
+              <Chip
+                sx={{
+                  backgroundColor: "lightgray",
+                  border: `1px solid ${themeContext.primary}`,
+                  width: "fit-content",
+                  fontWeight: "bold",
+                  padding: 0,
+                  height: "fit-content",
+                  color: "black",
+                }}
+                label={note.tag}
+              />
+            )}
+            {moment.unix(note?.updatedAt).format("hh:mm A - DD/MMM/YY")}
+          </Typography>
+        </Grid>
+        <Grid
+          sx={{
+            display: "flex",
+            gap: "10px",
+            flexDirection: "column",
+          }}
+        >
+          <Checkbox
+            sx={{
+              alignSelf: "flex-start",
+              color: themeContext.disabled,
+              margin: 0,
+              padding: "0.2rem",
+              ":hover": {
+                boxShadow: `inset 0px 0px 10px 2px ${themeContext.disabled}`,
+              },
+              "&.Mui-checked": {
+                color: themeContext.disabled,
+              },
+            }}
+            checked={selectedTrash.includes(note.id)}
+            onClick={() => handleTrashCheck(note.id)}
+          />
+        </Grid>
+      </Grid>
+    );
+  }
+);
 
 function NotesComponent({ notistackSnackbar }) {
   // Contexts
@@ -150,14 +427,7 @@ function NotesComponent({ notistackSnackbar }) {
       const resp = await getNotes();
       // console.log("resp", resp.data.getAllNotes.response);
       if (resp?.data?.getAllNotes?.response?.length > 0) {
-        let urlNotes = resp?.data?.getAllNotes?.response?.map((note) => {
-          let isUrl = false;
-          try {
-            new URL(note?.note);
-            isUrl = true;
-          } catch (e) {}
-          return { ...note, isUrl };
-        });
+        let urlNotes = resp?.data?.getAllNotes?.response;
 
         const tags = [
           ...new Set(
@@ -233,7 +503,7 @@ function NotesComponent({ notistackSnackbar }) {
       );
     }
 
-    return baseNotes;
+    return baseNotes.length > 0 ? baseNotes : [];
   }, [filtersUsed, allRespNotes, checkedNotes]);
 
   const handleTagChange = (newTags) => {
@@ -686,156 +956,32 @@ function NotesComponent({ notistackSnackbar }) {
           </Typography>
         ) : (
           <Masonry
-            // sequential
-            columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
-            spacing={2}
-          >
-            {notesToDisplay.map((note, index) => (
-              <Grid
+            items={notesToDisplay || []}
+            columnGutter={16}
+            columnWidth={350}
+            overscanBy={8}
+            keyExtractor={(note) => note.id}
+            // Important to use key Masonry when filters change
+            key={JSON.stringify({
+              tags: filtersUsed.tags.map((t) => t.tag).sort(),
+              search: filtersUsed.search,
+              showOnlySelected: filtersUsed.showOnlySelected,
+            })}
+            render={({ index, data: note, width, ...restProps }) => (
+              <NoteItem
                 key={note.id}
-                sx={{
-                  border: `1px solid ${
-                    checkedNotes.includes(note.id)
-                      ? themeContext.primary
-                      : themeContext.lightPrimary
-                  }`,
-                  wordBreak: "break-word",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "12px",
-                  borderRadius: "10px",
-                }}
-              >
-                <Grid
-                  width={"95%"}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Linkify
-                    options={{
-                      target: "_blank",
-                      rel: "noopener noreferrer",
-                      render: ({ tagName, attributes, content }) => {
-                        const { href, ...props } = attributes;
-                        return (
-                          <a
-                            href={href}
-                            {...props}
-                            style={{
-                              textDecorationColor: themeContext.primary,
-                              color: themeContext.primary,
-                              wordBreak: "break-all",
-                              wordWrap: "break-word",
-                            }}
-                          >
-                            {content}
-                          </a>
-                        );
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontWeight: "500",
-                        whiteSpace: "pre-line",
-                        color: themeContext.secondary,
-                      }}
-                    >
-                      {note.note}
-                    </Typography>
-                  </Linkify>
-                  <Typography
-                    sx={{
-                      fontSize: "12.5px",
-                      fontWeight: "400",
-                      color: themeContext.primary,
-                      userSelect: "none",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "5px",
-                      marginTop: "20px",
-                    }}
-                    component={"div"}
-                  >
-                    {note.tag && (
-                      <Chip
-                        sx={{
-                          backgroundColor: tagColorMap[note.tag],
-                          border: `1px solid ${themeContext.primary}`,
-                          width: "fit-content",
-                          fontWeight: "bold",
-                          padding: 0,
-                          height: "fit-content",
-                          color: "#000",
-                        }}
-                        label={note.tag}
-                      />
-                    )}
-                    {moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY")}
-                  </Typography>
-                </Grid>
-                <Grid
-                  sx={{ display: "flex", gap: "10px", flexDirection: "column" }}
-                >
-                  <Checkbox
-                    sx={{
-                      alignSelf: "flex-start",
-                      color: `inherit`,
-                      margin: 0,
-                      padding: "0.2rem",
-                      ":hover": {
-                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                        color: themeContext.primary,
-                      },
-                      "&.Mui-checked": {
-                        color: themeContext.primary,
-                      },
-                    }}
-                    checked={checkedNotes.includes(note.id)}
-                    onClick={(e) => handleCheck(note.id)}
-                  />
-                  {copied && copied === note.id ? (
-                    <CheckCircle
-                      sx={{
-                        padding: "0.2rem",
-                        color: themeContext.themeIcons,
-                      }}
-                    />
-                  ) : (
-                    <CopyAllRounded
-                      sx={{
-                        padding: "0.2rem",
-                        cursor: "pointer",
-                        color: themeContext.themeIcons,
-                        borderRadius: "50%",
-                        ":hover": {
-                          color: themeContext.primary,
-                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                        },
-                      }}
-                      onClick={() => handleCopy(note)}
-                    />
-                  )}
-                  <EditNote
-                    sx={{
-                      padding: "0.2rem",
-                      cursor: "pointer",
-                      color: themeContext.themeIcons,
-                      borderRadius: "50%",
-                      ":hover": {
-                        color: themeContext.primary,
-                        boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                      },
-                    }}
-                    onClick={(e) => handleEdit(note, e)}
-                  />
-                </Grid>
-              </Grid>
-            ))}
-          </Masonry>
+                note={note}
+                width={width}
+                themeContext={themeContext}
+                checkedNotes={checkedNotes}
+                handleCheck={handleCheck}
+                copied={copied}
+                handleCopy={handleCopy}
+                handleEdit={handleEdit}
+                tagColorMap={tagColorMap}
+              />
+            )}
+          />
         )}
         <Grid sx={{ display: "flex", gap: "25px", flexDirection: "column" }}>
           <AddBox
@@ -946,123 +1092,21 @@ function NotesComponent({ notistackSnackbar }) {
               Trash ({deletedNotes.length})
             </Typography>
             <Masonry
-              // sequential
-              columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
-              spacing={2}
-            >
-              {deletedNotes.map((note) => (
-                <Grid
+              items={deletedNotes}
+              columnGutter={16}
+              columnWidth={350}
+              overscanBy={8}
+              key={JSON.stringify(deletedNotes?.map((n) => n.id).sort())}
+              render={({ index, data: note, width, ...restProps }) => (
+                <DeletedNoteItem
                   key={note.id}
-                  sx={{
-                    border: `1px solid ${themeContext.disabled}`,
-                    wordBreak: "break-word",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    backgroundColor: themeContext.disabledBackground,
-                  }}
-                >
-                  <Grid
-                    width={"95%"}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Linkify
-                      options={{
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                        render: ({ tagName, attributes, content }) => {
-                          const { href, ...props } = attributes;
-                          return (
-                            <a
-                              href={href}
-                              {...props}
-                              style={{
-                                textDecorationColor: themeContext.disabled,
-                                color: themeContext.disabled,
-                                wordBreak: "break-all",
-                                wordWrap: "break-word",
-                              }}
-                            >
-                              {content}
-                            </a>
-                          );
-                        },
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          fontWeight: "500",
-                          whiteSpace: "pre-line",
-                          color: themeContext.disabled,
-                        }}
-                      >
-                        {note.note}
-                      </Typography>
-                    </Linkify>
-                    <Typography
-                      sx={{
-                        fontSize: "12.5px",
-                        fontWeight: "400",
-                        color: themeContext.disabled,
-                        userSelect: "none",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "5px",
-                        marginTop: "20px",
-                      }}
-                      component={"div"}
-                    >
-                      {note.tag && (
-                        <Chip
-                          sx={{
-                            backgroundColor: "lightgray",
-                            border: `1px solid ${themeContext.primary}`,
-                            width: "fit-content",
-                            fontWeight: "bold",
-                            padding: 0,
-                            height: "fit-content",
-                            color: "black",
-                          }}
-                          label={note.tag}
-                        />
-                      )}
-                      {moment
-                        .unix(note?.updatedAt)
-                        .format("hh:mm A - DD/MMM/YY")}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    sx={{
-                      display: "flex",
-                      gap: "10px",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Checkbox
-                      sx={{
-                        alignSelf: "flex-start",
-                        color: themeContext.disabled,
-                        margin: 0,
-                        padding: "0.2rem",
-                        ":hover": {
-                          boxShadow: `inset 0px 0px 10px 2px ${themeContext.disabled}`,
-                        },
-                        "&.Mui-checked": {
-                          color: themeContext.disabled,
-                        },
-                      }}
-                      checked={selectedTrash.includes(note.id)}
-                      onClick={(e) => handleTrashCheck(note.id)}
-                    />
-                  </Grid>
-                </Grid>
-              ))}
-            </Masonry>
+                  note={note}
+                  themeContext={themeContext}
+                  selectedTrash={selectedTrash}
+                  handleTrashCheck={handleTrashCheck}
+                />
+              )}
+            />
           </Grid>
           <Grid sx={{ display: "flex", gap: "25px", flexDirection: "column" }}>
             {restoreLoading ? (
