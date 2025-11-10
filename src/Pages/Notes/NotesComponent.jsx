@@ -30,7 +30,7 @@ import {
 } from "@mui/icons-material";
 import NotesDialog from "./NotesDialog.jsx";
 import moment from "moment-timezone";
-import { Masonry } from "masonic";
+import { Masonry } from "@mui/lab";
 import EditNotesDialog from "./EditNotesDialog.jsx";
 import Linkify from "linkify-react";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
@@ -61,7 +61,6 @@ const tagColors = [
 const NoteItem = memo(
   ({
     note,
-    width,
     themeContext,
     checkedNotes,
     handleCheck,
@@ -83,7 +82,6 @@ const NoteItem = memo(
           justifyContent: "space-between",
           padding: "12px",
           borderRadius: "10px",
-          width,
         }}
       >
         <Grid
@@ -353,7 +351,6 @@ function NotesComponent({ notistackSnackbar }) {
     search: "",
     showOnlySelected: false,
   });
-  const [deletedNotes, setDeletedNotes] = useState([]);
   const [selectedTrash, setSelectedTrash] = useState([]);
   const [restoreLoading, setRestoreLoading] = useState(false);
 
@@ -428,6 +425,8 @@ function NotesComponent({ notistackSnackbar }) {
       // console.log("resp", resp.data.getAllNotes.response);
       if (resp?.data?.getAllNotes?.response?.length > 0) {
         let urlNotes = resp?.data?.getAllNotes?.response;
+        setAllRespNotes(urlNotes);
+        urlNotes = urlNotes.filter((note) => !note.isDeleted);
 
         const tags = [
           ...new Set(
@@ -438,10 +437,6 @@ function NotesComponent({ notistackSnackbar }) {
               .sort()
           ),
         ];
-
-        const deletedNotes = urlNotes.filter((note) => note.isDeleted);
-        urlNotes = urlNotes.filter((note) => !note.isDeleted);
-        setDeletedNotes(deletedNotes);
 
         const tempTags = {};
         for (const { tag } of urlNotes || []) {
@@ -465,7 +460,6 @@ function NotesComponent({ notistackSnackbar }) {
           return acc;
         }, {});
 
-        setAllRespNotes(urlNotes);
         setAllTags(countArr);
       } else {
         setAllRespNotes([]);
@@ -480,7 +474,7 @@ function NotesComponent({ notistackSnackbar }) {
   const notesToDisplay = useMemo(() => {
     const { tags, search, showOnlySelected } = filtersUsed;
 
-    let baseNotes = [...allRespNotes];
+    let baseNotes = allRespNotes.filter((note) => !note.isDeleted);
 
     if (showOnlySelected && checkedNotes.length > 0) {
       baseNotes = baseNotes.filter((note) => checkedNotes.includes(note.id));
@@ -505,6 +499,12 @@ function NotesComponent({ notistackSnackbar }) {
 
     return baseNotes.length > 0 ? baseNotes : [];
   }, [filtersUsed, allRespNotes, checkedNotes]);
+
+  const deletedNotes = useMemo(() => {
+    return allRespNotes && allRespNotes?.length > 0
+      ? allRespNotes.filter((note) => note.isDeleted)
+      : [];
+  }, [allRespNotes]);
 
   const handleTagChange = (newTags) => {
     setFiltersUsed((prev) => ({
@@ -956,22 +956,14 @@ function NotesComponent({ notistackSnackbar }) {
           </Typography>
         ) : (
           <Masonry
-            items={notesToDisplay || []}
-            columnGutter={16}
-            columnWidth={350}
-            overscanBy={8}
-            keyExtractor={(note) => note.id}
-            // Important to use key Masonry when filters change
-            key={JSON.stringify({
-              tags: filtersUsed.tags.map((t) => t.tag).sort(),
-              search: filtersUsed.search,
-              showOnlySelected: filtersUsed.showOnlySelected,
-            })}
-            render={({ index, data: note, width, ...restProps }) => (
+            // sequential
+            columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
+            spacing={2}
+          >
+            {notesToDisplay.map((note, index) => (
               <NoteItem
                 key={note.id}
                 note={note}
-                width={width}
                 themeContext={themeContext}
                 checkedNotes={checkedNotes}
                 handleCheck={handleCheck}
@@ -980,8 +972,8 @@ function NotesComponent({ notistackSnackbar }) {
                 handleEdit={handleEdit}
                 tagColorMap={tagColorMap}
               />
-            )}
-          />
+            ))}
+          </Masonry>
         )}
         <Grid sx={{ display: "flex", gap: "25px", flexDirection: "column" }}>
           <AddBox
@@ -1092,12 +1084,11 @@ function NotesComponent({ notistackSnackbar }) {
               Trash ({deletedNotes.length})
             </Typography>
             <Masonry
-              items={deletedNotes}
-              columnGutter={16}
-              columnWidth={350}
-              overscanBy={8}
-              key={JSON.stringify(deletedNotes?.map((n) => n.id).sort())}
-              render={({ index, data: note, width, ...restProps }) => (
+              // sequential
+              columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
+              spacing={2}
+            >
+              {deletedNotes.map((note, index) => (
                 <DeletedNoteItem
                   key={note.id}
                   note={note}
@@ -1105,8 +1096,8 @@ function NotesComponent({ notistackSnackbar }) {
                   selectedTrash={selectedTrash}
                   handleTrashCheck={handleTrashCheck}
                 />
-              )}
-            />
+              ))}
+            </Masonry>
           </Grid>
           <Grid sx={{ display: "flex", gap: "25px", flexDirection: "column" }}>
             {restoreLoading ? (
