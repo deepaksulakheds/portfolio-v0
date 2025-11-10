@@ -337,6 +337,7 @@ function NotesComponent({ notistackSnackbar }) {
   // Contexts
   const { themeContext } = useThemeContext();
 
+  // States
   const [noteAnchorEl, setNoteAnchorEl] = useState(null);
   const [editNoteAnchorEl, setEditNoteAnchorEl] = useState(null);
   const [noteEditing, setNoteEditing] = useState(null);
@@ -424,31 +425,33 @@ function NotesComponent({ notistackSnackbar }) {
       const resp = await getNotes();
       // console.log("resp", resp.data.getAllNotes.response);
       if (resp?.data?.getAllNotes?.response?.length > 0) {
-        let urlNotes = resp?.data?.getAllNotes?.response;
-        setAllRespNotes(urlNotes);
-        urlNotes = urlNotes.filter((note) => !note.isDeleted);
+        let respNotes = resp?.data?.getAllNotes?.response;
+        setAllRespNotes(respNotes);
+        respNotes = respNotes.filter((note) => !note.isDeleted);
 
         const tags = [
           ...new Set(
-            urlNotes
+            respNotes
               ?.map((note) => note.tag)
-              .flat()
               .filter((tag) => tag)
+              .flat()
               .sort()
           ),
         ];
 
         const tempTags = {};
-        for (const { tag } of urlNotes || []) {
+        for (const { tag } of respNotes || []) {
           const key = tag?.trim() || "- Untagged -";
           tempTags[key] = (tempTags[key] || 0) + 1;
         }
 
-        const countArr = Object.entries(tempTags)?.map(([tag, count]) => ({
-          tag,
-          count,
-        }));
-        countArr.sort((a, b) => {
+        const tagWitCountArr = Object.entries(tempTags)?.map(
+          ([tag, count]) => ({
+            tag,
+            count,
+          })
+        );
+        tagWitCountArr.sort((a, b) => {
           if (a.tag === "- Untagged -") return -1;
           if (b.tag === "- Untagged -") return 1;
           return a.tag.localeCompare(b.tag);
@@ -460,10 +463,7 @@ function NotesComponent({ notistackSnackbar }) {
           return acc;
         }, {});
 
-        setAllTags(countArr);
-      } else {
-        setAllRespNotes([]);
-        setAllTags([]);
+        setAllTags(tagWitCountArr);
       }
     } catch (err) {
       console.log("err", err);
