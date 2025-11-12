@@ -1,11 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useThemeContext } from "./Hooks/ThemeContext";
-import { useEffect } from "react";
 import { Box, CircularProgress } from "@mui/material";
 
-// Pages
+// Pages (lazy-loaded)
 const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
 const AboutComponent = lazy(() =>
@@ -21,7 +20,7 @@ const ResumeComponent = lazy(() => import("./Pages/Resume/Resume.jsx"));
 const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
 
 function App() {
-  const { themeContext, toggleTheme } = useThemeContext();
+  const { themeContext } = useThemeContext();
 
   useEffect(() => {
     if (document) {
@@ -80,6 +79,7 @@ function App() {
             }
           />
 
+          {/* Catch-all */}
           <Route path="*" element={<NotFound />} />
         </Route>
 

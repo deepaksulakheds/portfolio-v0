@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, memo } from "react";
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import { useEffect, useMemo, useState, memo, Suspense } from "react";
+import { Box, CircularProgress, Grid, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./SideBar.jsx";
@@ -114,7 +114,23 @@ function Layout() {
       >
         <Header />
         <Grid className="Outlet" id="Outlet" sx={{ padding: "20px" }}>
-          <Outlet />
+          <Suspense
+            fallback={
+              <Box
+                sx={{
+                  flex: 1,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: themeContext.background,
+                }}
+              >
+                <CircularProgress sx={{ color: themeContext.primary }} />
+              </Box>
+            }
+          >
+            <Outlet />
+          </Suspense>
         </Grid>
       </Box>
     </Box>
