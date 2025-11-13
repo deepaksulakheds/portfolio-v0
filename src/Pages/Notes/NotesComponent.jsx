@@ -72,7 +72,7 @@ const NoteItem = memo(
     return (
       <Grid
         sx={{
-          border: `1px solid ${
+          border: `2px solid ${
             checkedNotes.includes(note.id)
               ? themeContext.primary
               : themeContext.lightPrimary
