@@ -1,5 +1,11 @@
 import { useEffect, useMemo, useState, memo, Suspense } from "react";
-import { Box, CircularProgress, Grid, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "./SideBar.jsx";
@@ -44,10 +50,13 @@ function Layout() {
   }, [currentPageLabel]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsCollapsed(true);
-    }, 2000);
-    return () => clearTimeout(timeout);
+    if (window.innerWidth >= 600) {
+      // sm breakpoint
+      const timeout = setTimeout(() => {
+        setIsCollapsed(true);
+      }, 2000);
+      return () => clearTimeout(timeout);
+    }
   }, []);
 
   return (
