@@ -1,4 +1,4 @@
-import { useEffect, useState, memo, useRef } from "react";
+import { useEffect, useState, memo, useRef, useMemo } from "react";
 import "./header.css";
 import { Grid } from "@mui/system";
 import { Chip, IconButton, Popover, Tooltip, Typography } from "@mui/material";
@@ -67,57 +67,79 @@ function Header({ attachmentToggle }) {
   const { themeContext, toggleTheme } = useThemeContext();
   const shrtcutTimer = useRef(false);
 
+  // Platform Detection and Hotkey String Generator
+  const { userPlatform, getHotkeyStringFromEvent } = useMemo(() => {
+    const userAgent = navigator?.userAgent?.toLowerCase() || "";
+
+    let currentPlatform = null;
+    if (userAgent.includes("mac")) {
+      currentPlatform = "mac";
+    } else if (userAgent.includes("win")) {
+      currentPlatform = "win";
+    } else if (userAgent.includes("lin") || userAgent.includes("ubu")) {
+      currentPlatform = "lin";
+    }
+
+    if (!currentPlatform) {
+      return {
+        userPlatform: null,
+        getHotkeyStringFromEvent: () => null,
+      };
+    }
+
+    return {
+      userPlatform: currentPlatform,
+      getHotkeyStringFromEvent: (e) => {
+        const modifier =
+          currentPlatform == "mac"
+            ? (e.metaKey && "cmd") || (e.ctrlKey && "ctrl")
+            : e.ctrlKey && "ctrl";
+
+        return [
+          modifier,
+          e.altKey && "alt",
+          e.shiftKey && "shift",
+          e.key.toLowerCase(),
+        ]
+          .filter(Boolean)
+          .join("+");
+      },
+    };
+  }, []);
+
   useEffect(() => {
+    // Shortcut Key Handler part
     const handleKeyDown = (e) => {
       try {
         if (shrtcutTimer.current) return;
-        if (!secretContext.secretEnabled) return;
 
-        const userAgent = navigator?.userAgent?.toLowerCase() || "";
-        const platform = userAgent.includes("mac")
-          ? "mac"
-          : userAgent.includes("win")
-          ? "win"
-          : userAgent.includes("lin") || userAgent.includes("ubu")
-          ? "lin"
-          : false;
+        const hotkey = getHotkeyStringFromEvent(e);
 
-        const modifier =
-          platform == "mac" ? e.metaKey && "cmd" : e.ctrlKey && "ctrl";
-
-        if (
-          !shrtcutTimer.current &&
-          secretContext.secretEnabled &&
-          platform &&
-          modifier
-        ) {
-          const key = e.key.toLowerCase();
-          const hotkey = [
-            modifier,
-            e.altKey && "alt",
-            e.shiftKey && "shift",
-            key,
-          ]
-            .filter(Boolean)
-            .join("+");
-          // console.log("hotkey", hotkey);
+        if (!shrtcutTimer.current && userPlatform) {
+          // console.log("Hotkey pressed:", hotkey);
           switch (hotkey) {
             case import.meta.env.VITE_APP_HOTKEY1_COMB:
             case import.meta.env.VITE_APP_HOTKEY1:
               e.preventDefault();
 
-              if (secretContext.secretEnabled) {
+              if (
+                secretContext.secretEnabled &&
+                !attachmentToggle.isAttachmentEnabled &&
+                location.pathname?.toLowerCase()?.includes(`experience`)
+              ) {
                 attachmentToggle.toggleAttachment();
+              } else if (attachmentToggle.isAttachmentEnabled) {
+                attachmentToggle.toggleAttachment();
+
                 if (location.pathname?.toLowerCase()?.includes(`notes`)) {
                   navigate("/", { replace: true });
                 }
-                shrtcutTimer.current = true;
 
+                shrtcutTimer.current = true;
                 setTimeout(() => {
                   shrtcutTimer.current = false;
                 }, 3000);
               }
-
               break;
 
             case import.meta.env.VITE_APP_HOTKEY2_COMB:
@@ -125,13 +147,39 @@ function Header({ attachmentToggle }) {
               e.preventDefault();
 
               if (
-                attachmentToggle.isAttachmentEnabled &&
+                attachmentToggle.isAttachmentEnabled ||
                 secretContext.secretEnabled
               ) {
                 if (location.pathname?.toLowerCase()?.includes(`notes`)) {
                   navigate("/", { replace: true });
                 }
+                secretContext.secretEnabled && secretContext.toggleSecret();
                 attachmentToggle.toggleAttachment("OFF");
+                shrtcutTimer.current = true;
+
+                setTimeout(() => {
+                  shrtcutTimer.current = false;
+                }, 3000);
+              }
+              break;
+
+            case import.meta.env.VITE_APP_HOTKEY4_COMB:
+            case import.meta.env.VITE_APP_HOTKEY4:
+              e.preventDefault();
+              if (
+                !secretContext.secretEnabled &&
+                location.pathname?.includes(`experience`)
+              ) {
+                secretContext.toggleSecret();
+              } else if (secretContext.secretEnabled) {
+                secretContext.toggleSecret();
+                if (attachmentToggle.isAttachmentEnabled) {
+                  attachmentToggle.toggleAttachment("OFF");
+                }
+                if (location.pathname?.toLowerCase()?.includes(`notes`)) {
+                  navigate("/", { replace: true });
+                }
+
                 shrtcutTimer.current = true;
 
                 setTimeout(() => {
@@ -145,14 +193,15 @@ function Header({ attachmentToggle }) {
           }
         }
       } catch (err) {
-        console.log("Error in shortcut", err);
+        console.log("Error in shortcut handler", err);
       }
     };
 
-    if (attachmentToggle.isAttachmentEnabled) {
+    if (userPlatform) {
       document.addEventListener("keydown", handleKeyDown);
     }
 
+    // Navigation Menu Update part
     setNavigationMenus((prev) => {
       const hasNotes = prev.some((item) => item.label === "Notes");
       const shouldHaveNotes =
@@ -169,6 +218,7 @@ function Header({ attachmentToggle }) {
       return prev;
     });
 
+    // Age Update part
     const isAgeExists = contacts.some((contact) => contact.name === "age");
 
     if (
@@ -209,7 +259,11 @@ function Header({ attachmentToggle }) {
       document.removeEventListener("keydown", handleKeyDown);
       if (ageInterval) clearInterval(ageInterval);
     };
-  }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
+  }, [
+    attachmentToggle.isAttachmentEnabled,
+    secretContext.secretEnabled,
+    // location.pathname, //not necessary
+  ]);
 
   const handleSecretToggle = () => {
     if (attachmentToggle.isAttachmentEnabled) {
