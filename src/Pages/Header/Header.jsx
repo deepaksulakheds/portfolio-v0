@@ -19,54 +19,58 @@ import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useSecretContext } from "../../Hooks/SecretContext";
 import { useNavigate } from "react-router-dom";
 import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
+
 let ageInterval;
+
+const AGE_BIRTH_DATE = `22-jun-1999`;
+const BASE_CONTACTS = [
+  {
+    name: "Github",
+    icon: <GitHub fontSize="medium" />,
+    ref: "//github.com/deepaksulakheds",
+    toolTip: "Deepak Sulakhe | Github",
+  },
+  {
+    name: "LinkedIn",
+    icon: <LinkedIn fontSize="medium" />,
+    ref: "//www.linkedin.com/in/deepaksulakheds/",
+    toolTip: "Deepak Sulakhe | LinkedIn",
+  },
+  {
+    name: "call",
+    icon: <Call fontSize="medium" />,
+    ref: null,
+    toolTip: "Call",
+  },
+  {
+    name: "mail",
+    icon: <Mail fontSize="medium" />,
+    // ref: "mailto:deepaksulakheds@gmail.com",
+    onclick: (e) => setMailDialogVisible(!mailDialogVisible),
+    toolTip: "Contact Me",
+  },
+  {
+    name: "location",
+    icon: <LocationOn fontSize="medium" />,
+    ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
+    toolTip: "Gadag | KA",
+  },
+];
 
 function Header({ attachmentToggle }) {
   const [mailDialogVisible, setMailDialogVisible] = useState(false);
   const [imageDialogVisible, setImageDialogVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [age, setAge] = useState(
-    getFormattedTimePeriod(`22-jun-1999`, `present`, `YMDhms`)
+    getFormattedTimePeriod(AGE_BIRTH_DATE, `present`, `YMDhms`)
   );
-  const [contacts, setContacts] = useState([
-    {
-      name: "Github",
-      icon: <GitHub fontSize="medium" />,
-      ref: "//github.com/deepaksulakheds",
-      toolTip: "Deepak Sulakhe | Github",
-    },
-    {
-      name: "LinkedIn",
-      icon: <LinkedIn fontSize="medium" />,
-      ref: "//www.linkedin.com/in/deepaksulakheds/",
-      toolTip: "Deepak Sulakhe | LinkedIn",
-    },
-    {
-      name: "call",
-      icon: <Call fontSize="medium" />,
-      ref: null,
-      toolTip: "Call",
-    },
-    {
-      name: "mail",
-      icon: <Mail fontSize="medium" />,
-      // ref: "mailto:deepaksulakheds@gmail.com",
-      onclick: (e) => setMailDialogVisible(!mailDialogVisible),
-      toolTip: "Contact Me",
-    },
-    {
-      name: "location",
-      icon: <LocationOn fontSize="medium" />,
-      ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
-      toolTip: "Gadag | KA",
-    },
-  ]);
   const navigate = useNavigate();
   const { setNavigationMenus } = useNavigationMenusContext();
   const secretContext = useSecretContext();
-  const { themeContext, toggleTheme } = useThemeContext();
+  const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
 
+  // -------------- Memos ----------------
   // Platform Detection and Hotkey String Generator
   const { userPlatform, getHotkeyStringFromEvent } = useMemo(() => {
     const userAgent = navigator?.userAgent?.toLowerCase() || "";
@@ -107,6 +111,28 @@ function Header({ attachmentToggle }) {
     };
   }, []);
 
+  const contacts = useMemo(() => {
+    if (secretContext.secretEnabled && attachmentToggle.isAttachmentEnabled) {
+      return [
+        ...BASE_CONTACTS,
+        {
+          name: "age",
+          icon: <Refresh fontSize="medium" />,
+          onclick: (e) =>
+            setAnchorEl((prev) => (prev ? null : e.currentTarget)),
+          toolTip: null,
+          style: {
+            boxShadow: `inset 0px 0px 10px 2px var(--theme-color)`,
+            color: `var(--theme-color)`,
+          },
+        },
+      ];
+    }
+
+    return BASE_CONTACTS;
+  }, [secretContext.secretEnabled, attachmentToggle.isAttachmentEnabled]);
+
+  // --------------Effect Hooks----------------
   useEffect(() => {
     // Shortcut Key Handler part
     const handleKeyDown = (e) => {
@@ -208,62 +234,28 @@ function Header({ attachmentToggle }) {
         attachmentToggle.isAttachmentEnabled && secretContext.secretEnabled;
 
       if (shouldHaveNotes && !hasNotes) {
-        // Add Notes only if not present
         return [...prev, { label: "Notes", path: "/notes", icon: <Notes /> }];
       } else if (!shouldHaveNotes && hasNotes) {
-        // Remove Notes only if present
         return prev.filter((item) => item.label !== "Notes");
       }
-      // No changes needed
+
       return prev;
     });
 
     // Age Update part
-    const isAgeExists = contacts.some((contact) => contact.name === "age");
-
-    if (
-      secretContext.secretEnabled &&
-      attachmentToggle.isAttachmentEnabled &&
-      !isAgeExists
-    ) {
-      setContacts((prevContacts) => [
-        ...prevContacts,
-        {
-          name: "age",
-          icon: <Refresh fontSize="medium" />,
-          onclick: (e) =>
-            setAnchorEl((prev) => (prev ? null : e.currentTarget)),
-          toolTip: null,
-          style: {
-            boxShadow: `inset 0px 0px 10px 2px var(--theme-color)`,
-            color: `var(--theme-color)`,
-          },
-        },
-      ]);
-
+    if (secretContext.secretEnabled && attachmentToggle.isAttachmentEnabled) {
       ageInterval = setInterval(() => {
-        setAge(getFormattedTimePeriod(`22-jun-1999`, `present`, `YMDhms`));
+        setAge(getFormattedTimePeriod(AGE_BIRTH_DATE, `present`, `YMDhms`));
       }, 1000);
-    } else if (
-      (!secretContext.secretEnabled || !attachmentToggle.isAttachmentEnabled) &&
-      isAgeExists
-    ) {
-      setContacts((prevContacts) =>
-        prevContacts.filter((contact) => contact.name !== "age")
-      );
-
-      clearInterval(ageInterval);
+    } else {
+      ageInterval && clearInterval(ageInterval);
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       if (ageInterval) clearInterval(ageInterval);
     };
-  }, [
-    attachmentToggle.isAttachmentEnabled,
-    secretContext.secretEnabled,
-    // location.pathname, //not necessary
-  ]);
+  }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
 
   const handleSecretToggle = () => {
     if (attachmentToggle.isAttachmentEnabled) {
