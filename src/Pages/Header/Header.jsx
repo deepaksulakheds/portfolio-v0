@@ -23,6 +23,32 @@ import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 let ageInterval;
 
 const AGE_BIRTH_DATE = `22-jun-1999`;
+const INIT_CONTACS = [
+  {
+    name: "Github",
+    icon: <GitHub fontSize="medium" />,
+    ref: "//github.com/deepaksulakheds",
+    toolTip: "Deepak Sulakhe | Github",
+  },
+  {
+    name: "LinkedIn",
+    icon: <LinkedIn fontSize="medium" />,
+    ref: "//www.linkedin.com/in/deepaksulakheds/",
+    toolTip: "Deepak Sulakhe | LinkedIn",
+  },
+  {
+    name: "call",
+    icon: <Call fontSize="medium" />,
+    ref: null,
+    toolTip: "Call",
+  },
+  {
+    name: "location",
+    icon: <LocationOn fontSize="medium" />,
+    ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
+    toolTip: "Gadag | KA",
+  },
+];
 
 function Header({ attachmentToggle }) {
   const [mailDialogVisible, setMailDialogVisible] = useState(false);
@@ -79,39 +105,13 @@ function Header({ attachmentToggle }) {
   }, []);
 
   const contacts = useMemo(() => {
-    const BASE_CONTACTS = [
-      {
-        name: "Github",
-        icon: <GitHub fontSize="medium" />,
-        ref: "//github.com/deepaksulakheds",
-        toolTip: "Deepak Sulakhe | Github",
-      },
-      {
-        name: "LinkedIn",
-        icon: <LinkedIn fontSize="medium" />,
-        ref: "//www.linkedin.com/in/deepaksulakheds/",
-        toolTip: "Deepak Sulakhe | LinkedIn",
-      },
-      {
-        name: "call",
-        icon: <Call fontSize="medium" />,
-        ref: null,
-        toolTip: "Call",
-      },
-      {
-        name: "mail",
-        icon: <Mail fontSize="medium" />,
-        // ref: "mailto:deepaksulakheds@gmail.com",
-        onclick: (e) => setMailDialogVisible(!mailDialogVisible),
-        toolTip: "Contact Me",
-      },
-      {
-        name: "location",
-        icon: <LocationOn fontSize="medium" />,
-        ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
-        toolTip: "Gadag | KA",
-      },
-    ];
+    const BASE_CONTACTS = [...INIT_CONTACS];
+    BASE_CONTACTS.splice(3, 0, {
+      name: "mail",
+      icon: <Mail fontSize="medium" />,
+      onclick: () => setMailDialogVisible((prev) => !prev),
+      toolTip: "Contact Me",
+    });
 
     if (secretContext.secretEnabled && attachmentToggle.isAttachmentEnabled) {
       return [
