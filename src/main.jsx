@@ -1,4 +1,3 @@
-import { BrowserRouter } from "react-router-dom";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -21,9 +20,7 @@ createRoot(document.getElementById("root")).render(
             <AttachmentProvider>
               <NotistackSnackbarProvider>
                 <StrictMode>
-                  <BrowserRouter basename="/portfolio-v1/">
-                    <App />
-                  </BrowserRouter>
+                  <App />
                 </StrictMode>
               </NotistackSnackbarProvider>
             </AttachmentProvider>

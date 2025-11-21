@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import { lazy, Suspense, useEffect } from "react";
 import { useThemeContext } from "./Hooks/ThemeContext";
@@ -41,53 +41,100 @@ function App() {
     }
   }, [themeContext]);
 
-  return (
-    <Suspense
-      fallback={
-        <Box
-          sx={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: themeContext.background || "#fff",
-          }}
-        >
-          <CircularProgress
-            disableShrink
-            sx={{
-              color: themeContext.primary,
-            }}
-          />
-        </Box>
-      }
+  // Suspense fallback
+  const fallback = (
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: themeContext.background || "#fff",
+      }}
     >
-      <Routes>
-        {/* Main and matching Routes */}
-        <Route path="/*" element={<Layout />}>
-          <Route index element={<AboutComponent />} />
-          <Route path="experience" element={<ExperienceComponent />} />
-          <Route path="projects" element={<ProjectsComponent />} />
-          <Route path="resume" element={<ResumeComponent />} />
-          <Route
-            path="notes"
-            element={
-              <ProtectedRoute
-                fallback={<NotFound />}
-                element={<NotesComponent />}
-              />
-            }
-          />
-
-          {/* Catch-all */}
-          <Route path="*" element={<NotFound />} />
-        </Route>
-
-        {/* Add outside to remove layout also*/}
-        {/* <Route path="*" element={<NotFound />} /> */}
-      </Routes>
-    </Suspense>
+      <CircularProgress disableShrink sx={{ color: themeContext.primary }} />
+    </Box>
   );
+
+  const router = createBrowserRouter(
+    [
+      {
+        path: "/",
+        element: (
+          <Suspense fallback={fallback}>
+            <Layout />
+          </Suspense>
+        ),
+        errorElement: <NotFound />,
+        children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={fallback}>
+                <AboutComponent />
+              </Suspense>
+            ),
+          },
+          {
+            path: "experience",
+            element: (
+              <Suspense fallback={fallback}>
+                <ExperienceComponent />
+              </Suspense>
+            ),
+          },
+          {
+            path: "projects",
+            element: (
+              <Suspense fallback={fallback}>
+                <ProjectsComponent />
+              </Suspense>
+            ),
+          },
+          {
+            path: "resume",
+            element: (
+              <Suspense fallback={fallback}>
+                <ResumeComponent />
+              </Suspense>
+            ),
+          },
+          {
+            path: "notes",
+            element: (
+              <Suspense fallback={fallback}>
+                <ProtectedRoute
+                  fallback={<NotFound />}
+                  element={<NotesComponent />}
+                />
+              </Suspense>
+            ),
+          },
+          {
+            path: "*",
+            element: (
+              <Suspense fallback={fallback}>
+                <NotFound />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: "/*/*",
+        element: (
+          <Suspense fallback={fallback}>
+            <NotFound />
+          </Suspense>
+        ),
+      },
+    ],
+    {
+      basename: import.meta.env.VITE_APP_BASE_URL,
+    }
+  );
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
