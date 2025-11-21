@@ -23,41 +23,42 @@ import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 let ageInterval;
 
 const AGE_BIRTH_DATE = `22-jun-1999`;
-const BASE_CONTACTS = [
-  {
-    name: "Github",
-    icon: <GitHub fontSize="medium" />,
-    ref: "//github.com/deepaksulakheds",
-    toolTip: "Deepak Sulakhe | Github",
-  },
-  {
-    name: "LinkedIn",
-    icon: <LinkedIn fontSize="medium" />,
-    ref: "//www.linkedin.com/in/deepaksulakheds/",
-    toolTip: "Deepak Sulakhe | LinkedIn",
-  },
-  {
-    name: "call",
-    icon: <Call fontSize="medium" />,
-    ref: null,
-    toolTip: "Call",
-  },
-  {
-    name: "mail",
-    icon: <Mail fontSize="medium" />,
-    // ref: "mailto:deepaksulakheds@gmail.com",
-    onclick: (e) => setMailDialogVisible(!mailDialogVisible),
-    toolTip: "Contact Me",
-  },
-  {
-    name: "location",
-    icon: <LocationOn fontSize="medium" />,
-    ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
-    toolTip: "Gadag | KA",
-  },
-];
 
 function Header({ attachmentToggle }) {
+  const BASE_CONTACTS = [
+    {
+      name: "Github",
+      icon: <GitHub fontSize="medium" />,
+      ref: "//github.com/deepaksulakheds",
+      toolTip: "Deepak Sulakhe | Github",
+    },
+    {
+      name: "LinkedIn",
+      icon: <LinkedIn fontSize="medium" />,
+      ref: "//www.linkedin.com/in/deepaksulakheds/",
+      toolTip: "Deepak Sulakhe | LinkedIn",
+    },
+    {
+      name: "call",
+      icon: <Call fontSize="medium" />,
+      ref: null,
+      toolTip: "Call",
+    },
+    {
+      name: "mail",
+      icon: <Mail fontSize="medium" />,
+      // ref: "mailto:deepaksulakheds@gmail.com",
+      onclick: (e) => setMailDialogVisible(!mailDialogVisible),
+      toolTip: "Contact Me",
+    },
+    {
+      name: "location",
+      icon: <LocationOn fontSize="medium" />,
+      ref: "//www.google.com/maps/place/Gadag-Betageri,+Karnataka",
+      toolTip: "Gadag | KA",
+    },
+  ];
+
   const [mailDialogVisible, setMailDialogVisible] = useState(false);
   const [imageDialogVisible, setImageDialogVisible] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
