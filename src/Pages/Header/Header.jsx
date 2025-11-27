@@ -76,6 +76,7 @@ function Header({ attachmentToggle }) {
     } else if (userAgent.includes("lin") || userAgent.includes("ubu")) {
       currentPlatform = "lin";
     }
+    console.log("currentPlatform", currentPlatform);
 
     if (!currentPlatform) {
       return {

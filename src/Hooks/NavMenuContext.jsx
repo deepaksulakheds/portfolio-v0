@@ -8,6 +8,39 @@ const navigationMenus = [
   { label: "Resume", path: "/resume", icon: <Badge /> },
 ];
 
+// // // Use below structure for child navigation(routes need to be defined manually)
+
+// const navigationMenus = [
+//   {
+//     label: "Profile",
+//     path: "/",
+//     icon: <Person />,
+//   },
+//   {
+//     label: "Experience",
+//     path: "/experience",
+//     icon: <WorkHistory />,
+//     children: [
+//       { label: "Work", path: "/experience/work", icon: <WorkHistory /> },
+//       {
+//         label: "Education",
+//         path: "/experience/education",
+//         icon: <WorkHistory />,
+//       },
+//     ],
+//   },
+//   {
+//     label: "Projects",
+//     path: "/projects",
+//     icon: <Workspaces />,
+//     children: [
+//       { label: "Web Apps", path: "/projects/web", icon: <Workspaces /> },
+//       { label: "Mobile Apps", path: "/projects/mobile", icon: <Workspaces /> },
+//     ],
+//   },
+//   { label: "Resume", path: "/resume", icon: <Badge /> },
+// ];
+
 const NavContext = createContext();
 
 export const NavContextProvider = ({ children }) => {

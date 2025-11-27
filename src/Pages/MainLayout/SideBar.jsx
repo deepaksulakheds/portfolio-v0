@@ -1,4 +1,3 @@
-// Sidebar.jsx
 import {
   Drawer,
   List,
@@ -7,16 +6,21 @@ import {
   Box,
   Tooltip,
   Grid,
+  Collapse,
+  MenuItem as MuiMenuItem,
+  Popover,
 } from "@mui/material";
 import {
   ChevronLeft,
   ChevronRight,
   NightsStay,
   LightMode,
+  ExpandLess,
+  ExpandMore,
 } from "@mui/icons-material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 function Sidebar({
   navigationMenus,
@@ -32,6 +36,7 @@ function Sidebar({
   const { themeContext, toggleTheme } = useThemeContext();
 
   const ToggleButton = ({ isCollapsed, onClick, children, tooltipLabel }) => {
+    // ... (ToggleButton implementation remains the same)
     return (
       <Tooltip
         title={isCollapsed ? tooltipLabel : ""}
@@ -84,7 +89,9 @@ function Sidebar({
     children,
     isCollapsed,
     tooltipLabel,
+    level,
   }) => {
+    // ... (NavItemButton implementation remains the same)
     return (
       <Tooltip
         title={isCollapsed ? tooltipLabel : ""}
@@ -108,13 +115,15 @@ function Sidebar({
           selected={isSelected}
           onClick={onClick}
           sx={{
+            marginLeft: `${level * 10}px`,
             display: "flex",
             alignItems: "center",
             justifyContent: isCollapsed ? "center" : "flex-start",
             padding: "5px",
             transition: "all ease-in-out 0.3s",
             cursor: "pointer",
-            width: "80%",
+            width: level > 0 ? "calc(100% - 10px)" : "100%",
+            textOverflow: "ellipsis",
             borderRadius: 2,
             backgroundColor: isSelected
               ? themeContext.selectedNavBackgroundColor
@@ -138,13 +147,190 @@ function Sidebar({
     );
   };
 
+  const MenuItem = ({ item, isMobile, isCollapsed, level = 0 }) => {
+    const isParent = item.children && item.children.length > 0;
+    const [open, setOpen] = useState(false);
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const isMenuOpen = Boolean(anchorEl);
+
+    const isActiveParent =
+      isParent &&
+      item.children.some((child) => location.pathname.startsWith(child.path));
+    const isSelected = location.pathname === item.path || isActiveParent;
+
+    const handleNavigation = (event) => {
+      if (isParent) {
+        if (!isCollapsed) {
+          setOpen(!open);
+        } else {
+          setAnchorEl(event.currentTarget);
+        }
+      } else {
+        navigate(item.path);
+        if (isMobile) {
+          handleDrawerToggle();
+        }
+      }
+    };
+
+    const handleChildClick = (path) => {
+      navigate(path);
+      setAnchorEl(null);
+      if (isMobile) {
+        handleDrawerToggle();
+      }
+    };
+
+    // Style adjustment for child menus (indentation)
+    // const paddingLeft = isCollapsed ? 0 : 2 + 2 * level;
+
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Parent / Standalone Item Button */}
+        <NavItemButton
+          isSelected={isSelected}
+          isCollapsed={isCollapsed}
+          tooltipLabel={item.label}
+          onClick={handleNavigation}
+          level={level}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: isCollapsed ? 0 : "5px",
+              justifyContent: "center",
+              cursor: "pointer",
+              // paddingLeft: `${paddingLeft}px`,
+            }}
+          >
+            {item.icon}
+          </ListItemIcon>
+          {!isCollapsed && (
+            <>
+              <ListItemText
+                primary={item.label}
+                sx={{
+                  margin: 0,
+                }}
+              />
+              {isParent && (open ? <ExpandLess /> : <ExpandMore />)}
+            </>
+          )}
+        </NavItemButton>
+
+        {/* ========================================================= */}
+        {/* Expanded State: Internal Collapse (Normal Behavior) */}
+        {/* ========================================================= */}
+        {isParent && !isCollapsed && (
+          <Collapse
+            in={open}
+            timeout="auto"
+            unmountOnExit
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: 1,
+            }}
+          >
+            <List
+              component="div"
+              disablePadding
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {item.children.map((child, index) => (
+                <MenuItem
+                  key={index}
+                  item={child}
+                  isMobile={isMobile}
+                  isCollapsed={isCollapsed}
+                  level={level + 1} // Increase level for indentation
+                />
+              ))}
+            </List>
+          </Collapse>
+        )}
+
+        {/* ========================================================= */}
+        {/* Collapsed State: Floating Menu (User Request) */}
+        {/* ========================================================= */}
+        {isParent && isCollapsed && (
+          <Popover
+            disableAutoFocus
+            disableEnforceFocus
+            disableRestoreFocus
+            id="popover-menu"
+            anchorEl={anchorEl}
+            open={isMenuOpen}
+            onClose={() => setAnchorEl(null)}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            slotProps={{
+              paper: {
+                sx: {
+                  backgroundColor: themeContext.surface,
+                  borderRadius: 2,
+                  boxShadow: `0 4px 12px rgba(0, 0, 0, 0.2)`,
+                  marginLeft: "8px",
+                  minWidth: "150px",
+                  maxWidth: "300px",
+                  maxHeight: "auto",
+                  padding: "3px",
+                },
+              },
+            }}
+          >
+            {/* Render the children inside the floating menu */}
+            {item.children.map((child, index) => (
+              <NavItemButton
+                key={index}
+                isSelected={location.pathname === child.path}
+                onClick={() => handleChildClick(child.path)}
+                isCollapsed={false}
+                tooltipLabel={child.label}
+                level={0}
+              >
+                <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>
+                  {child.icon}
+                </ListItemIcon>
+                <ListItemText primary={child.label} />
+              </NavItemButton>
+            ))}
+          </Popover>
+        )}
+      </Box>
+    );
+  };
+
   const DrawerContent = (isMobile, navigationMenus) => {
     return (
       <Box
         sx={{
           width: drawerWidth,
-          height: "100%",
+          height: "calc(100% - 20px)",
           display: "flex",
+          paddingTop: "10px",
+          paddingBottom: "10px",
           flexDirection: "column",
           justifyContent: "space-between",
         }}
@@ -157,48 +343,21 @@ function Sidebar({
             gap: `10px`,
             flexDirection: "column",
             alignItems: "center",
+            padding: "5px",
           }}
         >
-          {navigationMenus.map((item, index) => {
-            const isSelected = location.pathname === item.path;
-            return (
-              <NavItemButton
-                key={index}
-                isSelected={isSelected}
-                isCollapsed={isCollapsed}
-                tooltipLabel={item.label}
-                onClick={() => {
-                  navigate(item.path);
-                  if (isMobile) {
-                    handleDrawerToggle();
-                  }
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: isCollapsed ? 0 : "5px",
-                    justifyContent: "center",
-                    cursor: "pointer",
-                  }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                {!isCollapsed && (
-                  <ListItemText
-                    primary={item.label}
-                    sx={{
-                      margin: 0,
-                    }}
-                  />
-                )}
-              </NavItemButton>
-            );
-          })}
+          {navigationMenus.map((item, index) => (
+            // Use the new MenuItem component
+            <MenuItem
+              key={index}
+              item={item}
+              isMobile={isMobile}
+              isCollapsed={isCollapsed}
+            />
+          ))}
         </List>
 
         {/* Bottom Collapse Toggle */}
-
         <Box
           sx={{
             borderTop: `0.7px solid ${themeContext.primary}`,

@@ -76,7 +76,7 @@ function App() {
             ),
           },
           {
-            path: "experience",
+            path: "/experience",
             element: (
               <Suspense fallback={fallback}>
                 <ExperienceComponent />
@@ -84,7 +84,7 @@ function App() {
             ),
           },
           {
-            path: "projects",
+            path: "/projects",
             element: (
               <Suspense fallback={fallback}>
                 <ProjectsComponent />
@@ -92,7 +92,7 @@ function App() {
             ),
           },
           {
-            path: "resume",
+            path: "/resume",
             element: (
               <Suspense fallback={fallback}>
                 <ResumeComponent />
@@ -100,7 +100,7 @@ function App() {
             ),
           },
           {
-            path: "notes",
+            path: "/notes",
             element: (
               <Suspense fallback={fallback}>
                 <ProtectedRoute
@@ -111,7 +111,7 @@ function App() {
             ),
           },
           {
-            path: "*",
+            path: "/*",
             element: (
               <Suspense fallback={fallback}>
                 <NotFound />
@@ -120,6 +120,7 @@ function App() {
           },
         ],
       },
+      // Cache all routes
       {
         path: "/*/*",
         element: (
