@@ -21,7 +21,7 @@ import { getFormattedTimePeriod } from "../../Utils/formatTimePeriod";
 import { useSecretContext } from "../../Hooks/SecretContext";
 import { useEffect, useRef, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
-import { useNavigate } from "react-router-dom";
+import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
 const experienceData = [
   {
@@ -86,7 +86,7 @@ function ExperienceComponent({ attachmentToggle }) {
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
-  const navigate = useNavigate();
+  const { getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -94,25 +94,7 @@ function ExperienceComponent({ attachmentToggle }) {
         if (shrtcutTimer.current) return;
         if (!secretContext.secretEnabled) return;
 
-        const userAgent = navigator?.userAgent?.toLowerCase() || "";
-        const platform = userAgent.includes("mac")
-          ? "mac"
-          : userAgent.includes("win")
-          ? "win"
-          : userAgent.includes("lin") || userAgent.includes("ubu")
-          ? "lin"
-          : false;
-
-        if (!platform) return;
-
-        const modifier =
-          platform == "mac" ? e.metaKey && "cmd" : e.ctrlKey && "ctrl";
-        if (!modifier) return;
-
-        const key = e.key.toLowerCase();
-        const hotkey = [modifier, e.altKey && "alt", e.shiftKey && "shift", key]
-          .filter(Boolean)
-          .join("+");
+        const hotkey = getHotkeyStringFromEvent(e);
 
         switch (hotkey) {
           case import.meta.env.VITE_APP_HOTKEY1_COMB:

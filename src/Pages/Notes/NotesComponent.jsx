@@ -35,6 +35,7 @@ import EditNotesDialog from "./EditNotesDialog.jsx";
 import Linkify from "linkify-react";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import { withNotistackSnackbar } from "../../Hooks/SharedSnackbar1.jsx";
+import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform.js";
 
 var tagColorMap = {};
 let timer = null;
@@ -336,6 +337,7 @@ const DeletedNoteItem = memo(
 function NotesComponent({ notistackSnackbar }) {
   // Contexts
   const { themeContext } = useThemeContext();
+  const { getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   // States
   const [noteAnchorEl, setNoteAnchorEl] = useState(null);
@@ -372,27 +374,7 @@ function NotesComponent({ notistackSnackbar }) {
     const handleKeyDown = (e) => {
       try {
         if (shrtcutTimer.current) return;
-
-        const userAgent = navigator?.userAgent?.toLowerCase() || "";
-        const platform = userAgent.includes("mac")
-          ? "mac"
-          : userAgent.includes("win")
-          ? "win"
-          : userAgent.includes("lin") || userAgent.includes("ubu")
-          ? "lin"
-          : false;
-
-        if (!platform) return;
-
-        const modifier =
-          platform == "mac" ? e.metaKey && "cmd" : e.ctrlKey && "ctrl";
-        if (!modifier) return;
-
-        const key = e.key.toLowerCase();
-        const hotkey = [modifier, e.altKey && "alt", e.shiftKey && "shift", key]
-          .filter(Boolean)
-          .join("+");
-
+        const hotkey = getHotkeyStringFromEvent(e);
         switch (hotkey) {
           case import.meta.env.VITE_APP_HOTKEY3_COMB:
           case import.meta.env.VITE_APP_HOTKEY3:

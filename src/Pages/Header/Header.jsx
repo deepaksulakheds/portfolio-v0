@@ -19,6 +19,7 @@ import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useSecretContext } from "../../Hooks/SecretContext";
 import { useNavigate } from "react-router-dom";
 import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
+import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
 let ageInterval;
 
@@ -62,49 +63,9 @@ function Header({ attachmentToggle }) {
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
+  const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   // -------------- Memos ----------------
-  // Platform Detection and Hotkey String Generator
-  const { userPlatform, getHotkeyStringFromEvent } = useMemo(() => {
-    const userAgent = navigator?.userAgent?.toLowerCase() || "";
-
-    let currentPlatform = null;
-    if (userAgent.includes("mac")) {
-      currentPlatform = "mac";
-    } else if (userAgent.includes("win")) {
-      currentPlatform = "win";
-    } else if (userAgent.includes("lin") || userAgent.includes("ubu")) {
-      currentPlatform = "lin";
-    }
-    console.log("currentPlatform", currentPlatform);
-
-    if (!currentPlatform) {
-      return {
-        userPlatform: null,
-        getHotkeyStringFromEvent: () => null,
-      };
-    }
-
-    return {
-      userPlatform: currentPlatform,
-      getHotkeyStringFromEvent: (e) => {
-        const modifier =
-          currentPlatform == "mac"
-            ? (e.metaKey && "cmd") || (e.ctrlKey && "ctrl")
-            : e.ctrlKey && "ctrl";
-
-        return [
-          modifier,
-          e.altKey && "alt",
-          e.shiftKey && "shift",
-          e.key.toLowerCase(),
-        ]
-          .filter(Boolean)
-          .join("+");
-      },
-    };
-  }, []);
-
   const contacts = useMemo(() => {
     const BASE_CONTACTS = [...INIT_CONTACS];
     BASE_CONTACTS.splice(3, 0, {

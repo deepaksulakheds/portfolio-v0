@@ -36,24 +36,31 @@ function HeaderImageDialog({ imageDialogVisible, onClose }) {
   const handleKeyDown = (e) => {
     try {
       const key = e.key.toLowerCase();
-      if (key === "arrowright") {
-        e.preventDefault();
-        setSelectedImage((prev) => {
-          if (prev === imagesList[imagesList.length - 1]) {
-            return imagesList[0];
-          } else {
-            return imagesList[imagesList.indexOf(prev) + 1];
-          }
-        });
-      } else if (key === "arrowleft") {
-        e.preventDefault();
-        setSelectedImage((prev) => {
-          if (prev === imagesList[0]) {
-            return imagesList[imagesList.length - 1];
-          } else {
-            return imagesList[imagesList.indexOf(prev) - 1];
-          }
-        });
+      switch (key) {
+        case "arrowright":
+          e.preventDefault();
+          setSelectedImage((prev) => {
+            if (prev === imagesList[imagesList.length - 1]) {
+              return imagesList[0];
+            } else {
+              return imagesList[imagesList.indexOf(prev) + 1];
+            }
+          });
+          break;
+
+        case "arrowleft":
+          e.preventDefault();
+          setSelectedImage((prev) => {
+            if (prev === imagesList[0]) {
+              return imagesList[imagesList.length - 1];
+            } else {
+              return imagesList[imagesList.indexOf(prev) - 1];
+            }
+          });
+          break;
+
+        default:
+          break;
       }
     } catch (err) {
       console.log("Error in shortcut", err);

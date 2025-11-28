@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import "./projectComponent.css";
 import { ArrowCircleLeft, ArrowCircleRight } from "@mui/icons-material";
 import { useThemeContext } from "../../Hooks/ThemeContext";
+import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
 export function ViewSnapshotsDialog({
   viewSnapshotVisible,
@@ -12,6 +13,7 @@ export function ViewSnapshotsDialog({
   const [selectedImage, setSelectedImage] = useState(snapsList[0]);
 
   const { themeContext } = useThemeContext();
+  const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   const thumbnailsContainerRef = useRef(null);
   const thumbnailRefs = useRef([]);
@@ -56,20 +58,11 @@ export function ViewSnapshotsDialog({
     setSelectedImage(snapsList[nextIndex]);
   };
 
-  // Keyboard Shortcuts handler for dialog only
-  const userAgent = navigator?.userAgent?.toLowerCase() || "";
-  const platform = userAgent.includes("mac")
-    ? "mac"
-    : userAgent.includes("win")
-    ? "win"
-    : userAgent.includes("lin") || userAgent.includes("ubu")
-    ? "lin"
-    : false;
   const handleKeyDown = (e) => {
     try {
-      if (!platform) return;
+      if (!userPlatform) return;
+      const key = getHotkeyStringFromEvent(e);
 
-      const key = e.key.toLowerCase();
       if (key === "arrowright") {
         e.preventDefault();
         handleNextClick();
