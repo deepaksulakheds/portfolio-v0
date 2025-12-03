@@ -177,6 +177,41 @@ function Header({ attachmentToggle }) {
               }
               break;
 
+            case "cmd+1":
+            case "ctrl+1":
+              e.preventDefault();
+              navigate("/", { replace: true });
+              break;
+
+            case "cmd+2":
+            case "ctrl+2":
+              e.preventDefault();
+              navigate("/experience", { replace: true });
+              break;
+
+            case "cmd+3":
+            case "ctrl+3":
+              e.preventDefault();
+              navigate("/projects", { replace: true });
+              break;
+
+            case "cmd+4":
+            case "ctrl+4":
+              e.preventDefault();
+              navigate("/resume", { replace: true });
+              break;
+
+            case "cmd+5":
+            case "ctrl+5":
+              if (
+                attachmentToggle.isAttachmentEnabled &&
+                secretContext.secretEnabled
+              ) {
+                e.preventDefault();
+                navigate("/notes", { replace: true });
+              }
+              break;
+
             default:
               return;
           }
