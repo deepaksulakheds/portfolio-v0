@@ -86,9 +86,11 @@ function ExperienceComponent({ attachmentToggle }) {
   const secretContext = useSecretContext();
   const { themeContext } = useThemeContext();
   const shrtcutTimer = useRef(false);
-  const { getHotkeyStringFromEvent } = useHotkeyAndPlatform();
+  const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   useEffect(() => {
+    if (!userPlatform) return;
+
     const handleKeyDown = (e) => {
       try {
         if (shrtcutTimer.current) return;

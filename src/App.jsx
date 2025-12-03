@@ -131,7 +131,7 @@ function App() {
       },
     ],
     {
-      basename: import.meta.env.VITE_APP_BASE_URL,
+      basename: import.meta.env.VITE_APP_BASE_URL || "/",
     }
   );
 

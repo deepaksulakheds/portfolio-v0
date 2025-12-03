@@ -337,7 +337,7 @@ const DeletedNoteItem = memo(
 function NotesComponent({ notistackSnackbar }) {
   // Contexts
   const { themeContext } = useThemeContext();
-  const { getHotkeyStringFromEvent } = useHotkeyAndPlatform();
+  const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   // States
   const [noteAnchorEl, setNoteAnchorEl] = useState(null);
@@ -370,6 +370,7 @@ function NotesComponent({ notistackSnackbar }) {
 
   useEffect(() => {
     fetchNotes();
+    if (!userPlatform) return;
 
     const handleKeyDown = (e) => {
       try {
@@ -396,9 +397,9 @@ function NotesComponent({ notistackSnackbar }) {
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 

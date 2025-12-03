@@ -100,17 +100,14 @@ function Header({ attachmentToggle }) {
     // Shortcut Key Handler part
     const handleKeyDown = (e) => {
       try {
-        if (shrtcutTimer.current) return;
-
         const hotkey = getHotkeyStringFromEvent(e);
 
-        if (!shrtcutTimer.current && userPlatform) {
-          // console.log("Hotkey pressed:", hotkey);
-          switch (hotkey) {
-            case import.meta.env.VITE_APP_HOTKEY1_COMB:
-            case import.meta.env.VITE_APP_HOTKEY1:
+        // console.log("Hotkey pressed:", hotkey);
+        switch (hotkey) {
+          case import.meta.env.VITE_APP_HOTKEY1_COMB:
+          case import.meta.env.VITE_APP_HOTKEY1:
+            if (!shrtcutTimer.current) {
               e.preventDefault();
-
               if (
                 secretContext.secretEnabled &&
                 !attachmentToggle.isAttachmentEnabled &&
@@ -129,12 +126,13 @@ function Header({ attachmentToggle }) {
                   shrtcutTimer.current = false;
                 }, 3000);
               }
-              break;
+            }
+            break;
 
-            case import.meta.env.VITE_APP_HOTKEY2_COMB:
-            case import.meta.env.VITE_APP_HOTKEY2:
+          case import.meta.env.VITE_APP_HOTKEY2_COMB:
+          case import.meta.env.VITE_APP_HOTKEY2:
+            if (!shrtcutTimer.current) {
               e.preventDefault();
-
               if (
                 attachmentToggle.isAttachmentEnabled ||
                 secretContext.secretEnabled
@@ -150,10 +148,12 @@ function Header({ attachmentToggle }) {
                   shrtcutTimer.current = false;
                 }, 3000);
               }
-              break;
+            }
+            break;
 
-            case import.meta.env.VITE_APP_HOTKEY4_COMB:
-            case import.meta.env.VITE_APP_HOTKEY4:
+          case import.meta.env.VITE_APP_HOTKEY4_COMB:
+          case import.meta.env.VITE_APP_HOTKEY4:
+            if (!shrtcutTimer.current) {
               e.preventDefault();
               if (
                 !secretContext.secretEnabled &&
@@ -175,46 +175,46 @@ function Header({ attachmentToggle }) {
                   shrtcutTimer.current = false;
                 }, 3000);
               }
-              break;
+            }
+            break;
 
-            case "cmd+1":
-            case "ctrl+1":
+          case "cmd+1":
+          case "ctrl+1":
+            e.preventDefault();
+            navigate("/", { replace: true });
+            break;
+
+          case "cmd+2":
+          case "ctrl+2":
+            e.preventDefault();
+            navigate("/experience", { replace: true });
+            break;
+
+          case "cmd+3":
+          case "ctrl+3":
+            e.preventDefault();
+            navigate("/projects", { replace: true });
+            break;
+
+          case "cmd+4":
+          case "ctrl+4":
+            e.preventDefault();
+            navigate("/resume", { replace: true });
+            break;
+
+          case "cmd+5":
+          case "ctrl+5":
+            if (
+              attachmentToggle.isAttachmentEnabled &&
+              secretContext.secretEnabled
+            ) {
               e.preventDefault();
-              navigate("/", { replace: true });
-              break;
+              navigate("/notes", { replace: true });
+            }
+            break;
 
-            case "cmd+2":
-            case "ctrl+2":
-              e.preventDefault();
-              navigate("/experience", { replace: true });
-              break;
-
-            case "cmd+3":
-            case "ctrl+3":
-              e.preventDefault();
-              navigate("/projects", { replace: true });
-              break;
-
-            case "cmd+4":
-            case "ctrl+4":
-              e.preventDefault();
-              navigate("/resume", { replace: true });
-              break;
-
-            case "cmd+5":
-            case "ctrl+5":
-              if (
-                attachmentToggle.isAttachmentEnabled &&
-                secretContext.secretEnabled
-              ) {
-                e.preventDefault();
-                navigate("/notes", { replace: true });
-              }
-              break;
-
-            default:
-              return;
-          }
+          default:
+            return;
         }
       } catch (err) {
         console.log("Error in shortcut handler", err);
