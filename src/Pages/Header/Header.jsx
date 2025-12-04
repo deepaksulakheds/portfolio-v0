@@ -131,23 +131,21 @@ function Header({ attachmentToggle }) {
 
           case import.meta.env.VITE_APP_HOTKEY2_COMB:
           case import.meta.env.VITE_APP_HOTKEY2:
-            if (!shrtcutTimer.current) {
+            if (
+              attachmentToggle.isAttachmentEnabled ||
+              secretContext.secretEnabled
+            ) {
               e.preventDefault();
-              if (
-                attachmentToggle.isAttachmentEnabled ||
-                secretContext.secretEnabled
-              ) {
-                if (location.pathname?.toLowerCase()?.includes(`notes`)) {
-                  navigate("/", { replace: true });
-                }
-                secretContext.secretEnabled && secretContext.toggleSecret();
-                attachmentToggle.toggleAttachment("OFF");
-                shrtcutTimer.current = true;
-
-                setTimeout(() => {
-                  shrtcutTimer.current = false;
-                }, 3000);
+              if (location.pathname?.toLowerCase()?.includes(`notes`)) {
+                navigate("/", { replace: true });
               }
+              secretContext.secretEnabled && secretContext.toggleSecret();
+              attachmentToggle.toggleAttachment("OFF");
+              shrtcutTimer.current = true;
+
+              setTimeout(() => {
+                shrtcutTimer.current = false;
+              }, 3000);
             }
             break;
 
@@ -175,6 +173,26 @@ function Header({ attachmentToggle }) {
                   shrtcutTimer.current = false;
                 }, 3000);
               }
+            }
+            break;
+
+          case import.meta.env.VITE_APP_HOTKEY5:
+          case import.meta.env.VITE_APP_HOTKEY5_COMB:
+            if (
+              attachmentToggle.isAttachmentEnabled ||
+              secretContext.secretEnabled
+            ) {
+              e.preventDefault();
+              if (location.pathname?.toLowerCase()?.includes(`notes`)) {
+                navigate("/", { replace: true });
+              }
+              secretContext.secretEnabled && secretContext.toggleSecret();
+              attachmentToggle.toggleAttachment("OFF");
+              shrtcutTimer.current = true;
+
+              setTimeout(() => {
+                shrtcutTimer.current = false;
+              }, 3000);
             }
             break;
 
@@ -256,10 +274,19 @@ function Header({ attachmentToggle }) {
   }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
 
   const handleSecretToggle = () => {
-    if (attachmentToggle.isAttachmentEnabled) {
-      attachmentToggle.toggleAttachment();
+    if (shrtcutTimer.current) return;
+
+    if (
+      !secretContext.secretEnabled &&
+      location.pathname?.toLowerCase()?.includes(`experience`)
+    ) {
+      secretContext.toggleSecret();
+    } else if (secretContext.secretEnabled) {
+      secretContext.toggleSecret();
+      if (attachmentToggle.isAttachmentEnabled) {
+        attachmentToggle.toggleAttachment("OFF");
+      }
     }
-    secretContext.toggleSecret();
   };
 
   return (
