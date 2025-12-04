@@ -32,8 +32,8 @@ jobs:
       VITE_APP_HOTKEY3_COMB: ${{ secrets.VITE_APP_HOTKEY3_COMB }}
       VITE_APP_HOTKEY4: ${{ secrets.VITE_APP_HOTKEY4 }}
       VITE_APP_HOTKEY4_COMB: ${{ secrets.VITE_APP_HOTKEY4_COMB }}
-      VITE_APP_HOTKEY5: ${{ secrets.VITE_APP_HOTKEY4 }}
-      VITE_APP_HOTKEY5_COMB: ${{ secrets.VITE_APP_HOTKEY4_COMB }}
+      VITE_APP_HOTKEY5: ${{ secrets.VITE_APP_HOTKEY5 }}
+      VITE_APP_HOTKEY5_COMB: ${{ secrets.VITE_APP_HOTKEY5_COMB }}
       VITE_APP_BASE_URL: ${{ secrets.VITE_APP_BASE_URL }}
     steps:
       - name: Checkout
