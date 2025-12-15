@@ -122,7 +122,7 @@ function App() {
       },
       // Cache all routes
       {
-        path: "/*/*",
+        path: "/*",
         element: (
           <Suspense fallback={fallback}>
             <NotFound />

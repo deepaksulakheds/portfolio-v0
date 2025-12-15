@@ -154,7 +154,7 @@ const NoteItem = memo(
                 label={note.tag}
               />
             )}
-            {moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY")}
+            {note.createdAt}
           </Typography>
         </Grid>
 
@@ -302,7 +302,7 @@ const DeletedNoteItem = memo(
                 label={note.tag}
               />
             )}
-            {moment.unix(note?.updatedAt).format("hh:mm A - DD/MMM/YY")}
+            {note?.updatedAt}
           </Typography>
         </Grid>
         <Grid
@@ -406,9 +406,16 @@ function NotesComponent({ notistackSnackbar }) {
   const fetchNotes = async () => {
     try {
       const resp = await getNotes();
-      // console.log("resp", resp.data.getAllNotes.response);
-      if (resp?.data?.getAllNotes?.response?.length > 0) {
-        let respNotes = resp?.data?.getAllNotes?.response;
+      // console.log("respNotes", resp.data.getAllNotes.response);
+      const notesResponse = resp?.data?.getAllNotes?.response || [];
+      if (notesResponse.length > 0) {
+        let respNotes = notesResponse.map((note) => ({
+          ...note,
+          createdAt: moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY"),
+          updatedAt: note.updatedAt
+            ? moment.unix(note?.updatedAt).format("hh:mm A - DD/MMM/YY")
+            : null,
+        }));
         setAllRespNotes(respNotes);
         respNotes = respNotes.filter((note) => !note.isDeleted);
 
@@ -454,6 +461,7 @@ function NotesComponent({ notistackSnackbar }) {
     }
   };
 
+  // Memos
   const notesToDisplay = useMemo(() => {
     const { tags, search, showOnlySelected } = filtersUsed;
 
@@ -489,6 +497,7 @@ function NotesComponent({ notistackSnackbar }) {
       : [];
   }, [allRespNotes]);
 
+  // Handlers
   const handleTagChange = (newTags) => {
     setFiltersUsed((prev) => ({
       ...prev,
