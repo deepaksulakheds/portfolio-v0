@@ -18,7 +18,7 @@ const collapsedWidth = 64;
 
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth > 600); // sm breakpoint
   const location = useLocation();
 
   // Contexts
@@ -49,15 +49,15 @@ function Layout() {
     } | Deepak Sulakhe`;
   }, [currentPageLabel]);
 
-  useEffect(() => {
-    if (window.innerWidth >= 600) {
-      // sm breakpoint
-      const timeout = setTimeout(() => {
-        setIsCollapsed(true);
-      }, 2000);
-      return () => clearTimeout(timeout);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.innerWidth >= 600) {
+  //     // sm breakpoint
+  //     const timeout = setTimeout(() => {
+  //       setIsCollapsed(true);
+  //     }, 2000);
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, []);
 
   return (
     <Box

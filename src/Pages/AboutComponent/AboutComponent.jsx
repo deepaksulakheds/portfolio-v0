@@ -28,6 +28,7 @@ const skills = [
       { content: "GraphQL", icon: "./icons/graphql.svg" },
       { content: "REST APIs", icon: "./icons/rest-api1.svg" },
       { content: "JWT / JWE", icon: "./icons/JWT.svg" },
+      { content: "Kafka", icon: "./icons/kafka.svg" },
       { content: "C / C++", icon: "./icons/cpp.svg" },
       { content: "Python", icon: "./icons/python.svg" },
       { content: "Microservices", icon: "./icons/microservices.svg" },
