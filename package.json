@@ -12,7 +12,7 @@
     "build": "vite build --base=./",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prettify": "prettier --write \"**/*.{js,jsx,ts,tsx,html,css}\""
+    "prettify": "prettier --write \"**/*.{js,jsx,json,ts,tsx,html,css}\""
   },
   "dependencies": {
     "@apollo/client": "^4.0.9",
