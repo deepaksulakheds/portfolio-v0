@@ -7,14 +7,14 @@ import { Box, CircularProgress } from "@mui/material";
 // Pages (lazy-loaded)
 const Layout = lazy(() => import("./Pages/MainLayout/Layout"));
 const NotFound = lazy(() => import("./Pages/NotFound/NotFound"));
-const AboutComponent = lazy(() =>
-  import("./Pages/AboutComponent/AboutComponent")
+const AboutComponent = lazy(
+  () => import("./Pages/AboutComponent/AboutComponent")
 );
-const ExperienceComponent = lazy(() =>
-  import("./Pages/ExperienceComponent/ExperienceComponent")
+const ExperienceComponent = lazy(
+  () => import("./Pages/ExperienceComponent/ExperienceComponent")
 );
-const ProjectsComponent = lazy(() =>
-  import("./Pages/Projects/ProjectsComponent.jsx")
+const ProjectsComponent = lazy(
+  () => import("./Pages/Projects/ProjectsComponent.jsx")
 );
 const ResumeComponent = lazy(() => import("./Pages/Resume/Resume.jsx"));
 const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
