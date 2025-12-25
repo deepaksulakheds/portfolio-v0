@@ -37,12 +37,12 @@ const experienceData = [
         location: `Bengaluru | KA | IN`,
         descriptions: [
           `Developing responsive, high-performance web apps using React and Node.js. Skilled in component-based architecture, REST/GraphQL APIs integration, and MUI.`,
-          `Proven ability to translate designs and prototypes into fully functional, end-to-end modules using React.js, Node.js, REST, GraphQL, and various SQL & NoSQL databases.`,
-          `Contributed to multiple projects by implementing end-to-end features and creating a rich dashboard with React and Material-UI for data visualization and consistent UI.`,
-          `Developed backend services, pipelines, and REST and GraphQL APIs with Node.js, contributing to core functionality projects. Implemented an automated report mailing system using cron jobs.`,
-          `Redesigned and optimized database schemas and queries for performance, scalability, and efficient data handling. Implemented Redis-based caching in backend systems to boost performance and reduce response times.`,
-          `Identified and resolved security vulnerabilities through VAPT, implementing fixes and security best practices to ensure robust and secure backend services and APIs.`,
           `Led the migration of the codebase from MySQL to PostgreSQL, ensuring data integrity and optimizing performance.`,
+          `Identified and resolved security vulnerabilities through VAPT, implementing fixes and security best practices to ensure robust and secure backend services and APIs.`,
+          `Developed Data-Pipelines for data processing and ingestion, implemented backend services, REST and GraphQL APIs with Node.js, and automated report delivery using cron jobs. contributing to core functionality.`,
+          `Redesigned and optimized database schemas and queries for performance, scalability, and efficient data handling. Implemented Redis-based caching in backend systems to boost performance and reduce response times.`,
+          `Contributed to multiple projects by implementing end-to-end features and creating a rich dashboard with React and Material-UI for data visualization and consistent UI.`,
+          `Proven ability to translate designs and prototypes into fully functional, end-to-end modules using React.js, Node.js, REST, GraphQL, and various SQL & NoSQL databases.`,
         ],
       },
       {
