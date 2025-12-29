@@ -13,7 +13,7 @@ function ResumeComponent(props) {
           borderRadius: 15,
           border: 0,
         }}
-        src="./Files/Deepak-Sulakhe-Resume.pdf"
+        src="./Files/Deepak_Sulakhe_CV.pdf"
       />
     </Grid>
   );
