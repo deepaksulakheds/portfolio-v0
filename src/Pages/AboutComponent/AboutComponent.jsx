@@ -88,11 +88,11 @@ function AboutComponent(props) {
             `present`,
             `YM`,
             true
-          )} of professional experience in full-stack development using React,
+          )}+ years of professional experience in full-stack development using React,
           Node.js, REST and GraphQL APIs, and SQL/NoSQL databases. Skilled in
           building responsive, component-based user interfaces (UI) using React,
           modern frameworks, and custom components. Experienced in developing
-          secure backend services, Data Pipelines, and delivering end-to-end
+          backend services, Data Pipelines, and delivering end-to-end
           high-performance features. Collaborated with cross-teams to develop
           user-focused systems.`}
         </Typography>
