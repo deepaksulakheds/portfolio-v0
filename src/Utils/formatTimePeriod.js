@@ -45,10 +45,8 @@ export const getFormattedTimePeriod = (
   let seconds = validTo.diff(validFrom, "seconds");
 
   if (decimalFormat) {
-    const datePart = [years > 0 && `${years}`, months > 0 && `${months}`]
-      .filter(Boolean)
-      .join(".");
-    return `${datePart}+ years`;
+    const decimalYears = years + months / 12;
+    return Number(decimalYears.toFixed(1)).toString();
   }
 
   const datePart = [
