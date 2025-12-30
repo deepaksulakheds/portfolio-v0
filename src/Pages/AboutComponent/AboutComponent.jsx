@@ -88,10 +88,13 @@ function AboutComponent(props) {
             `present`,
             `YM`,
             true
-          )} of professional experience in full-stack development, including Node.js, 
-          React, and various databases. Dedicated to creating high-quality software solutions and improving
-          user experiences. Eager to apply my skills and knowledge in a dynamic
-          environment.`}
+          )} of professional experience in full-stack development using React,
+          Node.js, REST and GraphQL APIs, and SQL/NoSQL databases. Skilled in
+          building responsive, component-based user interfaces (UI) using React,
+          modern frameworks, and custom components. Experienced in developing
+          secure backend services, Data Pipelines, and delivering end-to-end
+          high-performance features. Collaborated with cross-teams to develop
+          user-focused systems.`}
         </Typography>
       </Grid>
       <Grid className="skillsList">
