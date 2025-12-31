@@ -419,7 +419,7 @@ function Sidebar({
       sx={{
         width: { sm: drawerWidth },
         flexShrink: { sm: 0 },
-        marginRight: { xs: 0, sm: "20px" },
+        marginRight: { xs: 0, sm: "10px" },
       }}
       aria-label="sidebar"
     >
@@ -462,7 +462,7 @@ function Sidebar({
         </Box>
       </Drawer>
 
-      {/* Permanent Drawer with floating style */}
+      {/* Desktop Permanent Drawer with floating style */}
       <Drawer
         variant="permanent"
         open
@@ -474,8 +474,8 @@ function Sidebar({
             transition: "width 0.3s",
             overflowX: "hidden",
             whiteSpace: "nowrap",
-            height: `97%`,
-            margin: "12px",
+            height: `98.5%`,
+            margin: "7px",
             borderRadius: 2,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
             backgroundColor: themeContext.surface,

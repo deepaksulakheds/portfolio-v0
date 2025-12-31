@@ -114,7 +114,7 @@ function Layout() {
         component="main"
         sx={{
           flexGrow: 1,
-          padding: 2,
+          padding: "10px",
           mt: { xs: 8, sm: 0 },
           width: { sm: `calc(100% - ${currentDrawerWidth}px)` },
           transition: "all ease-in-out 0.2s",
