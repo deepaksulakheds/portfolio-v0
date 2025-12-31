@@ -382,6 +382,7 @@ function CustomExperienceTimeLineItem({
     <TimelineItem title={company}>
       <TimelineContent
         sx={{
+          maxWidth: `700px`,
           paddingTop: 0,
           marginTop: "-10px",
           marginBottom:
@@ -516,7 +517,6 @@ function CustomExperienceTimeLineItem({
                           key={desc}
                           sx={{
                             fontSize: 14,
-                            maxWidth: 550,
                             display: "flex",
                             color: themeContext.bodyText,
                           }}
