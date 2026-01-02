@@ -85,7 +85,7 @@ function NotesDialog({
       }
     } catch (err) {
       console.log("err", err);
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to add note.", "error");
     }
   };
 

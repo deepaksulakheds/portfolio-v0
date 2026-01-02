@@ -167,19 +167,10 @@ function MailDialog({
     } catch (err) {
       setLoading(false);
       // console.log("dialog error", JSON.stringify(err, null, 2));
-      if (
-        err &&
-        err?.networkError &&
-        err?.networkError?.response &&
-        err?.networkError?.response?.data?.message
-      ) {
-        notistackSnackbar.showSnackbar(
-          err?.networkError?.response?.data?.message,
-          "error"
-        );
-      } else {
-        notistackSnackbar.showSnackbar(err.message, "error");
-      }
+      notistackSnackbar.showSnackbar(
+        "Failed to send mail. Please contact on LinkedIn.",
+        "error"
+      );
     }
   };
 

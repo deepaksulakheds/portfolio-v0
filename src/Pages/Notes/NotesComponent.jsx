@@ -361,7 +361,7 @@ function NotesComponent({ notistackSnackbar }) {
 
   const [getNotes, { data, loading, error }] = useLazyQuery(GET_NOTES, {
     onError: (err) => {
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
     },
     fetchPolicy: "network-only",
   });
@@ -457,7 +457,7 @@ function NotesComponent({ notistackSnackbar }) {
       }
     } catch (err) {
       console.log("err", err);
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
     }
   };
 
@@ -594,7 +594,7 @@ function NotesComponent({ notistackSnackbar }) {
       }
     } catch (err) {
       // console.log("err", err);
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to delete note(s).", "error");
     }
     setDeleteLoading(false);
   };
@@ -628,7 +628,7 @@ function NotesComponent({ notistackSnackbar }) {
       }
     } catch (err) {
       // console.log("err", err);
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to restore note(s).", "error");
     }
     setRestoreLoading(false);
   };

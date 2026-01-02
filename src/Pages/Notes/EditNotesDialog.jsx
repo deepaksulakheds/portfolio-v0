@@ -101,7 +101,7 @@ function EditNotesDialog({
       }
     } catch (err) {
       console.log("err", err);
-      notistackSnackbar.showSnackbar(err.message, "error");
+      notistackSnackbar.showSnackbar("Failed to edit note.", "error");
     }
   };
 
