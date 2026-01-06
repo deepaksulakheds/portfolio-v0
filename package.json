@@ -15,34 +15,34 @@
     "prettify": "prettier --write \"**/*.{js,jsx,json,ts,tsx,html,css,md}\""
   },
   "dependencies": {
-    "@apollo/client": "^4.0.9",
+    "@apollo/client": "^4.0.11",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/icons-material": "^7.3.5",
-    "@mui/lab": "^7.0.1-beta.19",
-    "@mui/material": "^7.3.5",
+    "@mui/icons-material": "^7.3.6",
+    "@mui/lab": "^7.0.1-beta.20",
+    "@mui/material": "^7.3.6",
     "axios": "^1.13.2",
     "crypto-js": "^4.2.0",
     "linkify-react": "^4.3.2",
     "masonic": "^4.1.0",
     "moment-timezone": "^0.6.0",
     "notistack": "^3.0.2",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router-dom": "^7.9.6"
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@types/react": "^19.2.5",
+    "@eslint/js": "^9.39.2",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "eslint": "^9.39.1",
+    "@vitejs/plugin-react": "^5.1.2",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.4.24",
-    "globals": "^16.5.0",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^17.0.0",
     "prettier": "^3.7.4",
-    "vite": "^7.2.2"
+    "vite": "^7.3.0"
   }
 }
