@@ -155,7 +155,10 @@ function MailDialog({
           variables: { ...contactDetails, isSecretAlert: secretMailAlert },
         });
         if (resp.data && resp.data.sendMail.status == 200) {
-          notistackSnackbar.showSnackbar("Mail sent successfully.", "success");
+          notistackSnackbar.showSnackbar(
+            "Message sent. I'll get back soon.",
+            "success"
+          );
           onclose();
         } else {
           notistackSnackbar.showSnackbar(resp.data.sendMail.message, "error");
