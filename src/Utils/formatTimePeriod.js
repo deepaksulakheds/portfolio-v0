@@ -45,7 +45,8 @@ export const getFormattedTimePeriod = (
   let seconds = validTo.diff(validFrom, "seconds");
 
   if (decimalFormat) {
-    const decimalYears = years + months / 12;
+    const decimalYears = years + months / 12 + days / 365.25;
+    console.log("decimalYears", decimalYears);
     return Number(decimalYears.toFixed(1)).toString();
   }
 
