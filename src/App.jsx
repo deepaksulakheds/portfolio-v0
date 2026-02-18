@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useMemo } from "react";
 import { useThemeContext } from "./Hooks/ThemeContext";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -23,22 +23,20 @@ function App() {
   const { themeContext } = useThemeContext();
 
   useEffect(() => {
-    if (document) {
-      document.documentElement.style.background = themeContext.background;
-      document.documentElement.style.backgroundColor = themeContext.background;
-      document.body.style.background = themeContext.background;
-      document.body.style.backgroundColor = themeContext.background;
-      document.body.style.color = themeContext.subTitleText;
+    document.documentElement.style.background = themeContext.background;
+    document.documentElement.style.backgroundColor = themeContext.background;
+    document.body.style.background = themeContext.background;
+    document.body.style.backgroundColor = themeContext.background;
+    document.body.style.color = themeContext.subTitleText;
 
-      document.documentElement.style.setProperty(
-        "--background-color",
-        themeContext.background
-      );
-      document.documentElement.style.setProperty(
-        "--theme-color",
-        themeContext.primary
-      );
-    }
+    document.documentElement.style.setProperty(
+      "--background-color",
+      themeContext.background
+    );
+    document.documentElement.style.setProperty(
+      "--theme-color",
+      themeContext.primary
+    );
   }, [themeContext]);
 
   // Suspense fallback
@@ -56,8 +54,8 @@ function App() {
     </Box>
   );
 
-  const router = createBrowserRouter(
-    [
+  const ROUTE_ARR = useMemo(
+    () => [
       {
         path: "/",
         element: (
@@ -101,10 +99,11 @@ function App() {
           },
           {
             path: "/notes",
+            protected: true,
             element: (
               <Suspense fallback={fallback}>
                 <ProtectedRoute
-                  fallback={<NotFound />}
+                  fallback={<NotFound />} // remove this for home route if not loggedin effect
                   element={<NotesComponent />}
                 />
               </Suspense>
@@ -130,9 +129,15 @@ function App() {
         ),
       },
     ],
-    {
-      basename: import.meta.env.VITE_APP_BASE_URL || "/",
-    }
+    [fallback]
+  );
+
+  const router = useMemo(
+    () =>
+      createBrowserRouter(ROUTE_ARR, {
+        basename: import.meta.env.VITE_APP_BASE_URL || "/",
+      }),
+    [ROUTE_ARR]
   );
 
   return <RouterProvider router={router} />;
