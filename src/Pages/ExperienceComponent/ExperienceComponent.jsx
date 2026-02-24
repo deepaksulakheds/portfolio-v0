@@ -36,6 +36,7 @@ const experienceData = [
         timePeriod: getFormattedTimePeriod("1-sep-2023", "present"),
         location: `Bengaluru | KA | IN`,
         descriptions: [
+          `Implemented an automated database migration and schema management process across multiple environments, eliminating manual effort and improving data consistency, efficiency, and reliability.`,
           `Led the POC and production migration from Redis to DragonflyDB, resulting in improved cache performance, higher Queries Per Second (QPS), and lower latency.`,
           `Developing responsive, high-performance web apps using React and Node.js. Skilled in component-based architecture, REST/GraphQL APIs integration, and MUI.`,
           `Led the migration of the codebase from MySQL to PostgreSQL, ensuring data integrity and optimizing performance.`,
