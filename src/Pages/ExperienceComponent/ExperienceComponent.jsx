@@ -39,7 +39,7 @@ const experienceData = [
           `Implemented an automated database migration and schema management process across multiple environments, eliminating manual effort and improving data consistency, efficiency, and reliability.`,
           `Led the POC and production migration from Redis to DragonflyDB, resulting in improved cache performance, higher Queries Per Second (QPS), and lower latency.`,
           `Developing responsive, high-performance web apps using React and Node.js. Skilled in component-based architecture, REST/GraphQL APIs integration, and MUI.`,
-          `Led the migration of the codebase from MySQL to PostgreSQL, ensuring data integrity and optimizing performance.`,
+          `Led migration from MySQL to PostgreSQL, updating codebase and database schema, ensuring data integrity, managing data migration processes, and optimizing database performance.`,
           `Identified and resolved SCA and SAST security vulnerabilities through VAPT, implementing fixes and security best practices to ensure robust and secure backend services and APIs.`,
           `Developed Data-Pipelines for data processing and ingestion, implemented backend services, REST and GraphQL APIs with Node.js, and automated report delivery using cron jobs. contributing to core functionality.`,
           `Redesigned and optimized database schemas and queries for performance, scalability, and efficient data handling. Implemented Redis-based caching in backend systems to boost performance and reduce response times.`,
