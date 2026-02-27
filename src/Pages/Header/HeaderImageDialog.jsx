@@ -3,11 +3,11 @@ import "./header.css";
 import { useEffect, useState, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 
-const imagesList = [
-  "./Images/deepak.jpg",
-  `./Images/deepak-1.jpg`,
-  `./Images/deepak-2.jpg`,
-];
+import Deepak from "@src/assets/Images/deepak.jpg";
+import Deepak1 from "@src/assets/Images/deepak-1.jpg";
+import Deepak2 from "@src/assets/Images/deepak-2.jpg";
+
+const imagesList = [Deepak, Deepak1, Deepak2];
 
 function HeaderImageDialog({ imageDialogVisible, onClose }) {
   const [selectedImage, setSelectedImage] = useState(imagesList[0]);

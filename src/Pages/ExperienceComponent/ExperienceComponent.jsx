@@ -23,11 +23,13 @@ import { useEffect, useRef, memo } from "react";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
+import ZeliotLogo from "@src/assets/Images/zeliot-1.png";
+
 const experienceData = [
   {
     company: "Zeliot Connected Services Pvt. Ltd.",
     totalTimePeriod: getFormattedTimePeriod("1-jun-2023", "present"),
-    logoPath: "./Images/zeliot-1.png",
+    logoPath: ZeliotLogo,
     companyUrl: "https://www.zeliot.in/",
     titlesList: [
       {

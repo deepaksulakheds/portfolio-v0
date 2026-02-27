@@ -1,25 +1,55 @@
 import { Dialog, Grid, IconButton, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import "./projectComponent.css";
 import { ArrowCircleLeft, ArrowCircleRight } from "@mui/icons-material";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
+
+const FOLDER_MAP = {
+  DueFinder: import.meta.glob(
+    "@src/assets/Images/snapshots/DueFinder/*.{jpg,jpeg,png,gif,webp}",
+    {
+      eager: true,
+      as: "url",
+    }
+  ),
+  FruitsCNN: import.meta.glob(
+    "@src/assets/Images/snapshots/FruitsCNN/*.{jpg,jpeg,png,gif,webp}",
+    {
+      eager: true,
+      as: "url",
+    }
+  ),
+};
 
 export function ViewSnapshotsDialog({
   viewSnapshotVisible,
   onClose,
   snapsList,
 }) {
-  const [selectedImage, setSelectedImage] = useState(snapsList[0]);
-
+  const [selectedImage, setSelectedImage] = useState(null);
   const { themeContext } = useThemeContext();
   const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   const thumbnailsContainerRef = useRef(null);
   const thumbnailRefs = useRef([]);
 
+  const loadedSnaps = useMemo(() => {
+    if (!snapsList) return [];
+
+    const folderGlob = FOLDER_MAP[snapsList];
+    if (!folderGlob) return [];
+
+    return Object.entries(folderGlob)
+      .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+      .map(([key, url]) => ({
+        key,
+        url,
+      }));
+  }, [snapsList]);
+
   useEffect(() => {
-    if (!viewSnapshotVisible) return;
+    if (!viewSnapshotVisible || !selectedImage) return;
 
     const container = thumbnailsContainerRef.current;
     const selectedThumbnail = thumbnailRefs.current[selectedImage];
@@ -42,20 +72,38 @@ export function ViewSnapshotsDialog({
     }
   }, [viewSnapshotVisible, selectedImage]);
 
-  const handleImageClick = (index) => {
-    setSelectedImage(snapsList[index]);
+  useEffect(() => {
+    if (viewSnapshotVisible && loadedSnaps.length > 0) {
+      setSelectedImage(loadedSnaps[0].url);
+    }
+  }, [viewSnapshotVisible, loadedSnaps]);
+
+  const handleThumbnailClick = (url) => {
+    setSelectedImage(url);
   };
 
+  const getCurrentIndex = () =>
+    loadedSnaps.findIndex((s) => s.url === selectedImage);
+
   const handlePrevClick = () => {
-    const currentIndex = snapsList.indexOf(selectedImage);
-    const prevIndex = (currentIndex - 1 + snapsList.length) % snapsList.length;
-    setSelectedImage(snapsList[prevIndex]);
+    if (!loadedSnaps.length || !selectedImage) return;
+
+    const currentIndex = getCurrentIndex();
+
+    const prevIndex =
+      (currentIndex - 1 + loadedSnaps.length) % loadedSnaps.length;
+
+    setSelectedImage(loadedSnaps[prevIndex].url);
   };
 
   const handleNextClick = () => {
-    const currentIndex = snapsList.indexOf(selectedImage);
-    const nextIndex = (currentIndex + 1) % snapsList.length;
-    setSelectedImage(snapsList[nextIndex]);
+    if (!loadedSnaps.length || !selectedImage) return;
+
+    const currentIndex = getCurrentIndex();
+
+    const nextIndex = (currentIndex + 1) % loadedSnaps.length;
+
+    setSelectedImage(loadedSnaps[nextIndex].url);
   };
 
   const handleKeyDown = (e) => {
@@ -99,26 +147,28 @@ export function ViewSnapshotsDialog({
         },
       }}
     >
-      {snapsList && snapsList.length > 0 ? (
+      {loadedSnaps.length > 0 ? (
         <>
-          <img
-            src={selectedImage}
-            loading="lazy"
-            alt="Image Preview"
-            style={{
-              minHeight: "200px",
-              minWidth: "250px",
-              maxWidth: "100%", // 100% of container width (which includes padding)
-              maxHeight: "80vh",
-              objectFit: "contain",
-              borderRadius: "10px",
-              backgroundColor: "rgba(255, 255, 255, 0.2)",
-              display: "block",
-              margin: "0 auto",
-              padding: 0, // remove padding here
-              boxSizing: "border-box",
-            }}
-          />
+          {selectedImage && (
+            <img
+              src={selectedImage}
+              loading="lazy"
+              alt="Preview"
+              style={{
+                minHeight: "200px",
+                minWidth: "250px",
+                maxWidth: "100%", // 100% of container width (which includes padding)
+                maxHeight: "80vh",
+                objectFit: "contain",
+                borderRadius: "10px",
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                display: "block",
+                margin: "0 auto",
+                padding: 0, // remove padding here
+                boxSizing: "border-box",
+              }}
+            />
+          )}
 
           <Grid
             sx={{
@@ -159,17 +209,17 @@ export function ViewSnapshotsDialog({
                   overflowX: "auto",
                 }}
               >
-                {snapsList.map((image, index) => (
+                {loadedSnaps.map((snap) => (
                   <img
-                    onClick={() => handleImageClick(index)}
-                    key={index}
-                    src={image}
+                    onClick={() => handleThumbnailClick(snap.url)}
+                    key={snap.key}
+                    src={snap.url}
                     className="imageList"
                     loading="lazy"
-                    ref={(el) => (thumbnailRefs.current[image] = el)} // assign ref to each image
+                    ref={(el) => (thumbnailRefs.current[snap.key] = el)}
                     style={{
-                      backgroundColor: themeContext.lightPrimary,
-                      ...(image === selectedImage && {
+                      borderRadius: 4,
+                      ...(snap.key.includes(selectedImage) && {
                         boxShadow: `inset 0px 0px 220px 0px ${themeContext.primary}`,
                       }),
                       height: "25px",

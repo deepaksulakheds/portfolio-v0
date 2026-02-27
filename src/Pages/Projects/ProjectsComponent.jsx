@@ -5,6 +5,14 @@ import "./projectComponent.css";
 import { ViewSnapshotsDialog } from "./ViewSnapshots.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 
+// Images Import
+import DueFinderThumb from "@src/assets/Images/DueFinder.png";
+import TelematicAnalyticsThumb from "@src/assets/Images/fleet.jpg";
+import ZeliotDashThumb from "@src/assets/Images/Dashboard-Zeliot_Analytics.png";
+import FruitsThumb from "@src/assets/Images/fruits.jpg";
+import FaceRecThumb from "@src/assets/Images/face-rec.jpg";
+import RiceMillThumb from "@src/assets/Images/riceMill.jpeg";
+
 const projData = [
   {
     title: "Due Finder (Mobile App)",
@@ -17,20 +25,9 @@ const projData = [
     ],
     description:
       "React Native and Expo-based Android app designed to help Policy Agents to track and manage upcoming due dates for multiple insurance policies.",
-    image: "./Images/DueFinder.png",
+    image: DueFinderThumb,
     path: "#",
-    snapList: [
-      "./Images/snapshots/DueFinder/DueFinder-1.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-2.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-3.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-4.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-5.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-6.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-7.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-8.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-9.jpg",
-      "./Images/snapshots/DueFinder/DueFinder-10.jpg",
-    ],
+    snapList: "DueFinder",
   },
   {
     title: "Telematic Analytics - Zeliot",
@@ -43,9 +40,9 @@ const projData = [
       "Apollo Server",
     ],
     description: `An interactive dashboard for vehicle data insights. Developed using React and Apollo Server.`,
-    image: "./Images/fleet.jpg",
+    image: TelematicAnalyticsThumb,
     path: "https://github.com/deepaksulakheds/Zeliot_Telematic_Project",
-    snapList: ["./Images/fleet.jpg"],
+    snapList: null,
   },
   {
     title: "Dashboard - Zeliot Analytics",
@@ -58,9 +55,9 @@ const projData = [
       "Apollo Server",
     ],
     description: `A telematics data visualization system for fleet analytics & KPIs of Zeliot. Built with React and GraphQL.`,
-    image: "./Images/Dashboard-Zeliot_Analytics.png",
+    image: ZeliotDashThumb,
     path: "https://github.com/deepaksulakheds/Zeliot-Analytics-Dashboard",
-    snapList: ["./Images/Dashboard-Zeliot_Analytics.png"],
+    snapList: null,
   },
   {
     title: "Fruits Classification using CNN",
@@ -74,14 +71,9 @@ const projData = [
       `Seaborn`,
     ],
     description: `Identifies different types of fruits using a Convolutional Neural Network(CNN). Implemented using Python and visualized with Matplotlib.`,
-    image: "./Images/fruits.jpg",
+    image: FruitsThumb,
     path: "https://github.com/deepaksulakheds/fruits-classification-cnn",
-    snapList: [
-      "./Images/snapshots/FruitsCNN/FruitsCNN-1.png",
-      "./Images/snapshots/FruitsCNN/FruitsCNN-2.png",
-      "./Images/snapshots/FruitsCNN/FruitsCNN-3.png",
-      "./Images/snapshots/FruitsCNN/FruitsCNN-4.png",
-    ],
+    snapList: "FruitsCNN",
   },
   {
     title: "Face Recognition using LBPH",
@@ -94,17 +86,17 @@ const projData = [
       " LBPH Algorithm",
     ],
     description: `A face recognition system using the LBPH algorithm. Utilizes OpenCV and Haar cascades for detection.`,
-    image: "./Images/face-rec.jpg",
+    image: FaceRecThumb,
     path: "https://github.com/deepaksulakheds/Face-Recognition-using-LBPH",
-    snapList: ["./Images/face-rec.jpg"],
+    snapList: null,
   },
   {
     title: "Rice Mill Management System",
     techUsed: ["HTML", " CSS", " PHP", " Bootstrap 5", " WAMP"],
     description: `A web-based management system for rice mills. Handles customer data, inventory, sales efficiently.`,
-    image: "./Images/riceMill.jpeg",
+    image: RiceMillThumb,
     path: "#",
-    snapList: ["./Images/riceMill.jpeg"],
+    snapList: null,
   },
 ];
 

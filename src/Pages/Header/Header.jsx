@@ -20,6 +20,7 @@ import { useSecretContext } from "../../Hooks/SecretContext";
 import { useNavigate } from "react-router-dom";
 import { useNavigationMenusContext } from "../../Hooks/NavMenuContext";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
+import ProfileImage from "@src/assets/Images/deepak.jpg";
 
 let ageInterval;
 
@@ -306,7 +307,7 @@ function Header({ attachmentToggle }) {
           title="View more images"
           onClick={() => setImageDialogVisible(true)}
           loading="lazy"
-          src="./Images/deepak.jpg"
+          src={ProfileImage}
           className="image"
         />
         <Grid>
