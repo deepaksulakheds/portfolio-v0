@@ -1,5 +1,5 @@
 import { Dialog, Grid, IconButton, Typography } from "@mui/material";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import "./projectComponent.css";
 import { ArrowCircleLeft, ArrowCircleRight } from "@mui/icons-material";
 import { useThemeContext } from "../../Hooks/ThemeContext";
@@ -10,14 +10,16 @@ const FOLDER_MAP = {
     "@src/assets/Images/snapshots/DueFinder/*.{jpg,jpeg,png,gif,webp}",
     {
       eager: true,
-      as: "url",
+      query: "?url",
+      import: "default",
     }
   ),
   FruitsCNN: import.meta.glob(
     "@src/assets/Images/snapshots/FruitsCNN/*.{jpg,jpeg,png,gif,webp}",
     {
       eager: true,
-      as: "url",
+      query: "?url",
+      import: "default",
     }
   ),
 };
@@ -27,12 +29,12 @@ export function ViewSnapshotsDialog({
   onClose,
   snapsList,
 }) {
-  const [selectedImage, setSelectedImage] = useState(null);
   const { themeContext } = useThemeContext();
   const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
-  const thumbnailsContainerRef = useRef(null);
-  const thumbnailRefs = useRef([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const thumbnailRefs = useRef({});
 
   const loadedSnaps = useMemo(() => {
     if (!snapsList) return [];
@@ -47,68 +49,49 @@ export function ViewSnapshotsDialog({
         url,
       }));
   }, [snapsList]);
+  const selectedImage = loadedSnaps[selectedIndex]?.url;
 
+  // Effects
   useEffect(() => {
-    if (!viewSnapshotVisible || !selectedImage) return;
+    if (!viewSnapshotVisible) return;
 
-    const container = thumbnailsContainerRef.current;
-    const selectedThumbnail = thumbnailRefs.current[selectedImage];
-
-    if (container && selectedThumbnail) {
-      const containerRect = container.getBoundingClientRect();
-      const thumbRect = selectedThumbnail.getBoundingClientRect();
-
-      if (thumbRect.left < containerRect.left) {
-        container.scrollBy({
-          left: thumbRect.left - containerRect.left - 5,
-          behavior: "smooth",
-        });
-      } else if (thumbRect.right > containerRect.right) {
-        container.scrollBy({
-          left: thumbRect.right - containerRect.right + 5,
-          behavior: "smooth",
-        });
-      }
-    }
+    const selectedThumb = thumbnailRefs.current[selectedImage];
+    selectedThumb?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
   }, [viewSnapshotVisible, selectedImage]);
 
   useEffect(() => {
     if (viewSnapshotVisible && loadedSnaps.length > 0) {
-      setSelectedImage(loadedSnaps[0].url);
+      setSelectedIndex(0);
     }
   }, [viewSnapshotVisible, loadedSnaps]);
 
-  const handleThumbnailClick = (url) => {
-    setSelectedImage(url);
-  };
+  // Handlers
+  const handleThumbnailClick = useCallback((index) => {
+    setSelectedIndex(index);
+  }, []);
 
-  const getCurrentIndex = () =>
-    loadedSnaps.findIndex((s) => s.url === selectedImage);
+  const handlePrevClick = useCallback(() => {
+    if (!loadedSnaps.length) return;
 
-  const handlePrevClick = () => {
-    if (!loadedSnaps.length || !selectedImage) return;
+    setSelectedIndex(
+      (prev) => (prev - 1 + loadedSnaps.length) % loadedSnaps.length
+    );
+  }, [loadedSnaps.length]);
 
-    const currentIndex = getCurrentIndex();
+  const handleNextClick = useCallback(() => {
+    if (!loadedSnaps.length) return;
 
-    const prevIndex =
-      (currentIndex - 1 + loadedSnaps.length) % loadedSnaps.length;
+    setSelectedIndex((prev) => (prev + 1) % loadedSnaps.length);
+  }, [loadedSnaps.length]);
 
-    setSelectedImage(loadedSnaps[prevIndex].url);
-  };
-
-  const handleNextClick = () => {
-    if (!loadedSnaps.length || !selectedImage) return;
-
-    const currentIndex = getCurrentIndex();
-
-    const nextIndex = (currentIndex + 1) % loadedSnaps.length;
-
-    setSelectedImage(loadedSnaps[nextIndex].url);
-  };
-
-  const handleKeyDown = (e) => {
-    try {
+  const handleKeyDown = useCallback(
+    (e) => {
       if (!userPlatform) return;
+
       const key = getHotkeyStringFromEvent(e);
 
       if (key === "arrowright") {
@@ -118,10 +101,9 @@ export function ViewSnapshotsDialog({
         e.preventDefault();
         handlePrevClick();
       }
-    } catch (err) {
-      console.log("Error in shortcut", err);
-    }
-  };
+    },
+    [userPlatform, getHotkeyStringFromEvent, handleNextClick, handlePrevClick]
+  );
 
   return (
     <Dialog
@@ -157,15 +139,13 @@ export function ViewSnapshotsDialog({
               style={{
                 minHeight: "200px",
                 minWidth: "250px",
-                maxWidth: "100%", // 100% of container width (which includes padding)
+                maxWidth: "100%",
                 maxHeight: "80vh",
                 objectFit: "contain",
                 borderRadius: "10px",
                 backgroundColor: "rgba(255, 255, 255, 0.2)",
                 display: "block",
                 margin: "0 auto",
-                padding: 0, // remove padding here
-                boxSizing: "border-box",
               }}
             />
           )}
@@ -180,7 +160,6 @@ export function ViewSnapshotsDialog({
             <Grid
               sx={{
                 display: "flex",
-                justifyContent: "flex-start",
                 alignItems: "flex-start",
                 gap: "5px",
                 padding: "5px",
@@ -201,35 +180,38 @@ export function ViewSnapshotsDialog({
               >
                 <ArrowCircleLeft sx={{ fontSize: "30px" }} />
               </IconButton>
+
               <Grid
-                ref={thumbnailsContainerRef} // container ref
                 sx={{
                   display: "flex",
                   gap: "5px",
                   overflowX: "auto",
                 }}
               >
-                {loadedSnaps.map((snap) => (
+                {loadedSnaps.map((snap, index) => (
                   <img
-                    onClick={() => handleThumbnailClick(snap.url)}
                     key={snap.key}
                     src={snap.url}
-                    className="imageList"
                     loading="lazy"
-                    ref={(el) => (thumbnailRefs.current[snap.key] = el)}
+                    className="imageList"
+                    onClick={() => handleThumbnailClick(index)}
+                    ref={(el) => {
+                      if (el) thumbnailRefs.current[snap.url] = el;
+                    }}
                     style={{
                       borderRadius: 4,
-                      ...(snap.key.includes(selectedImage) && {
-                        boxShadow: `inset 0px 0px 220px 0px ${themeContext.primary}`,
-                      }),
                       height: "25px",
                       width: "25px",
                       objectFit: "contain",
-                      flexShrink: 0, // prevent shrinking
+                      flexShrink: 0,
+                      ...(index === selectedIndex && {
+                        boxShadow: `inset 0px 0px 220px 0px ${themeContext.primary}`,
+                      }),
                     }}
                   />
                 ))}
               </Grid>
+
               <IconButton
                 onClick={handleNextClick}
                 sx={{
@@ -255,7 +237,7 @@ export function ViewSnapshotsDialog({
             textAlign: "center",
             backgroundColor: themeContext.surface,
           }}
-          component={"div"}
+          component="div"
         >
           No Snapshots Available
         </Typography>

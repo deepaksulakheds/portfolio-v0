@@ -5,7 +5,7 @@ import path from "node:path";
 export default ({ mode }) => {
   // Load env variables
   const env = loadEnv(mode, process.cwd(), "VITE_");
-  console.log("__dirname", __dirname);
+
   return defineConfig({
     plugins: [react()],
     base: env.VITE_APP_BASE_URL || "/",
