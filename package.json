@@ -9,26 +9,26 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=./",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prettify": "prettier --write \"**/*.{js,jsx,json,ts,tsx,html,css,md}\""
   },
   "dependencies": {
-    "@apollo/client": "^4.1.4",
+    "@apollo/client": "^4.1.6",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.8",
     "@mui/lab": "^7.0.1-beta.22",
     "@mui/material": "^7.3.8",
-    "axios": "^1.13.5",
+    "axios": "^1.13.6",
     "crypto-js": "^4.2.0",
     "linkify-react": "^4.3.2",
     "moment-timezone": "^0.6.0",
     "notistack": "^3.0.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
