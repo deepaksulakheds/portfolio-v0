@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import "./resume.css";
 import { memo } from "react";
-import resumePdf from "@src/assets/Files/Deepak_Sulakhe_CV.pdf";
+import resumePdf from "/Files/Deepak_Sulakhe_CV.pdf";
 
 function ResumeComponent(props) {
   return (
