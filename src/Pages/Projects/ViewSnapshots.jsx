@@ -1,7 +1,11 @@
 import { Dialog, Grid, IconButton, Typography } from "@mui/material";
 import { useEffect, useRef, useState, useMemo, useCallback } from "react";
 import "./projectComponent.css";
-import { ArrowCircleLeft, ArrowCircleRight } from "@mui/icons-material";
+import {
+  ArrowCircleLeft,
+  ArrowCircleRight,
+  DisabledByDefaultRounded,
+} from "@mui/icons-material";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
@@ -129,6 +133,20 @@ export function ViewSnapshotsDialog({
         },
       }}
     >
+      <DisabledByDefaultRounded
+        sx={{
+          alignSelf: "flex-end",
+          borderRadius: "5px",
+          cursor: "pointer",
+          color: themeContext.secondary,
+          marginBottom: "4px",
+          "&:hover": {
+            boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+            color: themeContext.primary,
+          },
+        }}
+        onClick={onClose}
+      />
       {loadedSnaps.length > 0 ? (
         <>
           {selectedImage && (
