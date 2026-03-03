@@ -44,7 +44,7 @@ const skills = [
       { content: "MongoDB", icon: ICONS.MongoDbIcon },
       { content: "PostgresSQL", icon: ICONS.PgSqlIcon },
       { content: "Redis", icon: ICONS.RedisIcon },
-      { content: "Dragonfly", icon: ICONS.DragonflyIcon },
+      { content: "DragonflyDB", icon: ICONS.DragonflyIcon },
       { content: "Clickhouse", icon: ICONS.ClickhouseIcon },
       { content: "ORM / ODM", icon: ICONS.OrmIcon },
     ],
