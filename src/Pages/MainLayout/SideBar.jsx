@@ -125,10 +125,15 @@ function Sidebar({
             width: level > 0 ? "calc(100% - 10px)" : "100%",
             textOverflow: "ellipsis",
             borderRadius: 2,
-            backgroundColor: isSelected
-              ? themeContext.selectedNavBackgroundColor
-              : null,
+            // backgroundColor: isSelected
+            //   ? themeContext.selectedNavBackgroundColor
+            //   : null,
+            borderLeft: isSelected
+              ? `4px solid ${themeContext.primary}`
+              : "none",
             "& *": {
+              filter:
+                isSelected && `drop-shadow(0 0 0.4px ${themeContext.primary})`,
               color: isSelected
                 ? themeContext.selectedNavTextColor
                 : themeContext.navItemTextColor,
@@ -474,9 +479,9 @@ function Sidebar({
             transition: "width 0.3s",
             overflowX: "hidden",
             whiteSpace: "nowrap",
-            height: `98.5%`,
-            margin: "7px",
-            borderRadius: 2,
+            height: `100%`,
+            // margin: "7px",
+            borderRadius: `0 7px 7px 0px;`,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
             backgroundColor: themeContext.surface,
             border: `none`,

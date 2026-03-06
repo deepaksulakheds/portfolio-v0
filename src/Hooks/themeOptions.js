@@ -3,9 +3,9 @@ const themeOptions = {
     mode: "light",
 
     // Nav Colors
-    navItemTextColor: "rgba(32, 51, 84, 1)",
+    navItemTextColor: "#444a51",
     navItemBackgroundColor: "",
-    selectedNavTextColor: "#fff",
+    selectedNavTextColor: "rgba(32, 51, 84, 1)",
     selectedNavBackgroundColor: "rgba(32, 51, 84, 1)",
 
     primary: "rgba(32, 51, 84, 1)",
@@ -38,7 +38,7 @@ const themeOptions = {
 
     navItemTextColor: "#fff",
     navItemBackgroundColor: "",
-    selectedNavTextColor: "#fff",
+    selectedNavTextColor: "rgba(170, 137, 242, 1)",
     selectedNavBackgroundColor: "rgba(170, 137, 242, 1)",
 
     primary: "rgba(170, 137, 242, 1)",
@@ -50,7 +50,7 @@ const themeOptions = {
     colorOnSecondary: "#000",
 
     background: "rgb(28, 27, 36)",
-    surface: "rgba(72, 71, 73, 1)",
+    surface: "rgba(50, 49, 54, 1)",
 
     // Text Colors
     titleText: "rgba(170, 137, 242, 1)",

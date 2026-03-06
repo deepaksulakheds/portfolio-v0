@@ -121,7 +121,7 @@ function NotesDialog({
           padding: "18px 20px",
         }}
       >
-        Notes
+        Add Note
       </DialogTitle>
       <Grid
         style={{
@@ -131,12 +131,12 @@ function NotesDialog({
         }}
       >
         <Divider
-          color={themeContext.navItemTextColor}
+          color={themeContext.secondary}
           sx={{
-            color: themeContext.navItemTextColor,
-            backgroundColor: themeContext.navItemTextColor,
+            color: themeContext.secondary,
+            backgroundColor: themeContext.secondary,
           }}
-          style={{ color: themeContext.navItemTextColor }}
+          style={{ color: themeContext.secondary }}
           width="92%"
         />
       </Grid>

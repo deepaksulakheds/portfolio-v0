@@ -377,7 +377,7 @@ function Header({ attachmentToggle }) {
                   sx={{
                     padding: "0.5rem",
                     transition: "all ease-in-out 0.15s",
-                    color: themeContext.navItemTextColor,
+                    color: themeContext.secondary,
                     ...(anchorEl && contact.style),
                     "&:hover": {
                       boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
