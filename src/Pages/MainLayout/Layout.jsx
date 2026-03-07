@@ -13,8 +13,8 @@ import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import Header from "../Header/Header.jsx";
 import { useNavigationMenusContext } from "../../Hooks/NavMenuContext.jsx";
 
-const drawerWidth = 180;
-const collapsedWidth = 64;
+const DESKTOP_DRAWER_WIDTH = 150;
+const COLLAPSED_WIDTH = 64;
 
 function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,7 +34,7 @@ function Layout() {
   };
 
   const currentDrawerWidth = useMemo(
-    () => (isCollapsed ? collapsedWidth : drawerWidth),
+    () => (isCollapsed ? COLLAPSED_WIDTH : DESKTOP_DRAWER_WIDTH),
     [isCollapsed]
   );
 

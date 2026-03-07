@@ -7,7 +7,6 @@ import {
   Tooltip,
   Grid,
   Collapse,
-  MenuItem as MuiMenuItem,
   Popover,
 } from "@mui/material";
 import {
@@ -62,9 +61,9 @@ function Sidebar({
             display: "flex",
             alignItems: "center",
             justifyContent: isCollapsed ? "center" : "flex-start",
-            padding: "5px 10px",
+            // padding: "5px 10px",
             cursor: "pointer",
-            margin: "5px",
+            margin: "8px",
             width: "80%",
             borderRadius: 2,
             color: themeContext.navItemTextColor,
@@ -380,7 +379,7 @@ function Sidebar({
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: isCollapsed ? 0 : 2,
+                mr: isCollapsed ? 0 : 1,
                 justifyContent: "center",
               }}
             >
@@ -400,7 +399,7 @@ function Sidebar({
             <ListItemIcon
               sx={{
                 minWidth: 0,
-                mr: isCollapsed ? 0 : 2,
+                mr: isCollapsed ? 0 : 1,
                 justifyContent: "center",
               }}
             >
