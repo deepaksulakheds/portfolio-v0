@@ -78,7 +78,7 @@ function Layout() {
 
       {/* Floating header for small screens */}
       <Box
-        component="floatinghead"
+        component="floating-head"
         sx={{
           position: "fixed",
           top: 0,

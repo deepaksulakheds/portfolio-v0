@@ -3,7 +3,7 @@ const themeOptions = {
     mode: "light",
 
     // Nav Colors
-    navItemTextColor: "#444a51",
+    navItemTextColor: "#646464",
     navItemBackgroundColor: "",
     selectedNavTextColor: "rgba(32, 51, 84, 1)",
     selectedNavBackgroundColor: "rgba(32, 51, 84, 1)",

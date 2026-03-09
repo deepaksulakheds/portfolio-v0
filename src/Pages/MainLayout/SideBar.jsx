@@ -480,7 +480,7 @@ function Sidebar({
             whiteSpace: "nowrap",
             height: `100%`,
             // margin: "7px",
-            borderRadius: `0 7px 7px 0px;`,
+            borderRadius: `0 15px 15px 0px;`,
             // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
             backgroundColor: themeContext.surface,
             border: `none`,

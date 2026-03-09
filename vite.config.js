@@ -17,5 +17,8 @@ export default ({ mode }) => {
         "@src": path.resolve(__dirname, "./src"),
       },
     },
+    esbuild: {
+      drop: ["console", "debugger"], // disable logs for prod build
+    },
   });
 };
