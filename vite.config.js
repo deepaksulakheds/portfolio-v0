@@ -17,8 +17,14 @@ export default ({ mode }) => {
         "@src": path.resolve(__dirname, "./src"),
       },
     },
-    esbuild: {
-      drop: ["console", "debugger"], // disable logs for prod build
+    build: {
+      minify: "oxc",
+      oxc: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
     },
   });
 };
