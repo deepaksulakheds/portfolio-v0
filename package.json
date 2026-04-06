@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview",
     "prettify": "prettier --write \"**/*.{js,jsx,json,ts,tsx,html,css,md}\""
