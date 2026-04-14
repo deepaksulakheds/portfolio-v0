@@ -109,7 +109,12 @@ function ProjectsComponent(props) {
   return (
     <Grid className="projectContainer">
       {projData.map((project) => (
-        <Grid key={project.title} width={300}>
+        <Grid
+          key={project.title}
+          sx={{
+            maxWidth: 300,
+          }}
+        >
           <Grid
             onClick={() => {
               setViewSnapshotVisible(project);
