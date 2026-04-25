@@ -662,37 +662,6 @@ function NotesComponent({ notistackSnackbar }) {
           disabled={allTags.length == 0}
           onChange={(e, value) => handleTagChange(value)}
           disableCloseOnSelect
-          sx={{
-            minWidth: "200px",
-            // "& .MuiSvgIcon-root": {
-            //   color: themeContext.secondary,
-            // },
-            "& .MuiInputLabel-root": {
-              color: themeContext.helperText,
-            },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: themeContext.helperText,
-            },
-            "& .MuiInput-underline:before": {
-              borderBottomColor: themeContext.helperText,
-            },
-            "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-              borderBottomColor: themeContext.helperText,
-            },
-            "& .MuiInput-underline:after": {
-              borderBottomColor: themeContext.helperText,
-            },
-            "& .Mui-disabled": {
-              color: themeContext.errorColor,
-              WebkitTextFillColor: themeContext.errorColor,
-            },
-            "& .MuiInput-underline.Mui-disabled:before": {
-              borderBottomColor: themeContext.errorColor,
-            },
-            "& .Mui-disabled .MuiSvgIcon-root": {
-              color: themeContext.errorColor,
-            },
-          }}
           slotProps={{
             paper: {
               sx: {
@@ -741,20 +710,34 @@ function NotesComponent({ notistackSnackbar }) {
               },
             },
             root: {
-              "& .MuiInputLabel-root": {
-                color: themeContext.lightSecondary,
-              },
-              "& .MuiInputLabel-root.Mui-focused": {
-                color: themeContext.lightSecondary,
-              },
-              "& .MuiInput-underline:before": {
-                borderBottomColor: themeContext.secondary,
-              },
-              "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                borderBottomColor: themeContext.lightSecondary,
-              },
-              "& .MuiInput-underline:after": {
-                borderBottomColor: themeContext.lightSecondary,
+              sx: {
+                minWidth: "200px",
+
+                "& .MuiInputLabel-root": {
+                  color: themeContext.helperText,
+                },
+                "& .MuiInputLabel-root.Mui-focused": {
+                  color: themeContext.helperText,
+                },
+                "& .MuiInput-underline:before": {
+                  borderBottomColor: themeContext.helperText,
+                },
+                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                  borderBottomColor: themeContext.helperText,
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: themeContext.helperText,
+                },
+                "& .Mui-disabled": {
+                  color: themeContext.errorColor,
+                  WebkitTextFillColor: themeContext.errorColor,
+                },
+                "& .MuiInput-underline.Mui-disabled:before": {
+                  borderBottomColor: themeContext.errorColor,
+                },
+                "& .Mui-disabled .MuiSvgIcon-root": {
+                  color: themeContext.errorColor,
+                },
               },
             },
             clearIndicator: {

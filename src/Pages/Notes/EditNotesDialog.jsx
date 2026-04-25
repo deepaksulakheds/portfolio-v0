@@ -351,20 +351,22 @@ function EditNotesDialog({
               },
 
               root: {
-                "& .MuiInputLabel-root": {
-                  color: themeContext.helperText,
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: themeContext.helperText,
-                },
-                "& .MuiInput-underline:before": {
-                  borderBottomColor: themeContext.secondary,
-                },
-                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  borderBottomColor: themeContext.helperText,
-                },
-                "& .MuiInput-underline:after": {
-                  borderBottomColor: themeContext.helperText,
+                sx: {
+                  "& .MuiInputLabel-root": {
+                    color: themeContext.helperText,
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: themeContext.helperText,
+                  },
+                  "& .MuiInput-underline:before": {
+                    borderBottomColor: themeContext.secondary,
+                  },
+                  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                    borderBottomColor: themeContext.helperText,
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: themeContext.helperText,
+                  },
                 },
               },
               clearIndicator: {
@@ -393,12 +395,23 @@ function EditNotesDialog({
                 {...params}
                 variant="standard"
                 label={allTags.length > 0 ? "Select Tag" : "No Tags, Crate Tag"}
-                InputProps={{
-                  ...params.InputProps,
-                  style: { color: themeContext.secondary },
-                  inputProps: {
-                    ...params.inputProps,
+                slotProps={{
+                  ...params.slotProps,
+                  inputLabel: {
+                    color: themeContext.secondary,
+                  },
+                  input: {
+                    ...params.slotProps?.input,
                     readOnly: true,
+                    style: {
+                      color: themeContext.secondary,
+                    },
+                  },
+                  root: {
+                    ...params.slotProps?.root,
+                    style: {
+                      color: themeContext.secondary,
+                    },
                   },
                 }}
               />
