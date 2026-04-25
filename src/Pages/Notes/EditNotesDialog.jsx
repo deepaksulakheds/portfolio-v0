@@ -155,6 +155,7 @@ function EditNotesDialog({
           sx={{
             color: themeContext.secondary,
             backgroundColor: themeContext.secondary,
+            width: "92%",
           }}
           style={{ color: themeContext.secondary }}
           width="92%"

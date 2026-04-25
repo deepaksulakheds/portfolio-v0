@@ -81,13 +81,13 @@ const NoteItem = memo(
           wordBreak: "break-word",
           display: "flex",
           justifyContent: "space-between",
-          padding: "12px",
+          padding: "10px",
           borderRadius: "10px",
         }}
       >
         <Grid
-          width={"95%"}
           sx={{
+            width: "95%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -235,8 +235,8 @@ const DeletedNoteItem = memo(
         }}
       >
         <Grid
-          width={"95%"}
           sx={{
+            width: `95%`,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -654,12 +654,11 @@ function NotesComponent({ notistackSnackbar }) {
         }}
       >
         <Autocomplete
-          // options={["- Untagged -", ...allTags]}
           value={filtersUsed.tags || []}
           options={allTags}
           getOptionLabel={(option) => `${option.tag} (${option.count})`}
           multiple
-          autoComplete
+          // autoComplete
           disabled={allTags.length == 0}
           onChange={(e, value) => handleTagChange(value)}
           disableCloseOnSelect
@@ -695,27 +694,24 @@ function NotesComponent({ notistackSnackbar }) {
             },
           }}
           slotProps={{
-            popper: {
-              modifiers: [
-                {
-                  name: "offset",
-                  options: {
-                    offset: [0, 8],
-                  },
-                },
-              ],
-            },
             paper: {
               sx: {
                 backgroundColor: themeContext.background,
-                background: themeContext.background,
                 color: themeContext.secondary,
                 border: `1px solid ${themeContext.primary}`,
                 borderRadius: "10px",
+                "& .MuiAutocomplete-noOptions": {
+                  color: themeContext.secondary,
+                },
               },
             },
+
             listbox: {
               sx: {
+                color: themeContext.secondary, // base color
+                "& *": {
+                  color: themeContext.secondary,
+                },
                 "& .MuiAutocomplete-option": {
                   "&:hover": {
                     color: themeContext.primary,
@@ -734,8 +730,8 @@ function NotesComponent({ notistackSnackbar }) {
                 color: themeContext.bodyText,
                 border: `1px solid ${themeContext.lightPrimary}`,
                 fontWeight: "bold",
-                display: "flex",
-                justifyContent: "space-between",
+                // display: "flex",
+                // justifyContent: "space-between",
                 "& .MuiChip-deleteIcon": {
                   color: themeContext.lightSecondary,
                   "&:hover": {
@@ -787,12 +783,33 @@ function NotesComponent({ notistackSnackbar }) {
               {...params}
               variant="standard"
               label={allTags.length === 0 ? "No tags available" : "Filter Tags"}
-              InputProps={{
-                ...params.InputProps,
-                style: { color: themeContext.secondary },
-                inputProps: {
-                  ...params.inputProps,
-                  readOnly: true,
+              sx={{
+                "& .MuiInput-underline:before": {
+                  borderBottomColor: themeContext.helperText,
+                },
+                "& .MuiInput-underline:hover:before": {
+                  borderBottomColor: themeContext.secondary,
+                },
+                "& .MuiInput-underline:after": {
+                  borderBottomColor: themeContext.primary,
+                },
+              }}
+              slotProps={{
+                ...params.slotProps,
+                inputLabel: {
+                  color: themeContext.secondary,
+                },
+                input: {
+                  ...params.slotProps?.input,
+                  style: {
+                    color: themeContext.secondary,
+                  },
+                },
+                root: {
+                  ...params.slotProps?.root,
+                  style: {
+                    color: themeContext.secondary,
+                  },
                 },
               }}
             />
@@ -1036,6 +1053,7 @@ function NotesComponent({ notistackSnackbar }) {
             color: themeContext.lightSecondary,
             backgroundColor: themeContext.lightSecondary,
             opacity: 0.6,
+            width: `100%`,
           }}
           style={{ color: themeContext.lightSecondary }}
           width="100%"

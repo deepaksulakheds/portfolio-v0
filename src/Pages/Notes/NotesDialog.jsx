@@ -312,10 +312,16 @@ function NotesDialog({
                   color: themeContext.secondary,
                   border: `1px solid ${themeContext.secondary}`,
                   borderRadius: "10px",
+                  "& .MuiAutocomplete-noOptions": {
+                    color: themeContext.secondary,
+                  },
                 },
               },
               listbox: {
                 sx: {
+                  "& *": {
+                    color: themeContext.secondary,
+                  },
                   "& .MuiAutocomplete-option": {
                     "&:hover": {
                       color: themeContext.primary,
@@ -330,20 +336,22 @@ function NotesDialog({
               },
 
               root: {
-                "& .MuiInputLabel-root": {
-                  color: themeContext.helperText,
-                },
-                "& .MuiInputLabel-root.Mui-focused": {
-                  color: themeContext.helperText,
-                },
-                "& .MuiInput-underline:before": {
-                  borderBottomColor: themeContext.secondary,
-                },
-                "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
-                  borderBottomColor: themeContext.helperText,
-                },
-                "& .MuiInput-underline:after": {
-                  borderBottomColor: themeContext.helperText,
+                sx: {
+                  "& .MuiInputLabel-root": {
+                    color: themeContext.helperText,
+                  },
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: themeContext.helperText,
+                  },
+                  "& .MuiInput-underline:before": {
+                    borderBottomColor: themeContext.secondary,
+                  },
+                  "& .MuiInput-underline:hover:not(.Mui-disabled):before": {
+                    borderBottomColor: themeContext.helperText,
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: themeContext.helperText,
+                  },
                 },
               },
               clearIndicator: {
@@ -372,12 +380,34 @@ function NotesDialog({
                 {...params}
                 variant="standard"
                 label={allTags.length > 0 ? "Select Tag" : "No Tags, Crate Tag"}
-                InputProps={{
-                  ...params.InputProps,
-                  style: { color: themeContext.secondary },
-                  inputProps: {
-                    ...params.inputProps,
+                sx={{
+                  "& .MuiInput-underline:before": {
+                    borderBottomColor: themeContext.helperText,
+                  },
+                  "& .MuiInput-underline:hover:before": {
+                    borderBottomColor: themeContext.secondary,
+                  },
+                  "& .MuiInput-underline:after": {
+                    borderBottomColor: themeContext.primary,
+                  },
+                }}
+                slotProps={{
+                  ...params.slotProps,
+                  inputLabel: {
+                    color: themeContext.secondary,
+                  },
+                  input: {
+                    ...params.slotProps?.input,
                     readOnly: true,
+                    style: {
+                      color: themeContext.secondary,
+                    },
+                  },
+                  root: {
+                    ...params.slotProps?.root,
+                    style: {
+                      color: themeContext.secondary,
+                    },
                   },
                 }}
               />

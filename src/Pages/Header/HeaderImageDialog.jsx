@@ -73,15 +73,17 @@ function HeaderImageDialog({ imageDialogVisible, onClose }) {
       onClose={onClose}
       fullWidth
       sx={{ backdropFilter: "blur(12px)", boxShadow: "none" }}
-      PaperProps={{
-        sx: {
-          boxShadow: "none",
-          background: "none",
-          height: "auto",
-          width: "100%",
-          // overflow: "hidden",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
+      slotProps={{
+        paper: {
+          sx: {
+            boxShadow: "none",
+            background: "none",
+            height: "auto",
+            width: "100%",
+            // overflow: "hidden",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          },
         },
       }}
       onKeyDown={handleKeyDown}

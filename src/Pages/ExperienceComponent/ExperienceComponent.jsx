@@ -416,6 +416,10 @@ function CustomExperienceTimeLineItem({
               title={company}
               height="28px"
               width="28px"
+              style={{
+                height: "28px",
+                width: "28px",
+              }}
             />
           </Grid>
           <Grid

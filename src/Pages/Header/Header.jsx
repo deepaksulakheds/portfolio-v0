@@ -272,7 +272,11 @@ function Header({ attachmentToggle }) {
       document.removeEventListener("keydown", handleKeyDown);
       if (ageInterval) clearInterval(ageInterval);
     };
-  }, [attachmentToggle.isAttachmentEnabled, secretContext.secretEnabled]);
+  }, [
+    attachmentToggle.isAttachmentEnabled,
+    secretContext.secretEnabled,
+    location?.pathname,
+  ]);
 
   const handleSecretToggle = () => {
     if (shrtcutTimer.current) return;
