@@ -329,8 +329,8 @@ function Header({ attachmentToggle }) {
           <Chip
             clickable
             disableRipple
-            onDoubleClick={(e) => handleSecretToggle()}
-            label="Software Engineer 1"
+            onDoubleClick={() => handleSecretToggle()}
+            label="Software Engineer 2"
             sx={{
               color: themeContext.subTitleText,
               cursor: "text",

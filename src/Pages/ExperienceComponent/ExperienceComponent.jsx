@@ -33,9 +33,18 @@ const experienceData = [
     companyUrl: "https://www.zeliot.in/",
     titlesList: [
       {
+        designation: "Software Engineer 2",
+        duration: "May 2026 - Present", // present.diff(start)
+        timePeriod: getFormattedTimePeriod("1-may-2026", "present"),
+        location: `Bengaluru | KA | IN`,
+        descriptions: [
+          `Contributing to the development and enhancement of scalable backend services and high-performance web applications while supporting system reliability and performance improvements.`,
+        ],
+      },
+      {
         designation: "Software Engineer 1",
-        duration: "Sep 2023 - Present", // present.diff(start)
-        timePeriod: getFormattedTimePeriod("1-sep-2023", "present"),
+        duration: "Sep 2023 - Apr 2026", // present.diff(start)
+        timePeriod: getFormattedTimePeriod("1-sep-2023", "1-may-2026"),
         location: `Bengaluru | KA | IN`,
         descriptions: [
           `Implemented an automated database migration and schema management process across multiple environments, eliminating manual effort and improving data consistency, efficiency, and reliability.`,
@@ -465,7 +474,7 @@ function CustomExperienceTimeLineItem({
                 color: themeContext.primary,
               },
             }}
-            onClick={(e) => window.open(companyUrl, "_blank")}
+            onClick={() => window.open(companyUrl, "_blank")}
           />
         </Grid>
         <Grid sx={{ marginTop: "5px", marginLeft: "5px" }}>
