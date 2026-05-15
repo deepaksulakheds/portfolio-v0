@@ -330,7 +330,7 @@ function Header({ attachmentToggle }) {
             clickable
             disableRipple
             onDoubleClick={() => handleSecretToggle()}
-            label="Software Engineer 2"
+            label="Software Engineer - 2"
             sx={{
               color: themeContext.subTitleText,
               cursor: "text",

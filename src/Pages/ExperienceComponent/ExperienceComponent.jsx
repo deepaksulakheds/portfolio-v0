@@ -33,7 +33,7 @@ const experienceData = [
     companyUrl: "https://www.zeliot.in/",
     titlesList: [
       {
-        designation: "Software Engineer 2",
+        designation: "Software Engineer - 2",
         duration: "May 2026 - Present", // present.diff(start)
         timePeriod: getFormattedTimePeriod("1-may-2026", "present"),
         location: `Bengaluru | KA | IN`,
@@ -42,7 +42,7 @@ const experienceData = [
         ],
       },
       {
-        designation: "Software Engineer 1",
+        designation: "Software Engineer - 1",
         duration: "Sep 2023 - Apr 2026", // present.diff(start)
         timePeriod: getFormattedTimePeriod("1-sep-2023", "1-may-2026"),
         location: `Bengaluru | KA | IN`,
