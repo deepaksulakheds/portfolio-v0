@@ -50,7 +50,7 @@ const themeOptions = {
     colorOnSecondary: "#000",
 
     background: "rgb(28, 27, 36)",
-    surface: "rgba(50, 49, 54, 1)",
+    surface: "rgb(57, 56, 61)",
 
     // Text Colors
     titleText: "rgba(170, 137, 242, 1)",

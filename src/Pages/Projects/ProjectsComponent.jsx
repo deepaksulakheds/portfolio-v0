@@ -100,7 +100,7 @@ const projData = [
   },
 ];
 
-function ProjectsComponent(props) {
+function ProjectsComponent() {
   // Contexts
   const { themeContext } = useThemeContext();
 
@@ -204,7 +204,7 @@ function ProjectsComponent(props) {
                     cursor: "text",
                     margin: "2px",
                     fontWeight: "400",
-                    border: `1px solid ${themeContext.lightPrimary}`,
+                    backgroundColor: themeContext.surface,
                   }}
                 />
               ))}
