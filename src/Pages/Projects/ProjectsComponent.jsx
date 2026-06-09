@@ -1,4 +1,4 @@
-import { GitHub } from "@mui/icons-material";
+import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Chip, Grid, IconButton, Typography } from "@mui/material";
 import { useState, memo } from "react";
 import "./projectComponent.css";
@@ -12,8 +12,19 @@ import ZeliotDashThumb from "@src/assets/Images/Dashboard-Zeliot_Analytics.png";
 import FruitsThumb from "@src/assets/Images/fruits.jpg";
 import FaceRecThumb from "@src/assets/Images/face-rec.jpg";
 import RiceMillThumb from "@src/assets/Images/riceMill.jpeg";
+import VcaddemyThumb from "@src/assets/Images/snapshots/Vcaddemy/vcaddemy-1.avif";
 
-const projData = [
+const PROJECTS_DATA = [
+  {
+    title: "VCADDEMY - Institutional Web Platform",
+    techUsed: ["React", "Vite", "Material UI"],
+    description: `Developed and actively maintaining a responsive web application for an educational institute. Built with React and Material-UI.`,
+    image: VcaddemyThumb,
+    path: "https://www.vcaddemy.in/",
+    snapList: "Vcaddemy",
+    isLive: true,
+    iconButton: <OpenInNew fontSize="small" />,
+  },
   {
     title: "Due Finder (Mobile App)",
     techUsed: [
@@ -28,6 +39,7 @@ const projData = [
     image: DueFinderThumb,
     path: "#",
     snapList: "DueFinder",
+    iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Telematic Analytics - Zeliot",
@@ -43,6 +55,7 @@ const projData = [
     image: TelematicAnalyticsThumb,
     path: "https://github.com/deepaksulakheds/Zeliot_Telematic_Project",
     snapList: null,
+    iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Dashboard - Zeliot Analytics",
@@ -58,6 +71,7 @@ const projData = [
     image: ZeliotDashThumb,
     path: "https://github.com/deepaksulakheds/Zeliot-Analytics-Dashboard",
     snapList: null,
+    iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Fruits Classification using CNN",
@@ -74,6 +88,7 @@ const projData = [
     image: FruitsThumb,
     path: "https://github.com/deepaksulakheds/fruits-classification-cnn",
     snapList: "FruitsCNN",
+    iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Face Recognition using LBPH",
@@ -89,6 +104,7 @@ const projData = [
     image: FaceRecThumb,
     path: "https://github.com/deepaksulakheds/Face-Recognition-using-LBPH",
     snapList: null,
+    iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Rice Mill Management System",
@@ -97,6 +113,7 @@ const projData = [
     image: RiceMillThumb,
     path: "#",
     snapList: null,
+    iconButton: <GitHub fontSize="small" />,
   },
 ];
 
@@ -108,7 +125,7 @@ function ProjectsComponent() {
 
   return (
     <Grid className="projectContainer">
-      {projData.map((project) => (
+      {PROJECTS_DATA.map((project) => (
         <Grid
           key={project.title}
           sx={{
@@ -149,6 +166,20 @@ function ProjectsComponent() {
               }}
             />
           </Grid>
+          {project.isLive && (
+            <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Chip
+                sx={{
+                  marginLeft: "auto",
+                  backgroundColor: "green",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+                size="small"
+                label="Live"
+              />
+            </Grid>
+          )}
           <Grid sx={{ padding: "0.2rem" }}>
             <Grid
               style={{
@@ -178,7 +209,7 @@ function ProjectsComponent() {
                   },
                 }}
               >
-                <GitHub />
+                {project.iconButton}
               </IconButton>
             </Grid>
             <Typography

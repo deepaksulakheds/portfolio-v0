@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
-import { lazy, Suspense, useEffect, useMemo } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useThemeContext } from "./Hooks/ThemeContext";
 import { Box, CircularProgress } from "@mui/material";
 
@@ -18,6 +18,76 @@ const ProjectsComponent = lazy(
 );
 const ResumeComponent = lazy(() => import("./Pages/Resume/Resume.jsx"));
 const NotesComponent = lazy(() => import("./Pages/Notes/NotesComponent.jsx"));
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      errorElement: <NotFound />,
+
+      children: [
+        {
+          index: true,
+          element: <AboutComponent />,
+        },
+        {
+          path: "experience",
+          element: <ExperienceComponent />,
+        },
+        {
+          path: "projects",
+          element: <ProjectsComponent />,
+        },
+        {
+          path: "resume",
+          element: <ResumeComponent />,
+        },
+        {
+          path: "notes",
+          element: (
+            <ProtectedRoute
+              fallback={<NotFound />}
+              element={<NotesComponent />}
+            />
+          ),
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        },
+      ],
+    },
+    {
+      path: "*",
+      element: <NotFound />,
+    },
+  ],
+  {
+    basename: import.meta.env.VITE_APP_BASE_URL || "/",
+  }
+);
+
+function Loader() {
+  return (
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "var(--background-color)",
+      }}
+    >
+      <CircularProgress
+        disableShrink
+        sx={{
+          color: "var(--theme-color)",
+        }}
+      />
+    </Box>
+  );
+}
 
 function App() {
   const { themeContext } = useThemeContext();
@@ -39,108 +109,11 @@ function App() {
     );
   }, [themeContext]);
 
-  // Suspense fallback
-  const fallback = (
-    <Box
-      sx={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: themeContext.background || "#fff",
-      }}
-    >
-      <CircularProgress disableShrink sx={{ color: themeContext.primary }} />
-    </Box>
+  return (
+    <Suspense fallback={<Loader themeContext={themeContext} />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
-
-  const ROUTE_ARR = useMemo(
-    () => [
-      {
-        path: "/",
-        element: (
-          <Suspense fallback={fallback}>
-            <Layout />
-          </Suspense>
-        ),
-        errorElement: <NotFound />,
-        children: [
-          {
-            index: true,
-            element: (
-              <Suspense fallback={fallback}>
-                <AboutComponent />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/experience",
-            element: (
-              <Suspense fallback={fallback}>
-                <ExperienceComponent />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/projects",
-            element: (
-              <Suspense fallback={fallback}>
-                <ProjectsComponent />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/resume",
-            element: (
-              <Suspense fallback={fallback}>
-                <ResumeComponent />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/notes",
-            protected: true,
-            element: (
-              <Suspense fallback={fallback}>
-                <ProtectedRoute
-                  fallback={<NotFound />} // remove this for home route if not loggedin effect
-                  element={<NotesComponent />}
-                />
-              </Suspense>
-            ),
-          },
-          {
-            path: "/*",
-            element: (
-              <Suspense fallback={fallback}>
-                <NotFound />
-              </Suspense>
-            ),
-          },
-        ],
-      },
-      // Cache all routes
-      {
-        path: "/*",
-        element: (
-          <Suspense fallback={fallback}>
-            <NotFound />
-          </Suspense>
-        ),
-      },
-    ],
-    [fallback]
-  );
-
-  const router = useMemo(
-    () =>
-      createBrowserRouter(ROUTE_ARR, {
-        basename: import.meta.env.VITE_APP_BASE_URL || "/",
-      }),
-    [ROUTE_ARR]
-  );
-
-  return <RouterProvider router={router} />;
 }
 
 export default App;

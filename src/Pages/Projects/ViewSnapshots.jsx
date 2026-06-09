@@ -11,7 +11,7 @@ import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
 const FOLDER_MAP = {
   DueFinder: import.meta.glob(
-    "@src/assets/Images/snapshots/DueFinder/*.{jpg,jpeg,png,gif,webp}",
+    "@src/assets/Images/snapshots/DueFinder/*.{jpg,jpeg,png,gif,webp,avif}",
     {
       eager: true,
       query: "?url",
@@ -19,7 +19,15 @@ const FOLDER_MAP = {
     }
   ),
   FruitsCNN: import.meta.glob(
-    "@src/assets/Images/snapshots/FruitsCNN/*.{jpg,jpeg,png,gif,webp}",
+    "@src/assets/Images/snapshots/FruitsCNN/*.{jpg,jpeg,png,gif,webp,avif}",
+    {
+      eager: true,
+      query: "?url",
+      import: "default",
+    }
+  ),
+  Vcaddemy: import.meta.glob(
+    "@src/assets/Images/snapshots/Vcaddemy/*.{jpg,jpeg,png,gif,webp,avif}",
     {
       eager: true,
       query: "?url",
