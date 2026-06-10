@@ -1,13 +1,5 @@
 import "./ExperienceComponent.css";
-import {
-  Timeline,
-  TimelineItem,
-  timelineItemClasses,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from "@mui/lab";
+import { TimelineConnector, TimelineDot } from "@mui/lab";
 import {
   AutoStories,
   BusinessCenter,
@@ -25,7 +17,7 @@ import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
 
 import ZeliotLogo from "@src/assets/Images/zeliot-1.png";
 
-const experienceData = [
+const EXPERIENCE_DATA = [
   {
     company: "Zeliot Connected Services Pvt. Ltd.",
     totalTimePeriod: getFormattedTimePeriod("1-jun-2023", "present"),
@@ -73,12 +65,12 @@ const experienceData = [
     ],
   },
 ];
-const icons = [
+const ICONS = [
   <SchoolRounded fontSize="medium" />,
   <WorkspacePremium fontSize="medium" />,
 ];
 
-const educationData = [
+const EDUCATION_DATA = [
   {
     course: "Master of Computer Application",
     institute: "KLE Technological University.",
@@ -145,442 +137,365 @@ function ExperienceComponent({ attachmentToggle }) {
 
   return (
     <Grid className="experienceContainer">
-      {/* Experience Timeline */}
-      <Timeline
-        sx={{
-          padding: 0,
-          [`& .${timelineItemClasses.root}:before`]: {
-            flex: 0,
-            padding: 0,
-          },
-        }}
-      >
-        <TimelineItem>
-          <TimelineSeparator>
-            <TimelineDot
-              sx={{
-                margin: 0,
-                color: themeContext.secondary,
-                borderColor: attachmentToggle.isAttachmentEnabled
+      {/* Experience Section */}
+      <Grid>
+        <Grid
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "15px",
+          }}
+        >
+          <BusinessCenter
+            onDoubleClick={() => {
+              if (secretContext.secretEnabled) {
+                attachmentToggle.toggleAttachment();
+              }
+            }}
+            sx={{
+              border: `2px solid ${
+                attachmentToggle.isAttachmentEnabled
                   ? themeContext.primary
-                  : themeContext.secondary,
-              }}
-              variant="outlined"
-            >
-              <BusinessCenter
-                onDoubleClick={() => {
-                  if (secretContext.secretEnabled) {
-                    attachmentToggle.toggleAttachment();
-                  }
-                }}
-                sx={{ color: themeContext.secondary }}
-              />
-            </TimelineDot>
-          </TimelineSeparator>
-          <TimelineContent>
-            <Typography
-              sx={{
-                fontSize: 18,
-                fontWeight: "bold",
-                textDecoration: "underline",
-                textUnderlineOffset: "5px",
-                textDecorationThickness: "0.1px",
-                color: themeContext.subTitleText,
-              }}
-            >
-              Experience
-            </Typography>
-          </TimelineContent>
-        </TimelineItem>
-        <Grid style={{ marginLeft: 0 }}>
-          {experienceData.map((experience, companyIndex) => (
-            <CustomExperienceTimeLineItem
-              company={experience.company}
-              key={companyIndex}
-              titlesList={experience.titlesList}
-              totalTimePeriod={experience.totalTimePeriod}
-              companyIndex={companyIndex}
-              logoPath={experience.logoPath}
-              companyUrl={experience.companyUrl}
-              themeContext={themeContext}
-            />
-          ))}
+                  : themeContext.secondary
+              }`,
+              padding: "3px",
+              borderRadius: "50%",
+            }}
+          />
+          <Typography
+            sx={{
+              marginLeft: "10px",
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              color: themeContext.bodyText,
+              textDecoration: "underline",
+              textUnderlineOffset: "5px",
+              textDecorationThickness: "0.1px",
+            }}
+          >
+            Experience
+          </Typography>
         </Grid>
-      </Timeline>
 
-      {/* Education Timeline */}
-      <Timeline
-        sx={{
-          padding: 0,
-          [`& .${timelineItemClasses.root}:before`]: {
-            flex: 0,
-            padding: 0,
-          },
-        }}
-      >
-        <TimelineItem>
-          <TimelineSeparator>
-            <TimelineDot
-              sx={{
-                margin: 0,
-                color: themeContext.secondary,
-                borderColor: themeContext.secondary,
-              }}
-              variant="outlined"
-            >
-              <AutoStories
-                sx={{ margin: 0, color: themeContext.themeIcons }}
-                color={themeContext.themeIcons}
+        <Grid sx={{ marginLeft: "15px" }}>
+          {EXPERIENCE_DATA.map((experience, index) => {
+            return (
+              <ExperienceItem
+                key={index}
+                experienceObj={experience}
+                companyIndex={index}
+                themeContext={themeContext}
               />
-            </TimelineDot>
-            {/* <TimelineConnector /> */}
-          </TimelineSeparator>
-          <TimelineContent>
-            <Typography
-              sx={{
-                fontSize: 18,
-                fontWeight: "bold",
-                textDecoration: "underline",
-                textUnderlineOffset: "5px",
-                textDecorationThickness: "0.1px",
-                color: themeContext.subTitleText,
-              }}
-            >
-              Education
-            </Typography>
-          </TimelineContent>
-        </TimelineItem>
-        <Grid style={{ marginTop: "-25px", marginLeft: "0px" }}>
-          {educationData.map((education, index) => (
-            <CustomEducationTimeLineItem
-              key={index}
-              index={index}
-              institute={education.institute}
-              course={education.course}
-              place={education.place}
-              timePeriod={education.timePeriod}
-              siteUrl={education.siteUrl}
-              themeContext={themeContext}
-            />
-          ))}
+            );
+          })}
         </Grid>
-      </Timeline>
+      </Grid>
+
+      {/* Education Section */}
+      <Grid sx={{ flexGrow: 1 }}>
+        <Grid
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "15px",
+          }}
+        >
+          <AutoStories
+            sx={{
+              border: `2px solid ${themeContext.secondary}`,
+              padding: "3px",
+              borderRadius: "50%",
+            }}
+          />
+          <Typography
+            sx={{
+              marginLeft: "10px",
+              fontSize: "1.2rem",
+              fontWeight: "bold",
+              color: themeContext.bodyText,
+              textDecoration: "underline",
+            }}
+          >
+            Education
+          </Typography>
+        </Grid>
+
+        <Grid
+          sx={{
+            marginLeft: "15px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "15px",
+          }}
+        >
+          {EDUCATION_DATA.map((education, index) => {
+            return (
+              <EducationItem
+                key={index}
+                index={index}
+                educationObj={education}
+                themeContext={themeContext}
+              />
+            );
+          })}
+        </Grid>
+      </Grid>
     </Grid>
   );
 }
 
-function CustomEducationTimeLineItem({
-  course,
-  place,
-  institute,
-  index,
-  timePeriod,
-  siteUrl,
-  themeContext,
-}) {
-  // Contexts
-
+function ExperienceItem({ experienceObj, themeContext }) {
   return (
-    <TimelineItem>
-      <TimelineContent
+    <Grid>
+      {/* Company Title */}
+      <Grid
         sx={{
-          marginBottom: index == educationData.length - 1 ? null : "10px",
+          border: `1px solid ${themeContext.bodyText}`,
+          borderRadius: 2,
+          width: "fit-content",
+          display: "flex",
+          alignItems: "center",
+          marginBottom: "15px",
         }}
       >
+        <img
+          src={experienceObj.logoPath}
+          alt={experienceObj.company}
+          title={experienceObj.company}
+          height="28px"
+          width="28px"
+          style={{
+            height: "28px",
+            width: "28px",
+            padding: "5px",
+          }}
+        />
         <Grid
-          title={course}
           sx={{
-            maxWidth: 500,
-            ":hover > .educationIcon": {
-              animation: "pulse 1s infinite ease-in-out",
-            },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "8px",
           }}
         >
-          <Grid
-            className="educationIcon"
+          <Typography
+            component="p"
             sx={{
-              height: "40px",
-              width: "40px",
-              border: `0.2px solid ${themeContext.subTitleText}`,
-              color: themeContext.themeIcons,
-              borderRadius: "50%",
-              position: "absolute",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              top: "20px",
-              backgroundColor: themeContext.background,
+              fontSize: 16,
+              paddingBottom: "0",
+              width: "fit-content",
+              fontWeight: "bold",
+              color: themeContext.subTitleText,
             }}
           >
-            {icons[index]}
-          </Grid>
+            {experienceObj.company}
+          </Typography>
+          <Typography
+            component="p"
+            sx={{
+              fontSize: 12,
+              color: themeContext.subTitleText,
+              fontWeight: "bold",
+            }}
+          >
+            - {experienceObj.totalTimePeriod}
+          </Typography>
+        </Grid>
+        <Launch
+          titleAccess="Open URL"
+          fontSize="small"
+          sx={{
+            padding: "5px",
+            borderRadius: "50%",
+            cursor: "pointer",
+            "&:hover": {
+              boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+              color: themeContext.primary,
+            },
+          }}
+          onClick={() => window.open(experienceObj.companyUrl, "_blank")}
+        />
+      </Grid>
 
-          <Grid
-            sx={{
-              marginTop: "10px",
-              marginLeft: "10px",
-              backgroundColor: themeContext.surface,
-              borderRadius: "10px",
-            }}
-          >
+      {/* Experience List */}
+      <Grid sx={{ marginTop: "5px", marginLeft: "5px" }}>
+        {experienceObj.titlesList.map((title, titleIndex) => (
+          <Grid key={titleIndex} sx={{ display: "flex" }}>
             <Grid
-              sx={{ marginLeft: "30px", marginTop: "20px", padding: "10px" }}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
             >
-              <Typography
-                component="p"
+              <TimelineDot
                 sx={{
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: themeContext.primary,
-                }}
-              >
-                {course}
-              </Typography>
-              <Typography sx={{ fontSize: 15, color: themeContext.primary }}>
-                -&nbsp;{institute}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: 13,
-                  marginTop: "5px",
-                  color: themeContext.bodyText,
-                }}
-              >
-                &nbsp;&nbsp; {place}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: 13,
-                  marginBottom: "5px",
-                  color: themeContext.bodyText,
-                }}
-              >
-                &nbsp;&nbsp; {timePeriod}
-              </Typography>
-              <Chip
-                label={`Visit Site`}
-                size="small"
-                sx={{
-                  fontWeight: "500",
-                  border: `1px solid ${themeContext.primary}`,
-                  color: themeContext.primary,
-                  "&:hover": {
-                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                  },
-                }}
-                onClick={() => {
-                  window.open(siteUrl, "_blank");
+                  marginTop: "8px",
+                  opacity: "0.6",
+                  backgroundColor: themeContext.secondary,
+                  color: themeContext.secondary,
+                  alignSelf: "center",
                 }}
               />
+              {/* Add connector if not the last title */}
+              {titleIndex !== experienceObj.titlesList.length - 1 && (
+                <TimelineConnector />
+              )}
+            </Grid>
+            <Grid
+              key={title.designation}
+              sx={{ marginBottom: "5px", marginLeft: "10px" }}
+            >
+              <Typography
+                sx={{
+                  fontSize: 15.5,
+                  fontWeight: "bold",
+                  color: themeContext.primary,
+                }}
+              >
+                {title.designation}
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontSize: 14,
+                  color: themeContext.primary,
+                  marginLeft: "2px",
+                }}
+              >
+                {title.duration}, ( {title.timePeriod} )<br />
+                {title.location}
+              </Typography>
+              <Grid
+                sx={{
+                  marginTop: "6px",
+                  marginLeft: "5px",
+                  marginBottom: "20px",
+                }}
+              >
+                {title.descriptions.map((desc) => (
+                  <Grid
+                    key={desc}
+                    sx={{
+                      fontSize: 14,
+                      display: "flex",
+                      color: themeContext.bodyText,
+                      maxWidth: "700px",
+                    }}
+                  >
+                    ➛
+                    {desc.includes("</") ? (
+                      <Typography
+                        key={desc}
+                        sx={{
+                          fontSize: 14,
+                          marginLeft: 0.7,
+                        }}
+                        dangerouslySetInnerHTML={{ __html: desc }}
+                      ></Typography>
+                    ) : (
+                      <Typography
+                        key={desc}
+                        sx={{
+                          fontSize: 14,
+                          marginLeft: 0.7,
+                        }}
+                      >
+                        {desc}
+                      </Typography>
+                    )}
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </TimelineContent>
-    </TimelineItem>
+        ))}
+      </Grid>
+    </Grid>
   );
 }
 
-function CustomExperienceTimeLineItem({
-  company,
-  titlesList,
-  totalTimePeriod,
-  logoPath,
-  companyUrl,
-  companyIndex,
-  themeContext,
-}) {
-  // Contexts
-
+function EducationItem({ educationObj, index, themeContext }) {
   return (
-    <TimelineItem title={company}>
-      <TimelineContent
+    <Grid
+      title={educationObj.course}
+      sx={{
+        margin: "10px",
+        borderRadius: "10px",
+        backgroundColor: themeContext.surface,
+        ":hover > .educationIcon": {
+          animation: "pulse 1s infinite ease-in-out",
+        },
+      }}
+    >
+      <Grid
+        className="educationIcon"
         sx={{
-          maxWidth: `700px`,
-          paddingTop: 0,
-          marginTop: "-10px",
-          marginBottom:
-            companyIndex == educationData.length - 1 ? null : "20px",
+          height: "40px",
+          width: "40px",
+          alignSelf: "flex-start",
+          border: `0.2px solid ${themeContext.subTitleText}`,
+          color: themeContext.themeIcons,
+          borderRadius: "50%",
+          // position: "absolute",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: themeContext.background,
         }}
       >
-        <Grid
+        {ICONS[index]}
+      </Grid>
+
+      <Grid sx={{ padding: "10px" }}>
+        <Typography
+          component="p"
           sx={{
-            border: `1px solid ${themeContext.bodyText}`,
-            borderRadius: 2,
-            width: "fit-content",
-            display: "flex",
-            alignItems: "center",
+            fontSize: 16,
+            fontWeight: 600,
+            color: themeContext.primary,
           }}
         >
-          <Grid
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "5px",
-            }}
-          >
-            <img
-              src={logoPath}
-              alt={company}
-              title={company}
-              height="28px"
-              width="28px"
-              style={{
-                height: "28px",
-                width: "28px",
-              }}
-            />
-          </Grid>
-          <Grid
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: "8px",
-            }}
-          >
-            <Typography
-              component="p"
-              sx={{
-                fontSize: 16,
-                paddingBottom: "0",
-                width: "fit-content",
-                fontWeight: "bold",
-                color: themeContext.subTitleText,
-              }}
-            >
-              {company}
-            </Typography>
-            <Typography
-              component="p"
-              sx={{
-                fontSize: 12,
-                color: themeContext.subTitleText,
-                fontWeight: "bold",
-              }}
-            >
-              - {totalTimePeriod}
-            </Typography>
-          </Grid>
-          <Launch
-            titleAccess="Open URL"
-            fontSize="small"
-            sx={{
-              padding: "5px",
-              borderRadius: "50%",
-              cursor: "pointer",
-              "&:hover": {
-                boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                color: themeContext.primary,
-              },
-            }}
-            onClick={() => window.open(companyUrl, "_blank")}
-          />
-        </Grid>
-        <Grid sx={{ marginTop: "5px", marginLeft: "5px" }}>
-          <Timeline
-            sx={{
-              padding: 0,
-              [`& .${timelineItemClasses.root}:before`]: {
-                flex: 0,
-                padding: 0,
-              },
-            }}
-          >
-            {titlesList.map((title, titleIndex) => (
-              <TimelineItem key={title.designation}>
-                <TimelineSeparator>
-                  <TimelineDot
-                    style={{
-                      opacity: "0.6",
-                      backgroundColor: themeContext.secondary,
-                      color: themeContext.secondary,
-                    }}
-                  />
-                  {titleIndex == titlesList.length - 1 ? null : (
-                    <TimelineConnector
-                      style={{
-                        opacity: "0.6",
-                        backgroundColor: themeContext.secondary,
-                        color: themeContext.secondary,
-                      }}
-                    />
-                  )}
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Grid key={title.designation} sx={{ marginBottom: "5px" }}>
-                    <Typography
-                      sx={{
-                        fontSize: 15.5,
-                        fontWeight: "bold",
-                        color: themeContext.primary,
-                      }}
-                    >
-                      {title.designation}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: 14,
-                        color: themeContext.primary,
-                        marginLeft: "5px",
-                      }}
-                    >
-                      {title.duration}, ( {title.timePeriod} )<br />
-                      {title.location}
-                    </Typography>
-                    <Grid sx={{ marginTop: "6px" }}>
-                      {title.descriptions.map((desc) => (
-                        <Grid
-                          key={desc}
-                          sx={{
-                            fontSize: 14,
-                            display: "flex",
-                            color: themeContext.bodyText,
-                          }}
-                        >
-                          ➛
-                          {desc.includes("</") ? (
-                            <Typography
-                              key={desc}
-                              sx={{
-                                fontSize: 14,
-                                marginLeft: 0.7,
-                              }}
-                              dangerouslySetInnerHTML={{ __html: desc }}
-                            ></Typography>
-                          ) : (
-                            <Typography
-                              key={desc}
-                              sx={{
-                                fontSize: 14,
-                                marginLeft: 0.7,
-                              }}
-                            >
-                              {desc}
-                            </Typography>
-                          )}
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Grid>
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </Timeline>
-        </Grid>
-        {/* {companyIndex == experienceData.length - 1 ? null : (
-          <Divider
-            orientation="horizontal"
-            sx={{
-              borderColor: "unset",
-              marginTop: "15px",
-              width: "80%",
-              opacity: "0.5",
-            }}
-          />
-        )} */}
-      </TimelineContent>
-    </TimelineItem>
+          {educationObj.course}
+        </Typography>
+        <Typography sx={{ fontSize: 15, color: themeContext.primary }}>
+          -&nbsp;{educationObj.institute}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 13,
+            marginTop: "5px",
+            color: themeContext.bodyText,
+          }}
+        >
+          &nbsp;&nbsp; {educationObj.place}
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: 13,
+            marginBottom: "5px",
+            color: themeContext.bodyText,
+          }}
+        >
+          &nbsp;&nbsp; {educationObj.timePeriod}
+        </Typography>
+        <Chip
+          label={`Visit Site`}
+          size="small"
+          sx={{
+            fontWeight: "500",
+            border: `1px solid ${themeContext.primary}`,
+            color: themeContext.primary,
+            "&:hover": {
+              boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+            },
+          }}
+          onClick={() => {
+            window.open(educationObj.siteUrl, "_blank");
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 }
 
