@@ -220,6 +220,7 @@ export function ViewSnapshotsDialog({
                     src={snap.url}
                     loading="lazy"
                     className="imageList"
+                    alt="Preview"
                     onClick={() => handleThumbnailClick(index)}
                     ref={(el) => {
                       if (el) thumbnailRefs.current[snap.url] = el;

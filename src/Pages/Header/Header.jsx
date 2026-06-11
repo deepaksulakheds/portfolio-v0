@@ -309,6 +309,7 @@ function Header({ attachmentToggle }) {
       <Grid sx={{ display: "flex" }}>
         <img
           title="View more images"
+          alt="Deepak Sulakhe"
           onClick={() => setImageDialogVisible(true)}
           loading="lazy"
           src={ProfileImage}

@@ -90,6 +90,7 @@ function HeaderImageDialog({ imageDialogVisible, onClose }) {
     >
       <img
         src={selectedImage}
+        alt="Deepak Sulakhe"
         style={{
           padding: "30px",
           // height: "85%",
@@ -115,6 +116,7 @@ function HeaderImageDialog({ imageDialogVisible, onClose }) {
         >
           {imagesList.map((image, index) => (
             <img
+              alt="Deepak Sulakhe"
               onClick={() => handleImageClick(index)}
               key={index}
               src={image}

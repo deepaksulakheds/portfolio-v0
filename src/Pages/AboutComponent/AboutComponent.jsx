@@ -145,6 +145,7 @@ function AboutComponent(props) {
                     <img
                       src={s.icon}
                       className="skillIcon"
+                      alt={s.content}
                       style={{
                         width: "32",
                         height: "32",
