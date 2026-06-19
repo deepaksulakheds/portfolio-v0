@@ -47,6 +47,8 @@ function Layout() {
     document.title = `${
       currentPageLabel?.length ? currentPageLabel : "Error 404 Not Found"
     } | Deepak Sulakhe`;
+
+    window.scrollTo(0, 0);
   }, [currentPageLabel]);
 
   // useEffect(() => {
