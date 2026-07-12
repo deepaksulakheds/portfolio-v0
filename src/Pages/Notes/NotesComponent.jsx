@@ -363,7 +363,7 @@ function NotesComponent({ notistackSnackbar }) {
     onError: (err) => {
       notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
     },
-    fetchPolicy: "network-only",
+    // fetchPolicy: "network-only",
   });
   const [restoreDeletedNotes] = useMutation(RESTORE_DELETED_NOTES);
   const [deleteMultipleNotes] = useMutation(DELETE_MULTIPLE_NOTES);
