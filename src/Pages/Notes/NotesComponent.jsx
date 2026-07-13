@@ -357,12 +357,13 @@ function NotesComponent({ notistackSnackbar }) {
 
   const shrtcutTimer = useRef(false);
 
-  const [getNotes, { data, loading, error }] = useLazyQuery(GET_NOTES, {
-    onError: (err) => {
-      notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
-    },
-    // fetchPolicy: "network-only",
-  });
+  const [getNotes, { data, loading: notesLoading, error, refetch }] =
+    useLazyQuery(GET_NOTES, {
+      onError: (err) => {
+        notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
+      },
+      // fetchPolicy: "network-only",
+    });
   const [restoreDeletedNotes] = useMutation(RESTORE_DELETED_NOTES);
   const [deleteMultipleNotes] = useMutation(DELETE_MULTIPLE_NOTES);
 
@@ -403,9 +404,13 @@ function NotesComponent({ notistackSnackbar }) {
 
   const fetchNotes = async (force = false) => {
     try {
-      const resp = await getNotes(
-        force ? { fetchPolicy: "network-only" } : undefined
-      );
+      let resp;
+
+      if (force && refetch) {
+        resp = await refetch();
+      } else {
+        resp = await getNotes();
+      }
 
       const notesResponse = resp?.data?.getAllNotes?.response ?? [];
 
@@ -586,7 +591,7 @@ function NotesComponent({ notistackSnackbar }) {
             delResp.data.deleteMultipleNotes.message,
             "success"
           );
-          fetchNotes();
+          fetchNotes(true);
         } else {
           notistackSnackbar.showSnackbar(
             delResp.data.deleteMultipleNotes.message,
@@ -617,7 +622,7 @@ function NotesComponent({ notistackSnackbar }) {
             restResp.data.restoreDeletedNotes.message,
             "success"
           );
-          fetchNotes();
+          fetchNotes(true);
         } else {
           notistackSnackbar.showSnackbar(
             restResp.data.restoreDeletedNotes.message,
@@ -931,7 +936,7 @@ function NotesComponent({ notistackSnackbar }) {
           transition: "all ease-in-out .2s",
         }}
       >
-        {loading ? (
+        {notesLoading ? (
           <CircularProgress
             sx={{ color: themeContext.primary }}
             color={themeContext.primary}
@@ -1047,7 +1052,7 @@ function NotesComponent({ notistackSnackbar }) {
           width="100%"
         />
       </Grid>
-      {loading ? null : deletedNotes.length === 0 ? (
+      {notesLoading ? null : deletedNotes.length === 0 ? (
         <>
           <Typography
             sx={{

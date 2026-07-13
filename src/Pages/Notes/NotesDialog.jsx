@@ -78,7 +78,7 @@ function NotesDialog({
       // console.log("addResp", addResp.data.addNote.status);
       if (addResp.data.addNote.status == 200) {
         notistackSnackbar.showSnackbar("Note added successfully.", "success");
-        fetchNotes();
+        fetchNotes(true);
         onClose();
       } else {
         notistackSnackbar.showSnackbar(addResp.data.addNote.message, "error");

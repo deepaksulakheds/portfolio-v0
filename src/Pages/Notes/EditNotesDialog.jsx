@@ -91,7 +91,7 @@ function EditNotesDialog({
       // console.log("editResp", editResp.data);
       if (editResp.data.updateNote.status == 200) {
         notistackSnackbar.showSnackbar("Note edited successfully.", "success");
-        fetchNotes();
+        fetchNotes(true);
         closeEditNote();
       } else {
         notistackSnackbar.showSnackbar(
