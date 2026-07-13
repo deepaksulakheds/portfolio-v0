@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./NotesComponent.css";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
 import {
@@ -357,15 +357,58 @@ function NotesComponent({ notistackSnackbar }) {
 
   const shrtcutTimer = useRef(false);
 
-  const [getNotes, { data, loading: notesLoading, error, refetch }] =
-    useLazyQuery(GET_NOTES, {
-      onError: (err) => {
+  const [getNotes, { loading: notesLoading, refetch }] = useLazyQuery(
+    GET_NOTES,
+    {
+      onError: () => {
         notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
       },
       // fetchPolicy: "network-only",
-    });
+    }
+  );
   const [restoreDeletedNotes] = useMutation(RESTORE_DELETED_NOTES);
   const [deleteMultipleNotes] = useMutation(DELETE_MULTIPLE_NOTES);
+
+  const fetchNotes = useCallback(
+    async (force = false) => {
+      try {
+        let resp;
+
+        if (force && refetch) {
+          resp = await refetch();
+        } else {
+          resp = await getNotes();
+        }
+
+        const notesResponse = resp?.data?.getAllNotes?.response ?? [];
+
+        if (notesResponse.length === 0) {
+          setAllRespNotes([]);
+          return;
+        }
+
+        const formattedNotes = [];
+
+        for (const note of notesResponse) {
+          formattedNotes.push({
+            ...note,
+            createdAt: moment
+              .unix(note.createdAt)
+              .format("hh:mm A - DD/MMM/YY"),
+            updatedAt: note.updatedAt
+              ? moment.unix(note.updatedAt).format("hh:mm A - DD/MMM/YY")
+              : null,
+          });
+        }
+
+        setAllRespNotes(formattedNotes);
+      } catch (err) {
+        console.error(err);
+        notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
+      }
+    },
+    [getNotes, refetch, notistackSnackbar]
+  );
 
   useEffect(() => {
     fetchNotes();
@@ -401,42 +444,6 @@ function NotesComponent({ notistackSnackbar }) {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
-  const fetchNotes = async (force = false) => {
-    try {
-      let resp;
-
-      if (force && refetch) {
-        resp = await refetch();
-      } else {
-        resp = await getNotes();
-      }
-
-      const notesResponse = resp?.data?.getAllNotes?.response ?? [];
-
-      if (notesResponse.length === 0) {
-        setAllRespNotes([]);
-        return;
-      }
-
-      const formattedNotes = [];
-
-      for (const note of notesResponse) {
-        formattedNotes.push({
-          ...note,
-          createdAt: moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY"),
-          updatedAt: note.updatedAt
-            ? moment.unix(note.updatedAt).format("hh:mm A - DD/MMM/YY")
-            : null,
-        });
-      }
-
-      setAllRespNotes(formattedNotes);
-    } catch (err) {
-      console.error(err);
-      notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
-    }
-  };
 
   const { allTags, tagColorMap } = useMemo(() => {
     const tagCounts = {};
@@ -962,7 +969,7 @@ function NotesComponent({ notistackSnackbar }) {
             columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
             spacing={2}
           >
-            {notesToDisplay.map((note, index) => (
+            {notesToDisplay.map((note) => (
               <NoteItem
                 key={note.id}
                 note={note}
@@ -1091,7 +1098,7 @@ function NotesComponent({ notistackSnackbar }) {
               columns={{ xs: 1, sm: 2, md: 2, lg: 3 }}
               spacing={2}
             >
-              {deletedNotes.map((note, index) => (
+              {deletedNotes.map((note) => (
                 <DeletedNoteItem
                   key={note.id}
                   note={note}

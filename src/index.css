@@ -33,3 +33,16 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+/* Forces the snackbar container to stay on the right across all screen sizes */
+.notistack-SnackbarContainer {
+  right: 10px !important;
+  left: auto !important;
+  top: 5px !important;
+  align-items: flex-end !important;
+}
+
+/* Fixes individual snackbar items to align right on mobile */
+.notistack-SnackbarContainer {
+  justify-content: flex-end !important;
+}
