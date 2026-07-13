@@ -37,7 +37,6 @@ import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import { withNotistackSnackbar } from "../../Hooks/SharedSnackbar1.jsx";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform.js";
 
-var tagColorMap = {};
 let timer = null;
 
 const tagColors = [
@@ -347,7 +346,6 @@ function NotesComponent({ notistackSnackbar }) {
   const [copied, setCopied] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [allRespNotes, setAllRespNotes] = useState([]);
-  const [allTags, setAllTags] = useState([]);
   const [internalSearch, setInternalSearch] = useState("");
   const [filtersUsed, setFiltersUsed] = useState({
     tags: [],
@@ -403,63 +401,70 @@ function NotesComponent({ notistackSnackbar }) {
     };
   }, []);
 
-  const fetchNotes = async () => {
+  const fetchNotes = async (force = false) => {
     try {
-      const resp = await getNotes();
-      // console.log("respNotes", resp.data.getAllNotes.response);
-      const notesResponse = resp?.data?.getAllNotes?.response || [];
-      if (notesResponse.length > 0) {
-        let respNotes = notesResponse.map((note) => ({
+      const resp = await getNotes(
+        force ? { fetchPolicy: "network-only" } : undefined
+      );
+
+      const notesResponse = resp?.data?.getAllNotes?.response ?? [];
+
+      if (notesResponse.length === 0) {
+        setAllRespNotes([]);
+        return;
+      }
+
+      const formattedNotes = [];
+
+      for (const note of notesResponse) {
+        formattedNotes.push({
           ...note,
           createdAt: moment.unix(note.createdAt).format("hh:mm A - DD/MMM/YY"),
           updatedAt: note.updatedAt
-            ? moment.unix(note?.updatedAt).format("hh:mm A - DD/MMM/YY")
+            ? moment.unix(note.updatedAt).format("hh:mm A - DD/MMM/YY")
             : null,
-        }));
-        setAllRespNotes(respNotes);
-        respNotes = respNotes.filter((note) => !note.isDeleted);
-
-        const tags = [
-          ...new Set(
-            respNotes
-              ?.map((note) => note.tag)
-              .filter((tag) => tag)
-              .flat()
-              .sort()
-          ),
-        ];
-
-        const tempTags = {};
-        for (const { tag } of respNotes || []) {
-          const key = tag?.trim() || "- Untagged -";
-          tempTags[key] = (tempTags[key] || 0) + 1;
-        }
-
-        const tagWitCountArr = Object.entries(tempTags)?.map(
-          ([tag, count]) => ({
-            tag,
-            count,
-          })
-        );
-        tagWitCountArr.sort((a, b) => {
-          if (a.tag === "- Untagged -") return -1;
-          if (b.tag === "- Untagged -") return 1;
-          return a.tag.localeCompare(b.tag);
         });
-
-        tagColorMap = await tags.reduce((acc, currTag, index) => {
-          const color = tagColors[index % tagColors.length];
-          acc[currTag] = color;
-          return acc;
-        }, {});
-
-        setAllTags(tagWitCountArr);
       }
+
+      setAllRespNotes(formattedNotes);
     } catch (err) {
-      console.log("err", err);
+      console.error(err);
       notistackSnackbar.showSnackbar("Failed to fetch notes.", "error");
     }
   };
+
+  const { allTags, tagColorMap } = useMemo(() => {
+    const tagCounts = {};
+    const uniqueTags = new Set();
+
+    for (const note of allRespNotes) {
+      if (note.isDeleted) continue;
+
+      const tag = note.tag?.trim();
+      const key = tag || "- Untagged -";
+
+      tagCounts[key] = (tagCounts[key] || 0) + 1;
+
+      if (tag) uniqueTags.add(tag);
+    }
+
+    const sortedTags = [...uniqueTags].sort();
+
+    const tagColorMap = sortedTags.reduce((acc, tag, index) => {
+      acc[tag] = tagColors[index % tagColors.length];
+      return acc;
+    }, {});
+
+    const allTags = Object.entries(tagCounts)
+      .map(([tag, count]) => ({ tag, count }))
+      .sort((a, b) => {
+        if (a.tag === "- Untagged -") return -1;
+        if (b.tag === "- Untagged -") return 1;
+        return a.tag.localeCompare(b.tag);
+      });
+
+    return { allTags, tagColorMap };
+  }, [allRespNotes]);
 
   // Memos
   const notesToDisplay = useMemo(() => {
