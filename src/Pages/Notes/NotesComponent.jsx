@@ -27,6 +27,7 @@ import {
   ClearOutlined,
   Refresh,
   FilterListOff,
+  Sync,
 } from "@mui/icons-material";
 import NotesDialog from "./NotesDialog.jsx";
 import moment from "moment-timezone";
@@ -445,6 +446,7 @@ function NotesComponent({ notistackSnackbar }) {
     };
   }, []);
 
+  // Tags
   const { allTags, tagColorMap } = useMemo(() => {
     const tagCounts = {};
     const uniqueTags = new Set();
@@ -478,7 +480,7 @@ function NotesComponent({ notistackSnackbar }) {
     return { allTags, tagColorMap };
   }, [allRespNotes]);
 
-  // Memos
+  // Filters
   const notesToDisplay = useMemo(() => {
     const { tags, search, showOnlySelected } = filtersUsed;
 
@@ -933,6 +935,39 @@ function NotesComponent({ notistackSnackbar }) {
             filtersUsed.search === "" &&
             filtersUsed.tags.length === 0
           }
+        />
+        <Chip
+          label={<Sync />}
+          onClick={() => fetchNotes(true)}
+          title="Refresh"
+          sx={{
+            borderRadius: "5px",
+            cursor: "pointer",
+            padding: "2px",
+            color: themeContext.secondary,
+            ">*": {
+              color: themeContext.secondary,
+            },
+            "& .MuiChip-label": {
+              padding: "2px",
+            },
+            "&:hover": {
+              boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+              color: themeContext.primary,
+              ">*": {
+                color: themeContext.primary,
+              },
+            },
+            "&.Mui-disabled": {
+              cursor: "not-allowed",
+              color: themeContext.lightSecondary,
+              boxShadow: "none",
+              ">*": {
+                color: themeContext.lightSecondary,
+              },
+            },
+          }}
+          disabled={notesLoading}
         />
       </Grid>
       <Grid
