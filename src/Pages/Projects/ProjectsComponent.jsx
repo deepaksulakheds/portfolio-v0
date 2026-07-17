@@ -39,7 +39,7 @@ const PROJECTS_DATA = [
     image: DueFinderThumb,
     path: "#",
     snapList: "DueFinder",
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Telematic Analytics - Zeliot",
@@ -55,7 +55,7 @@ const PROJECTS_DATA = [
     image: TelematicAnalyticsThumb,
     path: "https://github.com/deepaksulakheds/Zeliot_Telematic_Project",
     snapList: null,
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Dashboard - Zeliot Analytics",
@@ -71,7 +71,7 @@ const PROJECTS_DATA = [
     image: ZeliotDashThumb,
     path: "https://github.com/deepaksulakheds/Zeliot-Analytics-Dashboard",
     snapList: null,
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Fruits Classification using CNN",
@@ -88,7 +88,7 @@ const PROJECTS_DATA = [
     image: FruitsThumb,
     path: "https://github.com/deepaksulakheds/fruits-classification-cnn",
     snapList: "FruitsCNN",
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Face Recognition using LBPH",
@@ -104,7 +104,7 @@ const PROJECTS_DATA = [
     image: FaceRecThumb,
     path: "https://github.com/deepaksulakheds/Face-Recognition-using-LBPH",
     snapList: null,
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
   {
     title: "Rice Mill Management System",
@@ -113,7 +113,7 @@ const PROJECTS_DATA = [
     image: RiceMillThumb,
     path: "#",
     snapList: null,
-    iconButton: <GitHub fontSize="small" />,
+    // iconButton: <GitHub fontSize="small" />,
   },
 ];
 
@@ -194,23 +194,25 @@ function ProjectsComponent() {
               >
                 {project.title}
               </Typography>
-              <IconButton
-                target="blank"
-                href={project.path}
-                title="View on GitHub"
-                sx={{
-                  padding: "4px",
-                  color: themeContext.secondary,
-                  transition: "all ease-in-out 0.15s",
-                  "&:hover": {
-                    color: themeContext.primary,
-                    // filter: `drop-shadow(0px 0px 3px ${themeContext.primary})`,
-                    boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
-                  },
-                }}
-              >
-                {project.iconButton}
-              </IconButton>
+              {project.iconButton && (
+                <IconButton
+                  target="blank"
+                  href={project.path}
+                  title="View on GitHub"
+                  sx={{
+                    padding: "4px",
+                    color: themeContext.secondary,
+                    transition: "all ease-in-out 0.15s",
+                    "&:hover": {
+                      color: themeContext.primary,
+                      // filter: `drop-shadow(0px 0px 3px ${themeContext.primary})`,
+                      boxShadow: `inset 0px 0px 10px 2px ${themeContext.primary}`,
+                    },
+                  }}
+                >
+                  {project.iconButton}
+                </IconButton>
+              )}
             </Grid>
             <Typography
               sx={{

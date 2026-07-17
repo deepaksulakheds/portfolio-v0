@@ -21,6 +21,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
 import { memo, useState } from "react";
 
+// ==========================================
+// 2. Main Sidebar Component
+// ==========================================
 function Sidebar({
   navigationMenus,
   mobileOpen,
@@ -34,8 +37,163 @@ function Sidebar({
 
   const { themeContext, toggleTheme } = useThemeContext();
 
-  const ToggleButton = ({ isCollapsed, onClick, children, tooltipLabel }) => {
-    // ... (ToggleButton implementation remains the same)
+  const renderDrawerContent = (isMobile) => (
+    <Box
+      sx={{
+        width: drawerWidth,
+        height: "calc(100% - 20px)",
+        display: "flex",
+        paddingTop: "10px",
+        paddingBottom: "10px",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <List
+        sx={{
+          overflow: "auto",
+          display: "flex",
+          gap: `10px`,
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "5px",
+        }}
+      >
+        {navigationMenus.map((item, index) => (
+          <MenuItem
+            key={index}
+            item={item}
+            isMobile={isMobile}
+            isCollapsed={isCollapsed}
+            themeContext={themeContext}
+            navigate={navigate}
+            location={location}
+            handleDrawerToggle={handleDrawerToggle}
+          />
+        ))}
+      </List>
+
+      <Box
+        sx={{
+          borderTop: `0.7px solid ${themeContext.primary}`,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <ToggleButton
+          isCollapsed={isCollapsed}
+          onClick={handleCollapseToggle}
+          tooltipLabel={isCollapsed ? "Expand" : "Collapse"}
+          themeContext={themeContext}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: isCollapsed ? 0 : 1,
+              justifyContent: "center",
+            }}
+          >
+            {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
+          </ListItemIcon>
+          {!isCollapsed && (
+            <ListItemText primary="Collapse" sx={{ margin: 0 }} />
+          )}
+        </ToggleButton>
+
+        <ToggleButton
+          tooltipLabel={
+            themeContext.mode === "dark" ? "Light Mode" : "Dark Mode"
+          }
+          isCollapsed={isCollapsed}
+          onClick={toggleTheme}
+          themeContext={themeContext}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: isCollapsed ? 0 : 1,
+              justifyContent: "center",
+            }}
+          >
+            {themeContext.mode === "dark" ? <LightMode /> : <NightsStay />}
+          </ListItemIcon>
+          {!isCollapsed && (
+            <ListItemText
+              primary={`${themeContext.mode === "dark" ? "Light" : "Dark"}`}
+              sx={{ margin: 0 }}
+            />
+          )}
+        </ToggleButton>
+      </Box>
+    </Box>
+  );
+
+  return (
+    <Box
+      component="nav"
+      sx={{
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
+        marginRight: { xs: 0, sm: "10px" },
+      }}
+      aria-label="sidebar"
+    >
+      {/* Mobile Drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{ keepMounted: true, sx: { height: "fit-content" } }}
+        sx={{
+          display: { xs: "block", sm: "none" },
+          "& .MuiDrawer-paper": { width: drawerWidth, height: "fit-content" },
+        }}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: themeContext.surface,
+              borderRadius: `0 10px 10px 0;`,
+            },
+          },
+        }}
+      >
+        <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+          {renderDrawerContent(true)}
+        </Box>
+      </Drawer>
+
+      {/* Desktop Permanent Drawer */}
+      <Drawer
+        variant="permanent"
+        open
+        sx={{
+          display: { xs: "none", sm: "block" },
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+            transition: "width 0.3s",
+            overflowX: "hidden",
+            whiteSpace: "nowrap",
+            height: `100%`,
+            borderRadius: `0 15px 15px 0px;`,
+            backgroundColor: themeContext.surface,
+            border: `none`,
+          },
+        }}
+      >
+        {renderDrawerContent(false)}
+      </Drawer>
+    </Box>
+  );
+}
+
+// ==========================================
+// 1. Standalone Helper Components (Moved Out)
+// ==========================================
+
+const ToggleButton = memo(
+  ({ isCollapsed, onClick, children, tooltipLabel, themeContext }) => {
     return (
       <Tooltip
         title={isCollapsed ? tooltipLabel : ""}
@@ -61,7 +219,6 @@ function Sidebar({
             display: "flex",
             alignItems: "center",
             justifyContent: isCollapsed ? "center" : "flex-start",
-            // padding: "5px 10px",
             cursor: "pointer",
             margin: "8px",
             width: "80%",
@@ -80,17 +237,20 @@ function Sidebar({
         </Grid>
       </Tooltip>
     );
-  };
+  }
+);
+ToggleButton.displayName = "ToggleButton";
 
-  const NavItemButton = ({
+const NavItemButton = memo(
+  ({
     isSelected,
     onClick,
     children,
     isCollapsed,
     tooltipLabel,
     level,
+    themeContext,
   }) => {
-    // ... (NavItemButton implementation remains the same)
     return (
       <Tooltip
         title={isCollapsed ? tooltipLabel : ""}
@@ -124,9 +284,6 @@ function Sidebar({
             width: level > 0 ? "calc(100% - 10px)" : "100%",
             textOverflow: "ellipsis",
             borderRadius: 2,
-            // backgroundColor: isSelected
-            //   ? themeContext.selectedNavBackgroundColor
-            //   : null,
             borderLeft: isSelected
               ? `4px solid ${themeContext.primary}`
               : "none",
@@ -149,15 +306,26 @@ function Sidebar({
         </Grid>
       </Tooltip>
     );
-  };
+  }
+);
+NavItemButton.displayName = "NavItemButton";
 
-  const MenuItem = ({ item, isMobile, isCollapsed, level = 0 }) => {
+const MenuItem = memo(
+  ({
+    item,
+    isMobile,
+    isCollapsed,
+    level = 0,
+    themeContext,
+    navigate,
+    location,
+    handleDrawerToggle,
+  }) => {
     const isParent = item.children && item.children.length > 0;
     const [open, setOpen] = useState(false);
-
     const [anchorEl, setAnchorEl] = useState(null);
-    const isMenuOpen = Boolean(anchorEl);
 
+    const isMenuOpen = Boolean(anchorEl);
     const isActiveParent =
       isParent &&
       item.children.some((child) => location.pathname.startsWith(child.path));
@@ -166,28 +334,21 @@ function Sidebar({
     const handleNavigation = (event) => {
       if (isParent) {
         if (!isCollapsed) {
-          setOpen(!open);
+          setOpen((prev) => !prev);
         } else {
           setAnchorEl(event.currentTarget);
         }
       } else {
         navigate(item.path);
-        if (isMobile) {
-          handleDrawerToggle();
-        }
+        if (isMobile) handleDrawerToggle();
       }
     };
 
     const handleChildClick = (path) => {
       navigate(path);
       setAnchorEl(null);
-      if (isMobile) {
-        handleDrawerToggle();
-      }
+      if (isMobile) handleDrawerToggle();
     };
-
-    // Style adjustment for child menus (indentation)
-    // const paddingLeft = isCollapsed ? 0 : 2 + 2 * level;
 
     return (
       <Box
@@ -199,13 +360,13 @@ function Sidebar({
           alignItems: "center",
         }}
       >
-        {/* Parent / Standalone Item Button */}
         <NavItemButton
           isSelected={isSelected}
           isCollapsed={isCollapsed}
           tooltipLabel={item.label}
           onClick={handleNavigation}
           level={level}
+          themeContext={themeContext}
         >
           <ListItemIcon
             sx={{
@@ -213,27 +374,19 @@ function Sidebar({
               mr: isCollapsed ? 0 : "5px",
               justifyContent: "center",
               cursor: "pointer",
-              // paddingLeft: `${paddingLeft}px`,
             }}
           >
             {item.icon}
           </ListItemIcon>
           {!isCollapsed && (
             <>
-              <ListItemText
-                primary={item.label}
-                sx={{
-                  margin: 0,
-                }}
-              />
+              <ListItemText primary={item.label} sx={{ margin: 0 }} />
               {isParent && (open ? <ExpandLess /> : <ExpandMore />)}
             </>
           )}
         </NavItemButton>
 
-        {/* ========================================================= */}
-        {/* Expanded State: Internal Collapse (Normal Behavior) */}
-        {/* ========================================================= */}
+        {/* Expanded Collapse Menu */}
         {isParent && !isCollapsed && (
           <Collapse
             in={open}
@@ -262,16 +415,18 @@ function Sidebar({
                   item={child}
                   isMobile={isMobile}
                   isCollapsed={isCollapsed}
-                  level={level + 1} // Increase level for indentation
+                  level={level + 1}
+                  themeContext={themeContext}
+                  navigate={navigate}
+                  location={location}
+                  handleDrawerToggle={handleDrawerToggle}
                 />
               ))}
             </List>
           </Collapse>
         )}
 
-        {/* ========================================================= */}
-        {/* Collapsed State: Floating Menu (User Request) */}
-        {/* ========================================================= */}
+        {/* Floating Popover Menu */}
         {isParent && isCollapsed && (
           <Popover
             disableAutoFocus
@@ -281,14 +436,8 @@ function Sidebar({
             anchorEl={anchorEl}
             open={isMenuOpen}
             onClose={() => setAnchorEl(null)}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "left" }}
             slotProps={{
               paper: {
                 sx: {
@@ -298,13 +447,11 @@ function Sidebar({
                   marginLeft: "8px",
                   minWidth: "150px",
                   maxWidth: "300px",
-                  maxHeight: "auto",
                   padding: "3px",
                 },
               },
             }}
           >
-            {/* Render the children inside the floating menu */}
             {item.children.map((child, index) => (
               <NavItemButton
                 key={index}
@@ -313,6 +460,7 @@ function Sidebar({
                 isCollapsed={false}
                 tooltipLabel={child.label}
                 level={0}
+                themeContext={themeContext}
               >
                 <ListItemIcon sx={{ minWidth: 0, mr: 1 }}>
                   {child.icon}
@@ -324,173 +472,8 @@ function Sidebar({
         )}
       </Box>
     );
-  };
-
-  const DrawerContent = (isMobile, navigationMenus) => {
-    return (
-      <Box
-        sx={{
-          width: drawerWidth,
-          height: "calc(100% - 20px)",
-          display: "flex",
-          paddingTop: "10px",
-          paddingBottom: "10px",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* Top Menu */}
-        <List
-          sx={{
-            overflow: "auto",
-            display: "flex",
-            gap: `10px`,
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "5px",
-          }}
-        >
-          {navigationMenus.map((item, index) => (
-            // Use the new MenuItem component
-            <MenuItem
-              key={index}
-              item={item}
-              isMobile={isMobile}
-              isCollapsed={isCollapsed}
-            />
-          ))}
-        </List>
-
-        {/* Bottom Collapse Toggle */}
-        <Box
-          sx={{
-            borderTop: `0.7px solid ${themeContext.primary}`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            // gap: 2,
-          }}
-        >
-          <ToggleButton
-            isCollapsed={isCollapsed}
-            onClick={handleCollapseToggle}
-            tooltipLabel={isCollapsed ? "Expand" : "Collapse"}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: isCollapsed ? 0 : 1,
-                justifyContent: "center",
-              }}
-            >
-              {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
-            </ListItemIcon>
-            {!isCollapsed && (
-              <ListItemText primary="Collapse" sx={{ margin: 0 }} />
-            )}
-          </ToggleButton>
-          <ToggleButton
-            tooltipLabel={
-              themeContext.mode == "dark" ? "Light Mode" : "Dark Mode"
-            }
-            isCollapsed={isCollapsed}
-            onClick={toggleTheme}
-          >
-            <ListItemIcon
-              sx={{
-                minWidth: 0,
-                mr: isCollapsed ? 0 : 1,
-                justifyContent: "center",
-              }}
-            >
-              {themeContext.mode == "dark" ? <LightMode /> : <NightsStay />}
-            </ListItemIcon>
-            {!isCollapsed && (
-              <ListItemText
-                primary={`${themeContext.mode == "dark" ? "Light" : "Dark"}`}
-                sx={{ margin: 0 }}
-              />
-            )}
-          </ToggleButton>
-        </Box>
-      </Box>
-    );
-  };
-
-  return (
-    <Box
-      component="nav"
-      sx={{
-        width: { sm: drawerWidth },
-        flexShrink: { sm: 0 },
-        marginRight: { xs: 0, sm: "10px" },
-      }}
-      aria-label="sidebar"
-    >
-      {/* Mobile Drawer */}
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-          sx: {
-            height: "fit-content",
-          },
-        }}
-        sx={{
-          display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            height: "fit-content",
-            // margin: "12px 0", // For floating style drawer
-            // borderRadius: 2,
-          },
-        }}
-        slotProps={{
-          paper: {
-            sx: {
-              backgroundColor: themeContext.surface,
-              borderRadius: `0 10px 10px 0;`,
-            },
-          },
-        }}
-      >
-        <Box
-          sx={{
-            flexGrow: 1,
-            overflowY: "auto",
-          }}
-        >
-          {DrawerContent(true, navigationMenus)} {/* Mobile Drawer */}
-        </Box>
-      </Drawer>
-
-      {/* Desktop Permanent Drawer with floating style */}
-      <Drawer
-        variant="permanent"
-        open
-        sx={{
-          display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-            transition: "width 0.3s",
-            overflowX: "hidden",
-            whiteSpace: "nowrap",
-            height: `100%`,
-            // margin: "7px",
-            borderRadius: `0 15px 15px 0px;`,
-            // boxShadow: "0 8px 16px rgba(255, 254, 254, 0.15)",
-            backgroundColor: themeContext.surface,
-            border: `none`,
-          },
-        }}
-      >
-        {DrawerContent(false, navigationMenus)} {/* Desktop Navbar */}
-      </Drawer>
-    </Box>
-  );
-}
+  }
+);
+MenuItem.displayName = "MenuItem";
 
 export default memo(Sidebar);
