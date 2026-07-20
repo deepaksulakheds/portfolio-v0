@@ -72,14 +72,14 @@ const ICONS = [
 
 const EDUCATION_DATA = [
   {
-    course: "Master of Computer Application",
+    course: "Master of Computer Application (MCA)",
     institute: "KLE Technological University.",
     place: "Hubballi | KA | IN",
     timePeriod: "Feb 2022 - Sep 2023",
     siteUrl: `https://www.kletech.ac.in/`,
   },
   {
-    course: "Bachelor of Computer Application",
+    course: "Bachelor of Computer Application (BCA)",
     institute: "JSS SMI UG & PG Studies.",
     place: "Dharwad | KA | IN",
     timePeriod: "Jun 2018 - Sep 2021",
