@@ -320,7 +320,11 @@ function ExperienceItem({ experienceObj, themeContext }) {
       {/* Experience List */}
       <Grid sx={{ marginTop: "5px", marginLeft: "5px" }}>
         {experienceObj.titlesList.map((title, titleIndex) => (
-          <Grid key={titleIndex} sx={{ display: "flex" }}>
+          <Grid
+            key={titleIndex}
+            title={title.designation}
+            sx={{ display: "flex" }}
+          >
             <Grid
               sx={{
                 display: "flex",
@@ -422,6 +426,7 @@ function EducationItem({ educationObj, index, themeContext }) {
       sx={{
         margin: "10px",
         borderRadius: "10px",
+        border: `0.5px solid ${themeContext.borderColor}`,
         backgroundColor: themeContext.surface,
         ":hover > .educationIcon": {
           animation: "pulse 1s infinite ease-in-out",
@@ -434,7 +439,7 @@ function EducationItem({ educationObj, index, themeContext }) {
           height: "40px",
           width: "40px",
           alignSelf: "flex-start",
-          border: `0.2px solid ${themeContext.subTitleText}`,
+          border: `0.2px solid ${themeContext.borderColor}`,
           color: themeContext.themeIcons,
           borderRadius: "50%",
           // position: "absolute",

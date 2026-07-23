@@ -92,6 +92,7 @@ function Layout() {
           bgcolor: themeContext.surface,
           color: "#000",
           display: { xs: "flex", sm: "none" },
+          border: `0.5px solid ${themeContext.borderColor}`,
           alignItems: "center",
           px: 2,
           zIndex: (theme) => theme.zIndex.appBar + 2,

@@ -18,7 +18,7 @@ const themeOptions = {
 
     background: "#fff",
     surface: "rgb(219, 219, 219)",
-
+    borderColor: "#C8C8C8",
     // Text Colors
     titleText: "rgba(32, 51, 84, 1)",
     subTitleText: "rgba(32, 51, 84, 1)",
@@ -38,22 +38,23 @@ const themeOptions = {
 
     navItemTextColor: "#fff",
     navItemBackgroundColor: "",
-    selectedNavTextColor: "rgba(170, 137, 242, 1)",
-    selectedNavBackgroundColor: "rgba(170, 137, 242, 1)",
+    selectedNavTextColor: "#7C9CFF",
+    selectedNavBackgroundColor: "#7C9CFF",
 
-    primary: "rgba(170, 137, 242, 1)",
-    lightPrimary: "rgba(170, 137, 242, 0.5)",
+    primary: "#7C9CFF",
+    lightPrimary: "#7C9CFF5f",
     colorOnPrimary: "#ffffff",
 
     secondary: "#fff",
     lightSecondary: "rgba(255, 255, 255, 0.5)",
     colorOnSecondary: "#000",
 
-    background: "rgb(28, 27, 36)",
-    surface: "rgb(57, 56, 61)",
+    background: "#0D1117",
+    surface: "#202329",
+    borderColor: "#30363D",
 
     // Text Colors
-    titleText: "rgba(170, 137, 242, 1)",
+    titleText: "#7C9CFF",
     subTitleText: "#fff",
     bodyText: "#fff",
     textDisabled: "#666666",

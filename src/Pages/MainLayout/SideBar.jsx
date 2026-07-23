@@ -146,6 +146,7 @@ function Sidebar({
         onClose={handleDrawerToggle}
         ModalProps={{ keepMounted: true, sx: { height: "fit-content" } }}
         sx={{
+          border: `0.5px solid ${themeContext.borderColor}`,
           display: { xs: "block", sm: "none" },
           "& .MuiDrawer-paper": { width: drawerWidth, height: "fit-content" },
         }}
@@ -178,7 +179,7 @@ function Sidebar({
             height: `100%`,
             borderRadius: `0 15px 15px 0px;`,
             backgroundColor: themeContext.surface,
-            border: `none`,
+            border: `0.5px solid ${themeContext.borderColor}`,
           },
         }}
       >
