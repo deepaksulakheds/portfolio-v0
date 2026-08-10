@@ -1,9 +1,10 @@
 import { GitHub, OpenInNew } from "@mui/icons-material";
 import { Chip, Grid, IconButton, Typography } from "@mui/material";
-import { useState, memo } from "react";
+import { memo } from "react";
 import "./projectComponent.css";
 import { ViewSnapshotsDialog } from "./ViewSnapshots.jsx";
 import { useThemeContext } from "../../Hooks/ThemeContext.jsx";
+import { useSearchParams } from "react-router-dom";
 
 // Images Import
 import DueFinderThumb from "@src/assets/Images/DueFinder.png";
@@ -13,6 +14,7 @@ import FruitsThumb from "@src/assets/Images/fruits.jpg";
 import FaceRecThumb from "@src/assets/Images/face-rec.jpg";
 import RiceMillThumb from "@src/assets/Images/riceMill.jpeg";
 import VcaddemyThumb from "@src/assets/Images/snapshots/Vcaddemy/vcaddemy-1.avif";
+import { withNotistackSnackbar } from "../../Hooks/SharedSnackbar1.jsx";
 
 const PROJECTS_DATA = [
   {
@@ -117,11 +119,11 @@ const PROJECTS_DATA = [
   },
 ];
 
-function ProjectsComponent() {
+function ProjectsComponent({ notistackSnackbar }) {
   // Contexts
   const { themeContext } = useThemeContext();
 
-  const [viewSnapshotVisible, setViewSnapshotVisible] = useState(false);
+  const [, setSearchParams] = useSearchParams();
 
   return (
     <Grid className="projectContainer">
@@ -134,7 +136,16 @@ function ProjectsComponent() {
         >
           <Grid
             onClick={() => {
-              setViewSnapshotVisible(project);
+              if (!project.snapList) {
+                notistackSnackbar.showSnackbar(
+                  "Snapshots not available.",
+                  "error"
+                );
+                return;
+              }
+              setSearchParams({
+                preview: project.snapList,
+              });
             }}
             sx={{
               // marginBottom: 1,
@@ -245,15 +256,9 @@ function ProjectsComponent() {
           </Grid>{" "}
         </Grid>
       ))}
-      {viewSnapshotVisible && (
-        <ViewSnapshotsDialog
-          snapsList={viewSnapshotVisible.snapList}
-          onClose={() => setViewSnapshotVisible(false)}
-          viewSnapshotVisible={viewSnapshotVisible}
-        />
-      )}
+      <ViewSnapshotsDialog />
     </Grid>
   );
 }
 
-export default memo(ProjectsComponent);
+export default memo(withNotistackSnackbar(ProjectsComponent));

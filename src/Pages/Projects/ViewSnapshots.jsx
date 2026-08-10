@@ -8,6 +8,7 @@ import {
 } from "@mui/icons-material";
 import { useThemeContext } from "../../Hooks/ThemeContext";
 import { useHotkeyAndPlatform } from "../../Utils/useHotkeyAndPlatform";
+import { useSearchParams } from "react-router-dom";
 
 const FOLDER_MAP = {
   DueFinder: import.meta.glob(
@@ -36,23 +37,23 @@ const FOLDER_MAP = {
   ),
 };
 
-export function ViewSnapshotsDialog({
-  viewSnapshotVisible,
-  onClose,
-  snapsList,
-}) {
+export function ViewSnapshotsDialog() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { themeContext } = useThemeContext();
   const { userPlatform, getHotkeyStringFromEvent } = useHotkeyAndPlatform();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const thumbnailRefs = useRef({});
+  const snapsList = searchParams.get("preview");
 
   const loadedSnaps = useMemo(() => {
-    if (!snapsList) return [];
+    if (!snapsList || !Object.hasOwn(FOLDER_MAP, snapsList)) {
+      return [];
+    }
 
     const folderGlob = FOLDER_MAP[snapsList];
-    if (!folderGlob) return [];
 
     return Object.entries(folderGlob)
       .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
@@ -61,30 +62,36 @@ export function ViewSnapshotsDialog({
         url,
       }));
   }, [snapsList]);
+
   const selectedImage = loadedSnaps[selectedIndex]?.url;
 
-  // Effects
+  // Keep selected thumbnail visible
   useEffect(() => {
-    if (!viewSnapshotVisible) return;
+    if (!selectedImage) return;
 
-    const selectedThumb = thumbnailRefs.current[selectedImage];
-    selectedThumb?.scrollIntoView({
+    thumbnailRefs.current[selectedImage]?.scrollIntoView({
       behavior: "smooth",
       inline: "center",
       block: "nearest",
     });
-  }, [viewSnapshotVisible, selectedImage]);
+  }, [selectedImage]);
 
+  // Reset selected image whenever preview parameter changes
   useEffect(() => {
-    if (viewSnapshotVisible && loadedSnaps.length > 0) {
-      setSelectedIndex(0);
-    }
-  }, [viewSnapshotVisible, loadedSnaps]);
+    setSelectedIndex(0);
+  }, [snapsList]);
 
   // Handlers
   const handleThumbnailClick = useCallback((index) => {
     setSelectedIndex(index);
   }, []);
+
+  const handleClose = useCallback(() => {
+    setSearchParams((params) => {
+      params.delete("preview");
+      return params;
+    });
+  }, [setSearchParams]);
 
   const handlePrevClick = useCallback(() => {
     if (!loadedSnaps.length) return;
@@ -102,7 +109,7 @@ export function ViewSnapshotsDialog({
 
   const handleKeyDown = useCallback(
     (e) => {
-      if (!userPlatform) return;
+      if (!userPlatform || !loadedSnaps?.length) return;
 
       const key = getHotkeyStringFromEvent(e);
 
@@ -114,13 +121,19 @@ export function ViewSnapshotsDialog({
         handlePrevClick();
       }
     },
-    [userPlatform, getHotkeyStringFromEvent, handleNextClick, handlePrevClick]
+    [
+      userPlatform,
+      getHotkeyStringFromEvent,
+      handleNextClick,
+      handlePrevClick,
+      loadedSnaps.length,
+    ]
   );
 
   return (
     <Dialog
-      open={viewSnapshotVisible}
-      onClose={onClose}
+      open={Boolean(snapsList)}
+      onClose={handleClose}
       onKeyDown={handleKeyDown}
       fullWidth
       maxWidth="md"
@@ -153,7 +166,7 @@ export function ViewSnapshotsDialog({
             color: themeContext.primary,
           },
         }}
-        onClick={onClose}
+        onClick={handleClose}
       />
       {loadedSnaps.length > 0 ? (
         <>
@@ -220,10 +233,12 @@ export function ViewSnapshotsDialog({
                     src={snap.url}
                     loading="lazy"
                     className="imageList"
-                    alt="Preview"
+                    alt={`Preview ${index + 1}`}
                     onClick={() => handleThumbnailClick(index)}
                     ref={(el) => {
-                      if (el) thumbnailRefs.current[snap.url] = el;
+                      if (el) {
+                        thumbnailRefs.current[snap.url] = el;
+                      }
                     }}
                     style={{
                       borderRadius: 4,
