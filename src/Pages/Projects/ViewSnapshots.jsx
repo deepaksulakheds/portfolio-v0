@@ -225,6 +225,11 @@ export function ViewSnapshotsDialog() {
                   display: "flex",
                   gap: "5px",
                   overflowX: "auto",
+                  // Hide scrollbar
+                  scrollbarWidth: "none", // Firefox
+                  "&::-webkit-scrollbar": {
+                    display: "none", // Chrome, Safari, Edge
+                  },
                 }}
               >
                 {loadedSnaps.map((snap, index) => (
