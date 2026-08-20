@@ -31,6 +31,7 @@ const EXPERIENCE_DATA = [
         location: `Bengaluru | KA | IN`,
         descriptions: [
           `Contributing to the development and enhancement of scalable backend services and high-performance web applications while supporting system reliability and performance improvements.`,
+          `Led the implementation of localization at the backend API and alert level, supporting 5 languages and regions.`,
         ],
       },
       {
